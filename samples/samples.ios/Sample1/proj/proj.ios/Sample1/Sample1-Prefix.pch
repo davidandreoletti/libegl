@@ -1,0 +1,17 @@
+//
+// Prefix header for all source files of the 'Sample1' target in the 'Sample1' project
+//
+
+#ifdef __OBJC__
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#endif
+
+#include <stdio.h> // Only to make "ISO C requires transaction unit with at least one declaration" warning"

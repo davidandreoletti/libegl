@@ -1,0 +1,34 @@
+BUG/TODO (Priroity)
+
+TODO Priority List:
+ - Moemory management C vs ObjC - dangling pointer ? use _weak and stuff
+ - Mutex when locking ressources in eglCreateWindowSurface
+ - "The first time a OpenGL or OpenGL ES context is made current the viewport and scissor dimensions are set to the size of the draw surface" in eglMakeCurrent
+ - Add support for rotation ? Native Window Resizing
+ - Add support for context lost
+ - Replace MyFunctionNameFuncPtr into MYFUNCNAMEPROC 
+ - contentScaleFactor == 1 ? IN EAGL_eglCreateWindowSurface
+
+
+
+Time: 12h
+
+EGL:  several types of drawing surfaces collectively referred to as EGLSurfaces;
+        - windows, used for onscreen rendering; 
+        - pbuffers, used for offscreen rendering; 
+        -  pixmaps, used for offscreen rendering into buffers that may be accessed through native APIs. 
+        
+        EGL windows and pixmaps are tied to native window system windows and pixmaps
+        
+db-blog:
+EGLDisplay = the UIWindow holding our custom view 
+EGLSurface = window surf: CAEAGLayer's attached to a sub-class from UIView 
+             pbuffer surf (block of memory dynamically allocated on the graphics card, but not visible on-screen): OpenGL's Framebuffer Objects -> See https://developer.apple.com/library/ios/documentation/3ddrawing/conceptual/opengles_programmingguide/WorkingwithEAGLContexts/WorkingwithEAGLContexts.html#//apple_ref/doc/uid/TP40008793-CH103-SW6
+             pixmap surf ( uses whatever pixel buffer representation is supported by the platform’s native graphics API (in the case of Android, this would be a Bitmap), allowing you to mix and match OpenGL and native graphics drawing calls into the same pixels without having to copy buffers back and forth): CGContextRef from Quartz 2D
+
+
+http://android-dls.com/wiki/index.php?title=EGL_notes  - About offscreen rendering
+
+http://www.slideshare.net/llopis/the-best-of-both-worlds-mixing-uikit-with-opengl 
+http://gamesfromwithin.com/remixing-opengl-and-uikit
+https://developer.tizen.org/help/index.jsp?topic=%2Forg.tizen.native.appprogramming%2Fhtml%2Fguide%2Fgraphics%2Fopengl.htm

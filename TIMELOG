@@ -1,0 +1,7 @@
+40h - Support for OpenGL ES 2.x and 3.x + demos
+10h - Support for:
+- Updated declared Objective-C properties ownership qualifiers to support Non ARC/ARC compilation
+- Defined Non ARC/ARC API to manage Objective-C object ownership
+2h - Update documentation
+4h - eglDestroy support + Unit test
+

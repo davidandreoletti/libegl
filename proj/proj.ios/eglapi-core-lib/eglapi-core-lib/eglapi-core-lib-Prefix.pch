@@ -1,0 +1,9 @@
+//
+// Prefix header for all source files of the 'eaglapi-core-lib' target in the 'eaglapi-core-lib' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
+
+typedef int foobar; // To prevent "ISO C requires a translation unt to contain at least one declaration" warning

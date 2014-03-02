@@ -1,0 +1,489 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C712FF101711189800881C89 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C712FF0F1711189800881C89 /* UIKit.framework */; };
+		C712FF121711189800881C89 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C712FF111711189800881C89 /* Foundation.framework */; };
+		C712FF141711189800881C89 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C712FF131711189800881C89 /* CoreGraphics.framework */; };
+		C712FF1A1711189800881C89 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C712FF181711189800881C89 /* InfoPlist.strings */; };
+		C712FF1C1711189800881C89 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C712FF1B1711189800881C89 /* main.m */; };
+		C712FF201711189800881C89 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = C712FF1F1711189800881C89 /* AppDelegate.mm */; };
+		C712FF221711189900881C89 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C712FF211711189900881C89 /* Default.png */; };
+		C712FF241711189900881C89 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C712FF231711189900881C89 /* Default@2x.png */; };
+		C712FF261711189900881C89 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C712FF251711189900881C89 /* Default-568h@2x.png */; };
+		C776FD6517178E3400B4CEB8 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C776FD6417178E3400B4CEB8 /* OpenGLES.framework */; };
+		C790C5AA180426B700C614D4 /* OpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = C790C5A9180426B700C614D4 /* OpenGLView.m */; };
+		C790C5AC1804284F00C614D4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C790C5AB1804284F00C614D4 /* QuartzCore.framework */; };
+		C790C5BE1806A83E00C614D4 /* OpenGLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C790C5BD1806A83E00C614D4 /* OpenGLViewController.m */; };
+		C7B20978171700C6004C53C6 /* libegl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B20977171700C6004C53C6 /* libegl.a */; };
+		F64C1F6718A242AB00D9E948 /* Sample2Test.c in Sources */ = {isa = PBXBuildFile; fileRef = F64C1F6618A242AB00D9E948 /* Sample2Test.c */; };
+		F64C1F6A18A2651300D9E948 /* eglTestTimeUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = F64C1F6918A2651300D9E948 /* eglTestTimeUtils.c */; };
+		F6F66B8718A11291008636CE /* eglPlatformHarnessIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F66B8018A11291008636CE /* eglPlatformHarnessIOS.m */; };
+		F6F66B8A18A11291008636CE /* eglTestUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F66B8318A11291008636CE /* eglTestUtils.cpp */; };
+		F6F66B8B18A11291008636CE /* Sample0Test.c in Sources */ = {isa = PBXBuildFile; fileRef = F6F66B8418A11291008636CE /* Sample0Test.c */; };
+		F6F66B8D18A11291008636CE /* Sample1Test.c in Sources */ = {isa = PBXBuildFile; fileRef = F6F66B8618A11291008636CE /* Sample1Test.c */; };
+		F6F66B9018A114AE008636CE /* NSMutableArray+Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F66B8F18A114AE008636CE /* NSMutableArray+Stack.m */; };
+		F6F66B9218A120C8008636CE /* eglTest.c in Sources */ = {isa = PBXBuildFile; fileRef = F6F66B8218A11291008636CE /* eglTest.c */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C712FF0B1711189800881C89 /* Sample1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C712FF0F1711189800881C89 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C712FF111711189800881C89 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C712FF131711189800881C89 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C712FF171711189800881C89 /* Sample1-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sample1-Info.plist"; sourceTree = "<group>"; };
+		C712FF191711189800881C89 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C712FF1B1711189800881C89 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C712FF1D1711189800881C89 /* Sample1-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sample1-Prefix.pch"; sourceTree = "<group>"; };
+		C712FF1E1711189800881C89 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C712FF1F1711189800881C89 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		C712FF211711189900881C89 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		C712FF231711189900881C89 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		C712FF251711189900881C89 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C776FD6417178E3400B4CEB8 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		C790C5A8180426B700C614D4 /* OpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLView.h; sourceTree = "<group>"; };
+		C790C5A9180426B700C614D4 /* OpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenGLView.m; sourceTree = "<group>"; };
+		C790C5AB1804284F00C614D4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C790C5BC1806A83E00C614D4 /* OpenGLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLViewController.h; sourceTree = "<group>"; };
+		C790C5BD1806A83E00C614D4 /* OpenGLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenGLViewController.m; sourceTree = "<group>"; };
+		C7B20977171700C6004C53C6 /* libegl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libegl.a; path = ../../../../../prefix/libegl.a; sourceTree = "<group>"; };
+		F608E1BA18BA314300C0D157 /* eglDestroySurfaceTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglDestroySurfaceTest.h; sourceTree = "<group>"; };
+		F608E1BC18BA3E2C00C0D157 /* eglQueryContextTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglQueryContextTest.h; sourceTree = "<group>"; };
+		F608E1BD18BB161100C0D157 /* eglGetCurrentContextTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglGetCurrentContextTest.h; sourceTree = "<group>"; };
+		F61685B418BB98D7002FCEE0 /* eglGetCurrentDisplayTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglGetCurrentDisplayTest.h; sourceTree = "<group>"; };
+		F61685B518BC0F4F002FCEE0 /* eglGetCurrentSurfaceTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglGetCurrentSurfaceTest.h; sourceTree = "<group>"; };
+		F61685B618BC1066002FCEE0 /* eglReleaseThreadTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglReleaseThreadTest.h; sourceTree = "<group>"; };
+		F61685B718BC12C3002FCEE0 /* eglTerminateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglTerminateTest.h; sourceTree = "<group>"; };
+		F64C1F6618A242AB00D9E948 /* Sample2Test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Sample2Test.c; sourceTree = "<group>"; };
+		F64C1F6818A262E200D9E948 /* Sample2Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sample2Test.h; sourceTree = "<group>"; };
+		F64C1F6918A2651300D9E948 /* eglTestTimeUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglTestTimeUtils.c; sourceTree = "<group>"; };
+		F69EEAA518AFC168005C1F74 /* eglDestroyContextTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglDestroyContextTest.h; sourceTree = "<group>"; };
+		F6E0CE3918B6CA7D00F341B8 /* eglQuerySurfaceTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglQuerySurfaceTest.h; sourceTree = "<group>"; };
+		F6F66B6C18A1126D008636CE /* eglBindAPITest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglBindAPITest.h; sourceTree = "<group>"; };
+		F6F66B6D18A1126E008636CE /* eglChooseConfigTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglChooseConfigTest.h; sourceTree = "<group>"; };
+		F6F66B6E18A1126E008636CE /* eglCreateContextTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglCreateContextTest.h; sourceTree = "<group>"; };
+		F6F66B6F18A1126E008636CE /* eglCreateWindowSurfaceTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglCreateWindowSurfaceTest.h; sourceTree = "<group>"; };
+		F6F66B7018A1126E008636CE /* eglGetConfigAttribTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglGetConfigAttribTest.h; sourceTree = "<group>"; };
+		F6F66B7118A1126E008636CE /* eglGetConfigsTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglGetConfigsTest.h; sourceTree = "<group>"; };
+		F6F66B7218A1126E008636CE /* eglGetDisplayTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglGetDisplayTest.h; sourceTree = "<group>"; };
+		F6F66B7318A1126E008636CE /* eglInitializeTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglInitializeTest.h; sourceTree = "<group>"; };
+		F6F66B7418A1126E008636CE /* eglMakeCurrentTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglMakeCurrentTest.h; sourceTree = "<group>"; };
+		F6F66B7518A1126E008636CE /* eglPlatformHarness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglPlatformHarness.h; sourceTree = "<group>"; };
+		F6F66B7618A1126E008636CE /* eglPlatformHarnessIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglPlatformHarnessIOS.h; sourceTree = "<group>"; };
+		F6F66B7718A1126E008636CE /* eglQueryStringTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglQueryStringTest.h; sourceTree = "<group>"; };
+		F6F66B7818A1126E008636CE /* eglSwapBuffersTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglSwapBuffersTest.h; sourceTree = "<group>"; };
+		F6F66B7918A1126E008636CE /* eglTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglTest.h; sourceTree = "<group>"; };
+		F6F66B7A18A1126E008636CE /* eglTestTimeUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglTestTimeUtils.h; sourceTree = "<group>"; };
+		F6F66B7B18A1126E008636CE /* eglTestUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglTestUtils.h; sourceTree = "<group>"; };
+		F6F66B7C18A1126E008636CE /* Sample0Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sample0Test.h; sourceTree = "<group>"; };
+		F6F66B7D18A1126E008636CE /* Sample1Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sample1Test.h; sourceTree = "<group>"; };
+		F6F66B7E18A1126E008636CE /* TemplateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateTest.h; sourceTree = "<group>"; };
+		F6F66B8018A11291008636CE /* eglPlatformHarnessIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eglPlatformHarnessIOS.m; sourceTree = "<group>"; };
+		F6F66B8218A11291008636CE /* eglTest.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglTest.c; sourceTree = "<group>"; };
+		F6F66B8318A11291008636CE /* eglTestUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eglTestUtils.cpp; sourceTree = "<group>"; };
+		F6F66B8418A11291008636CE /* Sample0Test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Sample0Test.c; sourceTree = "<group>"; };
+		F6F66B8618A11291008636CE /* Sample1Test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Sample1Test.c; sourceTree = "<group>"; };
+		F6F66B8E18A1145F008636CE /* NSMutableArray+Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Stack.h"; sourceTree = "<group>"; };
+		F6F66B8F18A114AE008636CE /* NSMutableArray+Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Stack.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C712FF081711189800881C89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C790C5AC1804284F00C614D4 /* QuartzCore.framework in Frameworks */,
+				C776FD6517178E3400B4CEB8 /* OpenGLES.framework in Frameworks */,
+				C7B20978171700C6004C53C6 /* libegl.a in Frameworks */,
+				C712FF101711189800881C89 /* UIKit.framework in Frameworks */,
+				C712FF121711189800881C89 /* Foundation.framework in Frameworks */,
+				C712FF141711189800881C89 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C712FF001711189800881C89 = {
+			isa = PBXGroup;
+			children = (
+				C712FF2C1711191300881C89 /* include */,
+				C712FF2D1711191300881C89 /* src */,
+				C712FF151711189800881C89 /* Sample1 */,
+				C712FF0E1711189800881C89 /* Frameworks */,
+				C712FF0C1711189800881C89 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C712FF0C1711189800881C89 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C712FF0B1711189800881C89 /* Sample1.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C712FF0E1711189800881C89 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C790C5AB1804284F00C614D4 /* QuartzCore.framework */,
+				C7B20977171700C6004C53C6 /* libegl.a */,
+				C776FD6417178E3400B4CEB8 /* OpenGLES.framework */,
+				C712FF0F1711189800881C89 /* UIKit.framework */,
+				C712FF111711189800881C89 /* Foundation.framework */,
+				C712FF131711189800881C89 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C712FF151711189800881C89 /* Sample1 */ = {
+			isa = PBXGroup;
+			children = (
+				C712FF1E1711189800881C89 /* AppDelegate.h */,
+				C712FF1F1711189800881C89 /* AppDelegate.mm */,
+				C712FF161711189800881C89 /* Supporting Files */,
+				C790C5A8180426B700C614D4 /* OpenGLView.h */,
+				C790C5A9180426B700C614D4 /* OpenGLView.m */,
+				C790C5BC1806A83E00C614D4 /* OpenGLViewController.h */,
+				C790C5BD1806A83E00C614D4 /* OpenGLViewController.m */,
+			);
+			path = Sample1;
+			sourceTree = "<group>";
+		};
+		C712FF161711189800881C89 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C712FF171711189800881C89 /* Sample1-Info.plist */,
+				C712FF181711189800881C89 /* InfoPlist.strings */,
+				C712FF1B1711189800881C89 /* main.m */,
+				C712FF1D1711189800881C89 /* Sample1-Prefix.pch */,
+				C712FF211711189900881C89 /* Default.png */,
+				C712FF231711189900881C89 /* Default@2x.png */,
+				C712FF251711189900881C89 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C712FF2C1711191300881C89 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				F61685B718BC12C3002FCEE0 /* eglTerminateTest.h */,
+				F61685B618BC1066002FCEE0 /* eglReleaseThreadTest.h */,
+				F61685B518BC0F4F002FCEE0 /* eglGetCurrentSurfaceTest.h */,
+				F61685B418BB98D7002FCEE0 /* eglGetCurrentDisplayTest.h */,
+				F608E1BD18BB161100C0D157 /* eglGetCurrentContextTest.h */,
+				F608E1BC18BA3E2C00C0D157 /* eglQueryContextTest.h */,
+				F608E1BA18BA314300C0D157 /* eglDestroySurfaceTest.h */,
+				F6F66B7218A1126E008636CE /* eglGetDisplayTest.h */,
+				F6F66B7318A1126E008636CE /* eglInitializeTest.h */,
+				F6F66B7718A1126E008636CE /* eglQueryStringTest.h */,
+				F6F66B7118A1126E008636CE /* eglGetConfigsTest.h */,
+				F6F66B6D18A1126E008636CE /* eglChooseConfigTest.h */,
+				F6F66B7018A1126E008636CE /* eglGetConfigAttribTest.h */,
+				F6F66B6C18A1126D008636CE /* eglBindAPITest.h */,
+				F6F66B6E18A1126E008636CE /* eglCreateContextTest.h */,
+				F69EEAA518AFC168005C1F74 /* eglDestroyContextTest.h */,
+				F6F66B6F18A1126E008636CE /* eglCreateWindowSurfaceTest.h */,
+				F6E0CE3918B6CA7D00F341B8 /* eglQuerySurfaceTest.h */,
+				F6F66B7418A1126E008636CE /* eglMakeCurrentTest.h */,
+				F6F66B7818A1126E008636CE /* eglSwapBuffersTest.h */,
+				F64C1F6818A262E200D9E948 /* Sample2Test.h */,
+				F6F66B7518A1126E008636CE /* eglPlatformHarness.h */,
+				F6F66B7618A1126E008636CE /* eglPlatformHarnessIOS.h */,
+				F6F66B7918A1126E008636CE /* eglTest.h */,
+				F6F66B7A18A1126E008636CE /* eglTestTimeUtils.h */,
+				F6F66B7B18A1126E008636CE /* eglTestUtils.h */,
+				F6F66B7C18A1126E008636CE /* Sample0Test.h */,
+				F6F66B7D18A1126E008636CE /* Sample1Test.h */,
+				F6F66B7E18A1126E008636CE /* TemplateTest.h */,
+				F6F66B8E18A1145F008636CE /* NSMutableArray+Stack.h */,
+			);
+			name = include;
+			path = ../../../../../test/include;
+			sourceTree = "<group>";
+		};
+		C712FF2D1711191300881C89 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				F6F66B7F18A11291008636CE /* egl */,
+			);
+			name = src;
+			path = ../../../../../test/src;
+			sourceTree = "<group>";
+		};
+		F6F66B7F18A11291008636CE /* egl */ = {
+			isa = PBXGroup;
+			children = (
+				F64C1F6918A2651300D9E948 /* eglTestTimeUtils.c */,
+				F6F66B8018A11291008636CE /* eglPlatformHarnessIOS.m */,
+				F6F66B8218A11291008636CE /* eglTest.c */,
+				F6F66B8318A11291008636CE /* eglTestUtils.cpp */,
+				F6F66B8418A11291008636CE /* Sample0Test.c */,
+				F6F66B8618A11291008636CE /* Sample1Test.c */,
+				F64C1F6618A242AB00D9E948 /* Sample2Test.c */,
+				F6F66B8F18A114AE008636CE /* NSMutableArray+Stack.m */,
+			);
+			path = egl;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C712FF0A1711189800881C89 /* Sample1 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C712FF291711189900881C89 /* Build configuration list for PBXNativeTarget "Sample1" */;
+			buildPhases = (
+				C790F9281715991E006CD69F /* ShellScript */,
+				C712FF071711189800881C89 /* Sources */,
+				C712FF081711189800881C89 /* Frameworks */,
+				C712FF091711189800881C89 /* Resources */,
+				F648B4A918BF0D710005F2F1 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Sample1;
+			productName = Sample0;
+			productReference = C712FF0B1711189800881C89 /* Sample1.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C712FF021711189800881C89 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "David Andreoletti";
+			};
+			buildConfigurationList = C712FF051711189800881C89 /* Build configuration list for PBXProject "Sample1" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C712FF001711189800881C89;
+			productRefGroup = C712FF0C1711189800881C89 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C712FF0A1711189800881C89 /* Sample1 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C712FF091711189800881C89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C712FF1A1711189800881C89 /* InfoPlist.strings in Resources */,
+				C712FF221711189900881C89 /* Default.png in Resources */,
+				C712FF241711189900881C89 /* Default@2x.png in Resources */,
+				C712FF261711189900881C89 /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C790F9281715991E006CD69F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
+		F648B4A918BF0D710005F2F1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# For jailbroken device ONLY:\n# Comment the line below if you have paid iPhone Dev Program subscription :)\n#/usr/local/bin/ldid -S ${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C712FF071711189800881C89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F64C1F6718A242AB00D9E948 /* Sample2Test.c in Sources */,
+				F6F66B9218A120C8008636CE /* eglTest.c in Sources */,
+				C712FF1C1711189800881C89 /* main.m in Sources */,
+				F6F66B8D18A11291008636CE /* Sample1Test.c in Sources */,
+				F6F66B8718A11291008636CE /* eglPlatformHarnessIOS.m in Sources */,
+				F6F66B8A18A11291008636CE /* eglTestUtils.cpp in Sources */,
+				C712FF201711189800881C89 /* AppDelegate.mm in Sources */,
+				F64C1F6A18A2651300D9E948 /* eglTestTimeUtils.c in Sources */,
+				C790C5AA180426B700C614D4 /* OpenGLView.m in Sources */,
+				F6F66B9018A114AE008636CE /* NSMutableArray+Stack.m in Sources */,
+				F6F66B8B18A11291008636CE /* Sample0Test.c in Sources */,
+				C790C5BE1806A83E00C614D4 /* OpenGLViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C712FF181711189800881C89 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C712FF191711189800881C89 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C712FF271711189900881C89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++98";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64 i386";
+			};
+			name = Debug;
+		};
+		C712FF281711189900881C89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++98";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s x86_64 i386";
+			};
+			name = Release;
+		};
+		C712FF2A1711189900881C89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sample1/Sample1-Prefix.pch";
+				GCC_WARN_PEDANTIC = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"${PROJECT_DIR}/../../../../../prefix/include",
+				);
+				INFOPLIST_FILE = "Sample1/Sample1-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../prefix\"",
+				);
+				OTHER_CODE_SIGN_FLAGS = "-gta";
+				PRODUCT_NAME = Sample1;
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../../include ${PROJECT_DIR}/../../../../../prefix/include";
+				VALID_ARCHS = "arm64 armv7 armv7s";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C712FF2B1711189900881C89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sample1/Sample1-Prefix.pch";
+				GCC_WARN_PEDANTIC = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"${PROJECT_DIR}/../../../../../prefix/include",
+				);
+				INFOPLIST_FILE = "Sample1/Sample1-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../../../prefix\"",
+				);
+				OTHER_CODE_SIGN_FLAGS = "-gta";
+				PRODUCT_NAME = Sample1;
+				USER_HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../../include ${PROJECT_DIR}/../../../../../prefix/include";
+				VALID_ARCHS = "arm64 armv7 armv7s";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C712FF051711189800881C89 /* Build configuration list for PBXProject "Sample1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C712FF271711189900881C89 /* Debug */,
+				C712FF281711189900881C89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C712FF291711189900881C89 /* Build configuration list for PBXNativeTarget "Sample1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C712FF2A1711189900881C89 /* Debug */,
+				C712FF2B1711189900881C89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C712FF021711189800881C89 /* Project object */;
+}

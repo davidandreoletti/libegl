@@ -1,0 +1,1055 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		C707D9CB15E99A5A00CD889E /* check-source-code-against-google-c++-style-guide */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C707D9CC15E99A5A00CD889E /* Build configuration list for PBXAggregateTarget "check-source-code-against-google-c++-style-guide" */;
+			buildPhases = (
+				C707D9CF15E99A5F00CD889E /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "check-source-code-against-google-c++-style-guide";
+			productName = "Check source code against Google C++ Style Guide";
+		};
+		C707D9D015E99ACB00CD889E /* build-docset */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C707D9D115E99ACB00CD889E /* Build configuration list for PBXAggregateTarget "build-docset" */;
+			buildPhases = (
+				C707D9D415E99AD100CD889E /* Build Documentation */,
+			);
+			dependencies = (
+			);
+			name = "build-docset";
+			productName = "build-docset";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		C709B8C21706818800FBCA04 /* eglapi.m in Sources */ = {isa = PBXBuildFile; fileRef = C709B8BE1706818800FBCA04 /* eglapi.m */; };
+		C70CEDB015E7BF5100017A65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C70CEDAF15E7BF5100017A65 /* Foundation.framework */; };
+		C70CEDBF15E7BF5100017A65 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C70CEDBE15E7BF5100017A65 /* SenTestingKit.framework */; };
+		C70CEDC215E7BF5100017A65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C70CEDAF15E7BF5100017A65 /* Foundation.framework */; };
+		C70CEDC515E7BF5100017A65 /* libegl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C70CEDAC15E7BF5100017A65 /* libegl.a */; };
+		C712B1381623A0CB001C6DCF /* eglapiTests.h in Resources */ = {isa = PBXBuildFile; fileRef = C75F3E3716148AA60023C0D2 /* eglapiTests.h */; };
+		C72C34CB1730FBE5005B5745 /* egl_eagl.m in Sources */ = {isa = PBXBuildFile; fileRef = C72C34CA1730FBE5005B5745 /* egl_eagl.m */; };
+		C72C34CE1730FC08005B5745 /* egl_eagl_common.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34CC1730FC08005B5745 /* egl_eagl_common.h */; };
+		C72C34CF1730FC08005B5745 /* egl_eagl.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34CD1730FC08005B5745 /* egl_eagl.h */; };
+		C72C34D51730FF12005B5745 /* egl_eagl_driver.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34D41730FF12005B5745 /* egl_eagl_driver.h */; };
+		C72C34E21731445D005B5745 /* egl_eagl_typedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34E11731445D005B5745 /* egl_eagl_typedefs.h */; };
+		C72C34E617314A71005B5745 /* egl_eagl_ios_eaglcontext.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34E317314A70005B5745 /* egl_eagl_ios_eaglcontext.h */; };
+		C72C34E717314A71005B5745 /* egl_eagl_ios_eaglscreen.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34E417314A70005B5745 /* egl_eagl_ios_eaglscreen.h */; };
+		C72C34E817314A71005B5745 /* egl_eagl_ios_eaglwindow.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34E517314A71005B5745 /* egl_eagl_ios_eaglwindow.h */; };
+		C72C34EA17314FA6005B5745 /* egl_eagl_ios_eaglsurface.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34E917314FA6005B5745 /* egl_eagl_ios_eaglsurface.h */; };
+		C72C34EC173150F0005B5745 /* egl_eagl_ios_eaglimage.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34EB173150F0005B5745 /* egl_eagl_ios_eaglimage.h */; };
+		C72C34EE1731E83B005B5745 /* egl_eagl_driver_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34ED1731E83B005B5745 /* egl_eagl_driver_ios.h */; };
+		C72C34F01731E868005B5745 /* egl_eagl_driver_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = C72C34EF1731E868005B5745 /* egl_eagl_driver_ios.m */; };
+		C72C34F21732B31C005B5745 /* egl_eagl_ios_eaglwindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = C72C34F11732B31C005B5745 /* egl_eagl_ios_eaglwindow.mm */; };
+		C73D72FA16148B1E00AE28CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C73D72F816148B1E00AE28CD /* InfoPlist.strings */; };
+		C75F3E3B16148AA60023C0D2 /* eglapiTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = C75F3E3816148AA60023C0D2 /* eglapiTests.mm */; };
+		C784D398171457B10086C69F /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C784D397171457B10086C69F /* OpenGLES.framework */; };
+		C790C5A117FDB58200C614D4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C790C5A017FDB58200C614D4 /* QuartzCore.framework */; };
+		C790C5A317FDB97D00C614D4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C790C5A217FDB97D00C614D4 /* UIKit.framework */; };
+		C790C5A517FDB9CC00C614D4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C790C5A417FDB9CC00C614D4 /* CoreGraphics.framework */; };
+		C790C5A717FE45E000C614D4 /* egl_eagl_ios_eaglsurface.m in Sources */ = {isa = PBXBuildFile; fileRef = C790C5A617FE45E000C614D4 /* egl_eagl_ios_eaglsurface.m */; };
+		C790C5B018043C1400C614D4 /* egl_eagl_ios_eaglcontext.m in Sources */ = {isa = PBXBuildFile; fileRef = C790C5AE18043C1300C614D4 /* egl_eagl_ios_eaglcontext.m */; };
+		C7A86F7E172B8B2300739D0D /* egl.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F65172B8B2300739D0D /* egl.h */; };
+		C7A86F7F172B8B2300739D0D /* eglapi.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F67172B8B2300739D0D /* eglapi.h */; };
+		C7A86F80172B8B2300739D0D /* eglarray.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F68172B8B2300739D0D /* eglarray.h */; };
+		C7A86F81172B8B2300739D0D /* eglcompiler.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F69172B8B2300739D0D /* eglcompiler.h */; };
+		C7A86F82172B8B2300739D0D /* eglconfig.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F6A172B8B2300739D0D /* eglconfig.h */; };
+		C7A86F83172B8B2300739D0D /* eglcontext.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F6B172B8B2300739D0D /* eglcontext.h */; };
+		C7A86F84172B8B2300739D0D /* eglcurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F6C172B8B2300739D0D /* eglcurrent.h */; };
+		C7A86F85172B8B2300739D0D /* egldefines.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F6D172B8B2300739D0D /* egldefines.h */; };
+		C7A86F86172B8B2300739D0D /* egldisplay.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F6E172B8B2300739D0D /* egldisplay.h */; };
+		C7A86F87172B8B2300739D0D /* egldriver.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F6F172B8B2300739D0D /* egldriver.h */; };
+		C7A86F88172B8B2300739D0D /* eglext.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F70172B8B2300739D0D /* eglext.h */; };
+		C7A86F89172B8B2300739D0D /* eglglobals.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F71172B8B2300739D0D /* eglglobals.h */; };
+		C7A86F8A172B8B2300739D0D /* eglimage.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F72172B8B2300739D0D /* eglimage.h */; };
+		C7A86F8B172B8B2300739D0D /* egllog.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F73172B8B2300739D0D /* egllog.h */; };
+		C7A86F8C172B8B2300739D0D /* eglmesaext.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F74172B8B2300739D0D /* eglmesaext.h */; };
+		C7A86F8D172B8B2300739D0D /* eglmisc.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F75172B8B2300739D0D /* eglmisc.h */; };
+		C7A86F8E172B8B2300739D0D /* eglmode.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F76172B8B2300739D0D /* eglmode.h */; };
+		C7A86F8F172B8B2300739D0D /* eglmutex.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F77172B8B2300739D0D /* eglmutex.h */; };
+		C7A86F90172B8B2300739D0D /* eglplatform.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F78172B8B2300739D0D /* eglplatform.h */; };
+		C7A86F91172B8B2300739D0D /* eglscreen.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F79172B8B2300739D0D /* eglscreen.h */; };
+		C7A86F92172B8B2300739D0D /* eglstring.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F7A172B8B2300739D0D /* eglstring.h */; };
+		C7A86F93172B8B2300739D0D /* eglsurface.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F7B172B8B2300739D0D /* eglsurface.h */; };
+		C7A86F94172B8B2300739D0D /* eglsync.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F7C172B8B2300739D0D /* eglsync.h */; };
+		C7A86F95172B8B2300739D0D /* egltypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F7D172B8B2300739D0D /* egltypedefs.h */; };
+		C7A86FA7172B8B3600739D0D /* eglapi.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86F96172B8B3600739D0D /* eglapi.c */; };
+		C7A86FA8172B8B3600739D0D /* eglarray.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86F97172B8B3600739D0D /* eglarray.c */; };
+		C7A86FA9172B8B3600739D0D /* eglconfig.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86F98172B8B3600739D0D /* eglconfig.c */; };
+		C7A86FAA172B8B3600739D0D /* eglcontext.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86F99172B8B3600739D0D /* eglcontext.c */; };
+		C7A86FAB172B8B3600739D0D /* eglcurrent.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86F9A172B8B3600739D0D /* eglcurrent.c */; };
+		C7A86FAC172B8B3600739D0D /* egldisplay.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86F9B172B8B3600739D0D /* egldisplay.c */; };
+		C7A86FAD172B8B3600739D0D /* egldriver.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86F9C172B8B3600739D0D /* egldriver.c */; };
+		C7A86FAE172B8B3600739D0D /* eglfallbacks.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86F9D172B8B3600739D0D /* eglfallbacks.c */; };
+		C7A86FAF172B8B3600739D0D /* eglglobals.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86F9E172B8B3600739D0D /* eglglobals.c */; };
+		C7A86FB0172B8B3600739D0D /* eglimage.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86F9F172B8B3600739D0D /* eglimage.c */; };
+		C7A86FB1172B8B3600739D0D /* egllog.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86FA0172B8B3600739D0D /* egllog.c */; };
+		C7A86FB2172B8B3600739D0D /* eglmisc.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86FA1172B8B3600739D0D /* eglmisc.c */; };
+		C7A86FB3172B8B3600739D0D /* eglmode.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86FA2172B8B3600739D0D /* eglmode.c */; };
+		C7A86FB4172B8B3600739D0D /* eglscreen.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86FA3172B8B3600739D0D /* eglscreen.c */; };
+		C7A86FB5172B8B3600739D0D /* eglstring.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86FA4172B8B3600739D0D /* eglstring.c */; };
+		C7A86FB6172B8B3600739D0D /* eglsurface.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86FA5172B8B3600739D0D /* eglsurface.c */; };
+		C7A86FB7172B8B3600739D0D /* eglsync.c in Sources */ = {isa = PBXBuildFile; fileRef = C7A86FA6172B8B3600739D0D /* eglsync.c */; };
+		C7A86FB9172B8C4200739D0D /* c99_compat.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86FB8172B8C4200739D0D /* c99_compat.h */; };
+		C7A86FC0172B94BC00739D0D /* eglmemory.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86FBE172B94BC00739D0D /* eglmemory.h */; };
+		C7A86FCB172BA56F00739D0D /* egl.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7A86F65172B8B2300739D0D /* egl.h */; };
+		C7A86FCC172BA56F00739D0D /* eglext.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7A86F70172B8B2300739D0D /* eglext.h */; };
+		C7A8C94D1721A59F0080BD68 /* khrplatform.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A8C94C1721A59F0080BD68 /* khrplatform.h */; };
+		C7A8C9511721A95B0080BD68 /* khrplatform.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7A8C94C1721A59F0080BD68 /* khrplatform.h */; };
+		C7BB03A5160DECA8000AD3AA /* libegl.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C70CEDAC15E7BF5100017A65 /* libegl.a */; };
+		F639689218AAF7110076C110 /* AppleIOSMemoryManagement.h in Headers */ = {isa = PBXBuildFile; fileRef = F639689118AAF7110076C110 /* AppleIOSMemoryManagement.h */; };
+		F639689418AD9DB60076C110 /* AppleIOSMemoryManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = F639689318AD9DB60076C110 /* AppleIOSMemoryManagement.m */; };
+		F639689618ADA4B40076C110 /* egl_eagl_common.m in Sources */ = {isa = PBXBuildFile; fileRef = F639689518ADA4B40076C110 /* egl_eagl_common.m */; };
+		F65C918E18A3468C008418BC /* opengles_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = F65C918D18A3468C008418BC /* opengles_ios.h */; };
+		F65C919118A3481D008418BC /* opengles_ios.c in Sources */ = {isa = PBXBuildFile; fileRef = F65C919018A3481D008418BC /* opengles_ios.c */; };
+		F6F66B48189F4FE1008636CE /* eglplatform.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7A86F78172B8B2300739D0D /* eglplatform.h */; };
+		F6F66B49189F57D3008636CE /* eglmesaext.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7A86F74172B8B2300739D0D /* eglmesaext.h */; };
+		F6F66B4B18A109BE008636CE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C784D397171457B10086C69F /* OpenGLES.framework */; };
+		F6F66B4C18A10A1C008636CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C790C5A217FDB97D00C614D4 /* UIKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C70CEDC315E7BF5100017A65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C70CEDA315E7BF5100017A65 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C70CEDAB15E7BF5100017A65;
+			remoteInfo = "settingsapi-core-lib";
+		};
+		C7744F11160D39B500B4D516 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C70CEDA315E7BF5100017A65 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C707D9CB15E99A5A00CD889E;
+			remoteInfo = "check-source-code-against-google-c++-style-guide";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C70CEDAA15E7BF5100017A65 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "${PROJECT_DIR}/../../../prefix";
+			dstSubfolderSpec = 0;
+			files = (
+				C7BB03A5160DECA8000AD3AA /* libegl.a in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7615488171702B8004DDE51 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "${PROJECT_DIR}/../../../prefix/include/EGL";
+			dstSubfolderSpec = 0;
+			files = (
+				F6F66B49189F57D3008636CE /* eglmesaext.h in CopyFiles */,
+				F6F66B48189F4FE1008636CE /* eglplatform.h in CopyFiles */,
+				C7A86FCB172BA56F00739D0D /* egl.h in CopyFiles */,
+				C7A86FCC172BA56F00739D0D /* eglext.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C7A8C9501721A9460080BD68 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "${PROJECT_DIR}/../../../prefix/include/KHR";
+			dstSubfolderSpec = 0;
+			files = (
+				C7A8C9511721A95B0080BD68 /* khrplatform.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		C709B8B61706817700FBCA04 /* eglapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglapi.h; sourceTree = "<group>"; };
+		C709B8BE1706818800FBCA04 /* eglapi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = eglapi.m; sourceTree = "<group>"; };
+		C70CEDAC15E7BF5100017A65 /* libegl.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libegl.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C70CEDAF15E7BF5100017A65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C70CEDB315E7BF5100017A65 /* eglapi-core-lib-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "eglapi-core-lib-Prefix.pch"; sourceTree = "<group>"; };
+		C70CEDBD15E7BF5100017A65 /* eglTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = eglTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C70CEDBE15E7BF5100017A65 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		C72C34CA1730FBE5005B5745 /* egl_eagl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = egl_eagl.m; sourceTree = "<group>"; };
+		C72C34CC1730FC08005B5745 /* egl_eagl_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_common.h; sourceTree = "<group>"; };
+		C72C34CD1730FC08005B5745 /* egl_eagl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl.h; sourceTree = "<group>"; };
+		C72C34D41730FF12005B5745 /* egl_eagl_driver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_driver.h; sourceTree = "<group>"; };
+		C72C34E11731445D005B5745 /* egl_eagl_typedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_typedefs.h; sourceTree = "<group>"; };
+		C72C34E317314A70005B5745 /* egl_eagl_ios_eaglcontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglcontext.h; sourceTree = "<group>"; };
+		C72C34E417314A70005B5745 /* egl_eagl_ios_eaglscreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglscreen.h; sourceTree = "<group>"; };
+		C72C34E517314A71005B5745 /* egl_eagl_ios_eaglwindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglwindow.h; sourceTree = "<group>"; };
+		C72C34E917314FA6005B5745 /* egl_eagl_ios_eaglsurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglsurface.h; sourceTree = "<group>"; };
+		C72C34EB173150F0005B5745 /* egl_eagl_ios_eaglimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglimage.h; sourceTree = "<group>"; };
+		C72C34ED1731E83B005B5745 /* egl_eagl_driver_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_driver_ios.h; sourceTree = "<group>"; };
+		C72C34EF1731E868005B5745 /* egl_eagl_driver_ios.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = egl_eagl_driver_ios.m; sourceTree = "<group>"; };
+		C72C34F11732B31C005B5745 /* egl_eagl_ios_eaglwindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = egl_eagl_ios_eaglwindow.mm; sourceTree = "<group>"; };
+		C73D72F916148B1E00AE28CD /* en */ = {isa = PBXFileReference; explicitFileType = text.plist.strings; name = en; path = "eglapi-core-libTests/en.lproj/InfoPlist.strings"; sourceTree = SOURCE_ROOT; };
+		C75F3E1516148A1A0023C0D2 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		C75F3E3716148AA60023C0D2 /* eglapiTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglapiTests.h; sourceTree = "<group>"; };
+		C75F3E3816148AA60023C0D2 /* eglapiTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = eglapiTests.mm; sourceTree = "<group>"; };
+		C784D395171455EB0086C69F /* eglplatformconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglplatformconfig.h; sourceTree = "<group>"; };
+		C784D397171457B10086C69F /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		C790C5A017FDB58200C614D4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C790C5A217FDB97D00C614D4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C790C5A417FDB9CC00C614D4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C790C5A617FE45E000C614D4 /* egl_eagl_ios_eaglsurface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = egl_eagl_ios_eaglsurface.m; sourceTree = "<group>"; };
+		C790C5AE18043C1300C614D4 /* egl_eagl_ios_eaglcontext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = egl_eagl_ios_eaglcontext.m; sourceTree = "<group>"; };
+		C7A86F64172B8B2300739D0D /* egl.def */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = egl.def; sourceTree = "<group>"; };
+		C7A86F65172B8B2300739D0D /* egl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl.h; sourceTree = "<group>"; };
+		C7A86F66172B8B2300739D0D /* egl.pc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = egl.pc.in; sourceTree = "<group>"; };
+		C7A86F67172B8B2300739D0D /* eglapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglapi.h; sourceTree = "<group>"; };
+		C7A86F68172B8B2300739D0D /* eglarray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglarray.h; sourceTree = "<group>"; };
+		C7A86F69172B8B2300739D0D /* eglcompiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglcompiler.h; sourceTree = "<group>"; };
+		C7A86F6A172B8B2300739D0D /* eglconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglconfig.h; sourceTree = "<group>"; };
+		C7A86F6B172B8B2300739D0D /* eglcontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglcontext.h; sourceTree = "<group>"; };
+		C7A86F6C172B8B2300739D0D /* eglcurrent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglcurrent.h; sourceTree = "<group>"; };
+		C7A86F6D172B8B2300739D0D /* egldefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egldefines.h; sourceTree = "<group>"; };
+		C7A86F6E172B8B2300739D0D /* egldisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egldisplay.h; sourceTree = "<group>"; };
+		C7A86F6F172B8B2300739D0D /* egldriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egldriver.h; sourceTree = "<group>"; };
+		C7A86F70172B8B2300739D0D /* eglext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglext.h; sourceTree = "<group>"; };
+		C7A86F71172B8B2300739D0D /* eglglobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglglobals.h; sourceTree = "<group>"; };
+		C7A86F72172B8B2300739D0D /* eglimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglimage.h; sourceTree = "<group>"; };
+		C7A86F73172B8B2300739D0D /* egllog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egllog.h; sourceTree = "<group>"; };
+		C7A86F74172B8B2300739D0D /* eglmesaext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglmesaext.h; sourceTree = "<group>"; };
+		C7A86F75172B8B2300739D0D /* eglmisc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglmisc.h; sourceTree = "<group>"; };
+		C7A86F76172B8B2300739D0D /* eglmode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglmode.h; sourceTree = "<group>"; };
+		C7A86F77172B8B2300739D0D /* eglmutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglmutex.h; sourceTree = "<group>"; };
+		C7A86F78172B8B2300739D0D /* eglplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglplatform.h; sourceTree = "<group>"; };
+		C7A86F79172B8B2300739D0D /* eglscreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglscreen.h; sourceTree = "<group>"; };
+		C7A86F7A172B8B2300739D0D /* eglstring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglstring.h; sourceTree = "<group>"; };
+		C7A86F7B172B8B2300739D0D /* eglsurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglsurface.h; sourceTree = "<group>"; };
+		C7A86F7C172B8B2300739D0D /* eglsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglsync.h; sourceTree = "<group>"; };
+		C7A86F7D172B8B2300739D0D /* egltypedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egltypedefs.h; sourceTree = "<group>"; };
+		C7A86F96172B8B3600739D0D /* eglapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglapi.c; sourceTree = "<group>"; };
+		C7A86F97172B8B3600739D0D /* eglarray.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglarray.c; sourceTree = "<group>"; };
+		C7A86F98172B8B3600739D0D /* eglconfig.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglconfig.c; sourceTree = "<group>"; };
+		C7A86F99172B8B3600739D0D /* eglcontext.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglcontext.c; sourceTree = "<group>"; };
+		C7A86F9A172B8B3600739D0D /* eglcurrent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglcurrent.c; sourceTree = "<group>"; };
+		C7A86F9B172B8B3600739D0D /* egldisplay.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = egldisplay.c; sourceTree = "<group>"; };
+		C7A86F9C172B8B3600739D0D /* egldriver.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = egldriver.c; sourceTree = "<group>"; };
+		C7A86F9D172B8B3600739D0D /* eglfallbacks.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglfallbacks.c; sourceTree = "<group>"; };
+		C7A86F9E172B8B3600739D0D /* eglglobals.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglglobals.c; sourceTree = "<group>"; };
+		C7A86F9F172B8B3600739D0D /* eglimage.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglimage.c; sourceTree = "<group>"; };
+		C7A86FA0172B8B3600739D0D /* egllog.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = egllog.c; sourceTree = "<group>"; };
+		C7A86FA1172B8B3600739D0D /* eglmisc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglmisc.c; sourceTree = "<group>"; };
+		C7A86FA2172B8B3600739D0D /* eglmode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglmode.c; sourceTree = "<group>"; };
+		C7A86FA3172B8B3600739D0D /* eglscreen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglscreen.c; sourceTree = "<group>"; };
+		C7A86FA4172B8B3600739D0D /* eglstring.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglstring.c; sourceTree = "<group>"; };
+		C7A86FA5172B8B3600739D0D /* eglsurface.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglsurface.c; sourceTree = "<group>"; };
+		C7A86FA6172B8B3600739D0D /* eglsync.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglsync.c; sourceTree = "<group>"; };
+		C7A86FB8172B8C4200739D0D /* c99_compat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = c99_compat.h; sourceTree = "<group>"; };
+		C7A86FBE172B94BC00739D0D /* eglmemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglmemory.h; sourceTree = "<group>"; };
+		C7A8C94C1721A59F0080BD68 /* khrplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = khrplatform.h; sourceTree = "<group>"; };
+		C7EC7983162327B1003F39D6 /* eglapi-core-libTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "eglapi-core-libTests-Info.plist"; sourceTree = "<group>"; };
+		F639689118AAF7110076C110 /* AppleIOSMemoryManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleIOSMemoryManagement.h; sourceTree = "<group>"; };
+		F639689318AD9DB60076C110 /* AppleIOSMemoryManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppleIOSMemoryManagement.m; path = ios/AppleIOSMemoryManagement.m; sourceTree = "<group>"; };
+		F639689518ADA4B40076C110 /* egl_eagl_common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = egl_eagl_common.m; sourceTree = "<group>"; };
+		F64D45F618BC69AA00AAB390 /* README.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.rst; path = ../../../README.rst; sourceTree = "<group>"; };
+		F65C918D18A3468C008418BC /* opengles_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengles_ios.h; sourceTree = "<group>"; };
+		F65C919018A3481D008418BC /* opengles_ios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opengles_ios.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C70CEDA915E7BF5100017A65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C790C5A517FDB9CC00C614D4 /* CoreGraphics.framework in Frameworks */,
+				C790C5A317FDB97D00C614D4 /* UIKit.framework in Frameworks */,
+				C790C5A117FDB58200C614D4 /* QuartzCore.framework in Frameworks */,
+				C784D398171457B10086C69F /* OpenGLES.framework in Frameworks */,
+				C70CEDB015E7BF5100017A65 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C70CEDB915E7BF5100017A65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6F66B4C18A10A1C008636CE /* UIKit.framework in Frameworks */,
+				F6F66B4B18A109BE008636CE /* OpenGLES.framework in Frameworks */,
+				C70CEDBF15E7BF5100017A65 /* SenTestingKit.framework in Frameworks */,
+				C70CEDC215E7BF5100017A65 /* Foundation.framework in Frameworks */,
+				C70CEDC515E7BF5100017A65 /* libegl.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C70713CE1821D5620020806A /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				F639689318AD9DB60076C110 /* AppleIOSMemoryManagement.m */,
+			);
+			name = ios;
+			sourceTree = "<group>";
+		};
+		C707D9A215E912BE00CD889E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				C709B8B71706818800FBCA04 /* EGL */,
+			);
+			name = src;
+			path = ../../../src;
+			sourceTree = "<group>";
+		};
+		C707D9D715E99D7700CD889E /* include */ = {
+			isa = PBXGroup;
+			children = (
+				C7A86FB8172B8C4200739D0D /* c99_compat.h */,
+				C7A8C94B1721A59F0080BD68 /* KHR */,
+				C709B8A01706817700FBCA04 /* EGL */,
+				C75F3E1516148A1A0023C0D2 /* README */,
+			);
+			name = include;
+			path = ../../../include;
+			sourceTree = "<group>";
+		};
+		C709B8A01706817700FBCA04 /* EGL */ = {
+			isa = PBXGroup;
+			children = (
+				C7A86FC4172B9E9C00739D0D /* drivers */,
+				C7A86FBE172B94BC00739D0D /* eglmemory.h */,
+				C7A86F64172B8B2300739D0D /* egl.def */,
+				C7A86F65172B8B2300739D0D /* egl.h */,
+				C7A86F66172B8B2300739D0D /* egl.pc.in */,
+				C7A86F67172B8B2300739D0D /* eglapi.h */,
+				C7A86F68172B8B2300739D0D /* eglarray.h */,
+				C7A86F69172B8B2300739D0D /* eglcompiler.h */,
+				C7A86F6A172B8B2300739D0D /* eglconfig.h */,
+				C7A86F6B172B8B2300739D0D /* eglcontext.h */,
+				C7A86F6C172B8B2300739D0D /* eglcurrent.h */,
+				C7A86F6D172B8B2300739D0D /* egldefines.h */,
+				C7A86F6E172B8B2300739D0D /* egldisplay.h */,
+				C7A86F6F172B8B2300739D0D /* egldriver.h */,
+				C7A86F70172B8B2300739D0D /* eglext.h */,
+				C7A86F71172B8B2300739D0D /* eglglobals.h */,
+				C7A86F72172B8B2300739D0D /* eglimage.h */,
+				C7A86F73172B8B2300739D0D /* egllog.h */,
+				C7A86F74172B8B2300739D0D /* eglmesaext.h */,
+				C7A86F75172B8B2300739D0D /* eglmisc.h */,
+				C7A86F76172B8B2300739D0D /* eglmode.h */,
+				C7A86F77172B8B2300739D0D /* eglmutex.h */,
+				C7A86F78172B8B2300739D0D /* eglplatform.h */,
+				C7A86F79172B8B2300739D0D /* eglscreen.h */,
+				C7A86F7A172B8B2300739D0D /* eglstring.h */,
+				C7A86F7B172B8B2300739D0D /* eglsurface.h */,
+				C7A86F7C172B8B2300739D0D /* eglsync.h */,
+				C7A86F7D172B8B2300739D0D /* egltypedefs.h */,
+				C709B8B41706817700FBCA04 /* platforms */,
+			);
+			path = EGL;
+			sourceTree = "<group>";
+		};
+		C709B8B41706817700FBCA04 /* platforms */ = {
+			isa = PBXGroup;
+			children = (
+				C709B8B51706817700FBCA04 /* ios */,
+			);
+			path = platforms;
+			sourceTree = "<group>";
+		};
+		C709B8B51706817700FBCA04 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				C784D395171455EB0086C69F /* eglplatformconfig.h */,
+				C709B8B61706817700FBCA04 /* eglapi.h */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		C709B8B71706818800FBCA04 /* EGL */ = {
+			isa = PBXGroup;
+			children = (
+				C7A86FDB172BCE3400739D0D /* drivers */,
+				C7A86F96172B8B3600739D0D /* eglapi.c */,
+				C7A86F97172B8B3600739D0D /* eglarray.c */,
+				C7A86F98172B8B3600739D0D /* eglconfig.c */,
+				C7A86F99172B8B3600739D0D /* eglcontext.c */,
+				C7A86F9A172B8B3600739D0D /* eglcurrent.c */,
+				C7A86F9B172B8B3600739D0D /* egldisplay.c */,
+				C7A86F9C172B8B3600739D0D /* egldriver.c */,
+				C7A86F9D172B8B3600739D0D /* eglfallbacks.c */,
+				C7A86F9E172B8B3600739D0D /* eglglobals.c */,
+				C7A86F9F172B8B3600739D0D /* eglimage.c */,
+				C7A86FA0172B8B3600739D0D /* egllog.c */,
+				C7A86FA1172B8B3600739D0D /* eglmisc.c */,
+				C7A86FA2172B8B3600739D0D /* eglmode.c */,
+				C7A86FA3172B8B3600739D0D /* eglscreen.c */,
+				C7A86FA4172B8B3600739D0D /* eglstring.c */,
+				C7A86FA5172B8B3600739D0D /* eglsurface.c */,
+				C7A86FA6172B8B3600739D0D /* eglsync.c */,
+				C709B8BC1706818800FBCA04 /* platforms */,
+			);
+			path = EGL;
+			sourceTree = "<group>";
+		};
+		C709B8BC1706818800FBCA04 /* platforms */ = {
+			isa = PBXGroup;
+			children = (
+				C709B8BD1706818800FBCA04 /* ios */,
+			);
+			path = platforms;
+			sourceTree = "<group>";
+		};
+		C709B8BD1706818800FBCA04 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				C709B8BE1706818800FBCA04 /* eglapi.m */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		C70CEDA115E7BF5100017A65 = {
+			isa = PBXGroup;
+			children = (
+				F64D45F618BC69AA00AAB390 /* README.rst */,
+				C707D9D715E99D7700CD889E /* include */,
+				C707D9A215E912BE00CD889E /* src */,
+				C70CEDB115E7BF5100017A65 /* eglapi */,
+				C70CEDC615E7BF5100017A65 /* eglapiTests */,
+				C70CEDAE15E7BF5100017A65 /* Frameworks */,
+				C70CEDAD15E7BF5100017A65 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C70CEDAD15E7BF5100017A65 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C70CEDAC15E7BF5100017A65 /* libegl.a */,
+				C70CEDBD15E7BF5100017A65 /* eglTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C70CEDAE15E7BF5100017A65 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C790C5A417FDB9CC00C614D4 /* CoreGraphics.framework */,
+				C784D397171457B10086C69F /* OpenGLES.framework */,
+				C790C5A217FDB97D00C614D4 /* UIKit.framework */,
+				C790C5A017FDB58200C614D4 /* QuartzCore.framework */,
+				C70CEDAF15E7BF5100017A65 /* Foundation.framework */,
+				C70CEDBE15E7BF5100017A65 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C70CEDB115E7BF5100017A65 /* eglapi */ = {
+			isa = PBXGroup;
+			children = (
+				C70CEDB215E7BF5100017A65 /* Supporting Files */,
+			);
+			name = eglapi;
+			path = "eglapi-core-lib";
+			sourceTree = "<group>";
+		};
+		C70CEDB215E7BF5100017A65 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C70CEDB315E7BF5100017A65 /* eglapi-core-lib-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C70CEDC615E7BF5100017A65 /* eglapiTests */ = {
+			isa = PBXGroup;
+			children = (
+				C75F3E3316148AA60023C0D2 /* eglapi-core-libTests */,
+				C70CEDC715E7BF5100017A65 /* Supporting Files */,
+			);
+			name = eglapiTests;
+			path = "loggingapi-core-libTests";
+			sourceTree = "<group>";
+		};
+		C70CEDC715E7BF5100017A65 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C7EC7983162327B1003F39D6 /* eglapi-core-libTests-Info.plist */,
+				C73D72F816148B1E00AE28CD /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			path = "eglapi-core-libTests";
+			sourceTree = "<group>";
+		};
+		C75F3E3316148AA60023C0D2 /* eglapi-core-libTests */ = {
+			isa = PBXGroup;
+			children = (
+				C75F3E3716148AA60023C0D2 /* eglapiTests.h */,
+				C75F3E3816148AA60023C0D2 /* eglapiTests.mm */,
+			);
+			path = "eglapi-core-libTests";
+			sourceTree = SOURCE_ROOT;
+		};
+		C7A86FC4172B9E9C00739D0D /* drivers */ = {
+			isa = PBXGroup;
+			children = (
+				C7A86FD8172BCDDE00739D0D /* eagl */,
+			);
+			path = drivers;
+			sourceTree = "<group>";
+		};
+		C7A86FD8172BCDDE00739D0D /* eagl */ = {
+			isa = PBXGroup;
+			children = (
+				F639689018AAF7110076C110 /* ios */,
+				F65C918C18A34665008418BC /* opengles */,
+				C72C34ED1731E83B005B5745 /* egl_eagl_driver_ios.h */,
+				C72C34EB173150F0005B5745 /* egl_eagl_ios_eaglimage.h */,
+				C72C34E917314FA6005B5745 /* egl_eagl_ios_eaglsurface.h */,
+				C72C34E317314A70005B5745 /* egl_eagl_ios_eaglcontext.h */,
+				C72C34E417314A70005B5745 /* egl_eagl_ios_eaglscreen.h */,
+				C72C34E517314A71005B5745 /* egl_eagl_ios_eaglwindow.h */,
+				C72C34E11731445D005B5745 /* egl_eagl_typedefs.h */,
+				C72C34D41730FF12005B5745 /* egl_eagl_driver.h */,
+				C72C34CC1730FC08005B5745 /* egl_eagl_common.h */,
+				C72C34CD1730FC08005B5745 /* egl_eagl.h */,
+			);
+			path = eagl;
+			sourceTree = "<group>";
+		};
+		C7A86FDB172BCE3400739D0D /* drivers */ = {
+			isa = PBXGroup;
+			children = (
+				C7A86FDC172BCE3400739D0D /* eagl */,
+			);
+			path = drivers;
+			sourceTree = "<group>";
+		};
+		C7A86FDC172BCE3400739D0D /* eagl */ = {
+			isa = PBXGroup;
+			children = (
+				F639689518ADA4B40076C110 /* egl_eagl_common.m */,
+				F65C918F18A34807008418BC /* opengles */,
+				C70713CE1821D5620020806A /* ios */,
+				C790C5A617FE45E000C614D4 /* egl_eagl_ios_eaglsurface.m */,
+				C72C34F11732B31C005B5745 /* egl_eagl_ios_eaglwindow.mm */,
+				C790C5AE18043C1300C614D4 /* egl_eagl_ios_eaglcontext.m */,
+				C72C34EF1731E868005B5745 /* egl_eagl_driver_ios.m */,
+				C72C34CA1730FBE5005B5745 /* egl_eagl.m */,
+			);
+			path = eagl;
+			sourceTree = "<group>";
+		};
+		C7A8C94B1721A59F0080BD68 /* KHR */ = {
+			isa = PBXGroup;
+			children = (
+				C7A8C94C1721A59F0080BD68 /* khrplatform.h */,
+			);
+			path = KHR;
+			sourceTree = "<group>";
+		};
+		F639689018AAF7110076C110 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				F639689118AAF7110076C110 /* AppleIOSMemoryManagement.h */,
+			);
+			path = ios;
+			sourceTree = "<group>";
+		};
+		F65C918C18A34665008418BC /* opengles */ = {
+			isa = PBXGroup;
+			children = (
+				F65C918D18A3468C008418BC /* opengles_ios.h */,
+			);
+			path = opengles;
+			sourceTree = "<group>";
+		};
+		F65C918F18A34807008418BC /* opengles */ = {
+			isa = PBXGroup;
+			children = (
+				F65C919018A3481D008418BC /* opengles_ios.c */,
+			);
+			path = opengles;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C7EF1A23171597910052D814 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7A8C94D1721A59F0080BD68 /* khrplatform.h in Headers */,
+				C7A86F7E172B8B2300739D0D /* egl.h in Headers */,
+				C7A86F7F172B8B2300739D0D /* eglapi.h in Headers */,
+				C7A86F80172B8B2300739D0D /* eglarray.h in Headers */,
+				C7A86F81172B8B2300739D0D /* eglcompiler.h in Headers */,
+				C7A86F82172B8B2300739D0D /* eglconfig.h in Headers */,
+				C7A86F83172B8B2300739D0D /* eglcontext.h in Headers */,
+				C7A86F84172B8B2300739D0D /* eglcurrent.h in Headers */,
+				C7A86F85172B8B2300739D0D /* egldefines.h in Headers */,
+				C7A86F86172B8B2300739D0D /* egldisplay.h in Headers */,
+				C7A86F87172B8B2300739D0D /* egldriver.h in Headers */,
+				C7A86F88172B8B2300739D0D /* eglext.h in Headers */,
+				C7A86F89172B8B2300739D0D /* eglglobals.h in Headers */,
+				C7A86F8A172B8B2300739D0D /* eglimage.h in Headers */,
+				C7A86F8B172B8B2300739D0D /* egllog.h in Headers */,
+				C7A86F8C172B8B2300739D0D /* eglmesaext.h in Headers */,
+				C7A86F8D172B8B2300739D0D /* eglmisc.h in Headers */,
+				C7A86F8E172B8B2300739D0D /* eglmode.h in Headers */,
+				C7A86F8F172B8B2300739D0D /* eglmutex.h in Headers */,
+				F639689218AAF7110076C110 /* AppleIOSMemoryManagement.h in Headers */,
+				C7A86F91172B8B2300739D0D /* eglscreen.h in Headers */,
+				C7A86F92172B8B2300739D0D /* eglstring.h in Headers */,
+				C7A86F93172B8B2300739D0D /* eglsurface.h in Headers */,
+				C7A86F94172B8B2300739D0D /* eglsync.h in Headers */,
+				C7A86F95172B8B2300739D0D /* egltypedefs.h in Headers */,
+				C7A86FB9172B8C4200739D0D /* c99_compat.h in Headers */,
+				C7A86FC0172B94BC00739D0D /* eglmemory.h in Headers */,
+				C7A86F90172B8B2300739D0D /* eglplatform.h in Headers */,
+				C72C34CE1730FC08005B5745 /* egl_eagl_common.h in Headers */,
+				C72C34CF1730FC08005B5745 /* egl_eagl.h in Headers */,
+				F65C918E18A3468C008418BC /* opengles_ios.h in Headers */,
+				C72C34D51730FF12005B5745 /* egl_eagl_driver.h in Headers */,
+				C72C34E21731445D005B5745 /* egl_eagl_typedefs.h in Headers */,
+				C72C34E617314A71005B5745 /* egl_eagl_ios_eaglcontext.h in Headers */,
+				C72C34E717314A71005B5745 /* egl_eagl_ios_eaglscreen.h in Headers */,
+				C72C34E817314A71005B5745 /* egl_eagl_ios_eaglwindow.h in Headers */,
+				C72C34EA17314FA6005B5745 /* egl_eagl_ios_eaglsurface.h in Headers */,
+				C72C34EC173150F0005B5745 /* egl_eagl_ios_eaglimage.h in Headers */,
+				C72C34EE1731E83B005B5745 /* egl_eagl_driver_ios.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		C70CEDAB15E7BF5100017A65 /* egl */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C70CEDD115E7BF5100017A65 /* Build configuration list for PBXNativeTarget "egl" */;
+			buildPhases = (
+				C70CEDA815E7BF5100017A65 /* Sources */,
+				C70CEDA915E7BF5100017A65 /* Frameworks */,
+				C70CEDAA15E7BF5100017A65 /* CopyFiles */,
+				C7615488171702B8004DDE51 /* CopyFiles */,
+				C7A8C9501721A9460080BD68 /* CopyFiles */,
+				C7EF1A23171597910052D814 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C7744F12160D39B500B4D516 /* PBXTargetDependency */,
+			);
+			name = egl;
+			productName = "settingsapi-core-lib";
+			productReference = C70CEDAC15E7BF5100017A65 /* libegl.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C70CEDBC15E7BF5100017A65 /* eglTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C70CEDD415E7BF5100017A65 /* Build configuration list for PBXNativeTarget "eglTests" */;
+			buildPhases = (
+				C70CEDB815E7BF5100017A65 /* Sources */,
+				C70CEDB915E7BF5100017A65 /* Frameworks */,
+				C70CEDBA15E7BF5100017A65 /* Resources */,
+				C70CEDBB15E7BF5100017A65 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C70CEDC415E7BF5100017A65 /* PBXTargetDependency */,
+			);
+			name = eglTests;
+			productName = "settingsapi-core-libTests";
+			productReference = C70CEDBD15E7BF5100017A65 /* eglTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C70CEDA315E7BF5100017A65 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "IO Stark";
+			};
+			buildConfigurationList = C70CEDA615E7BF5100017A65 /* Build configuration list for PBXProject "eglapi-core-lib" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C70CEDA115E7BF5100017A65;
+			productRefGroup = C70CEDAD15E7BF5100017A65 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C70CEDAB15E7BF5100017A65 /* egl */,
+				C70CEDBC15E7BF5100017A65 /* eglTests */,
+				C707D9CB15E99A5A00CD889E /* check-source-code-against-google-c++-style-guide */,
+				C707D9D015E99ACB00CD889E /* build-docset */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C70CEDBA15E7BF5100017A65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C73D72FA16148B1E00AE28CD /* InfoPlist.strings in Resources */,
+				C712B1381623A0CB001C6DCF /* eglapiTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		C707D9CF15E99A5F00CD889E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exit 0\ncd ${PROJECT_DIR}/../../../scripts/google-cpp-style-guide\nchmod 700 ./check.sh\n#./check.sh -i ${PROJECT_DIR}/../../../include/EGL -x ${PROJECT_DIR}/../../../include/EGL/egl.h ${PROJECT_DIR}/../../../include/EGL/eglext.h ${PROJECT_DIR}/../../../include/EGL/eglplatform.h\n#./check.sh -e ${PROJECT_DIR}/../../../include/KHR\n./check.sh -e ${PROJECT_DIR}/../../../include/EGL/platforms\n#./check.sh -i ${PROJECT_DIR}/../../../src\n./check.sh -e ${PROJECT_DIR}/../../../src/EGL/platforms\n./check.sh -i ${PROJECT_DIR}/../../../test";
+		};
+		C707D9D415E99AD100CD889E /* Build Documentation */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build Documentation";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd ${PROJECT_DIR}/../../../scripts/doc\nchmod 700 ./tool-docset.sh\n./tool-docset.sh -f \"${PROJECT_DIR}/../../../doc/developer/developer.doxyfile\" -s \"${PROJECT_DIR}/../../../src \\\n${PROJECT_DIR}/../../../include\" -o \"${PROJECT_DIR}/../../../doc/developer\" -n \"API\" -r \"com.iostark\" -l \"true\"";
+		};
+		C70CEDBB15E7BF5100017A65 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C70CEDA815E7BF5100017A65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C709B8C21706818800FBCA04 /* eglapi.m in Sources */,
+				C7A86FA7172B8B3600739D0D /* eglapi.c in Sources */,
+				C7A86FA8172B8B3600739D0D /* eglarray.c in Sources */,
+				C7A86FA9172B8B3600739D0D /* eglconfig.c in Sources */,
+				C7A86FAA172B8B3600739D0D /* eglcontext.c in Sources */,
+				C7A86FAB172B8B3600739D0D /* eglcurrent.c in Sources */,
+				C7A86FAC172B8B3600739D0D /* egldisplay.c in Sources */,
+				F639689418AD9DB60076C110 /* AppleIOSMemoryManagement.m in Sources */,
+				C7A86FAD172B8B3600739D0D /* egldriver.c in Sources */,
+				C7A86FAE172B8B3600739D0D /* eglfallbacks.c in Sources */,
+				C7A86FAF172B8B3600739D0D /* eglglobals.c in Sources */,
+				C7A86FB0172B8B3600739D0D /* eglimage.c in Sources */,
+				C7A86FB1172B8B3600739D0D /* egllog.c in Sources */,
+				C7A86FB2172B8B3600739D0D /* eglmisc.c in Sources */,
+				C7A86FB3172B8B3600739D0D /* eglmode.c in Sources */,
+				C7A86FB4172B8B3600739D0D /* eglscreen.c in Sources */,
+				C7A86FB5172B8B3600739D0D /* eglstring.c in Sources */,
+				C7A86FB6172B8B3600739D0D /* eglsurface.c in Sources */,
+				C7A86FB7172B8B3600739D0D /* eglsync.c in Sources */,
+				C72C34CB1730FBE5005B5745 /* egl_eagl.m in Sources */,
+				C72C34F01731E868005B5745 /* egl_eagl_driver_ios.m in Sources */,
+				C72C34F21732B31C005B5745 /* egl_eagl_ios_eaglwindow.mm in Sources */,
+				F639689618ADA4B40076C110 /* egl_eagl_common.m in Sources */,
+				C790C5A717FE45E000C614D4 /* egl_eagl_ios_eaglsurface.m in Sources */,
+				F65C919118A3481D008418BC /* opengles_ios.c in Sources */,
+				C790C5B018043C1400C614D4 /* egl_eagl_ios_eaglcontext.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C70CEDB815E7BF5100017A65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C75F3E3B16148AA60023C0D2 /* eglapiTests.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C70CEDC415E7BF5100017A65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C70CEDAB15E7BF5100017A65 /* egl */;
+			targetProxy = C70CEDC315E7BF5100017A65 /* PBXContainerItemProxy */;
+		};
+		C7744F12160D39B500B4D516 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C707D9CB15E99A5A00CD889E /* check-source-code-against-google-c++-style-guide */;
+			targetProxy = C7744F11160D39B500B4D516 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C73D72F816148B1E00AE28CD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C73D72F916148B1E00AE28CD /* en */,
+			);
+			name = InfoPlist.strings;
+			path = "/Volumes/Vault/Documents/Developments/IOS_WORKSPACES/POMODORO_WORKSPACE/pomodoro-crossplatform-app/libs/eglapi-core-lib.git/proj/proj.ios/eglapi-core-lib/eglapi-core-libTests";
+			sourceTree = "<absolute>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C707D9CD15E99A5A00CD889E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C707D9CE15E99A5A00CD889E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		C707D9D215E99ACB00CD889E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C707D9D315E99ACB00CD889E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		C70CEDCF15E7BF5100017A65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++98";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"HAVE_PTHREAD=1",
+					"_EGL_NATIVE_PLATFORM=_EGL_PLATFORM_IOS",
+					"_EGL_OS_APPLE_IOS=1",
+					"_EGL_BUILT_IN_DRIVER_IOSEAGL=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../../libs/target-conditionals.git/include";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "-ferror-limit=10000";
+				SDKROOT = iphoneos;
+				VALID_ARCHS = "armv7 armv7s arm64 i386 x86_64";
+			};
+			name = Debug;
+		};
+		C70CEDD015E7BF5100017A65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++98";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"HAVE_PTHREAD=1",
+					"_EGL_NATIVE_PLATFORM=_EGL_PLATFORM_IOS",
+					"_EGL_OS_APPLE_IOS=1",
+					"_EGL_BUILT_IN_DRIVER_IOSEAGL=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${SRCROOT}/../../../libs/target-conditionals.git/include";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "-ferror-limit=10000";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s arm64 i386 x86_64";
+			};
+			name = Release;
+		};
+		C70CEDD215E7BF5100017A65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				DSTROOT = /tmp/eglgapi_core_lib.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "eglapi-core-lib/eglapi-core-lib-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/../../../include",
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = egl;
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C70CEDD315E7BF5100017A65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				DSTROOT = /tmp/eglgapi_core_lib.dst;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "eglapi-core-lib/eglapi-core-lib-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/../../../include",
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = egl;
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		C70CEDD515E7BF5100017A65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "eglapi-core-lib/eglapi-core-lib-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${SRCROOT}/../../../include",
+					"${SRCROOT}/../../../test/include",
+				);
+				INFOPLIST_FILE = "eglapi-core-libTests/eglapi-core-libTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_AFTER_BUILD = NO;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		C70CEDD615E7BF5100017A65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "eglapi-core-lib/eglapi-core-lib-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${SRCROOT}/../../../include",
+					"${SRCROOT}/../../../test/include",
+				);
+				INFOPLIST_FILE = "eglapi-core-libTests/eglapi-core-libTests-Info.plist";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_AFTER_BUILD = NO;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C707D9CC15E99A5A00CD889E /* Build configuration list for PBXAggregateTarget "check-source-code-against-google-c++-style-guide" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C707D9CD15E99A5A00CD889E /* Debug */,
+				C707D9CE15E99A5A00CD889E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C707D9D115E99ACB00CD889E /* Build configuration list for PBXAggregateTarget "build-docset" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C707D9D215E99ACB00CD889E /* Debug */,
+				C707D9D315E99ACB00CD889E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C70CEDA615E7BF5100017A65 /* Build configuration list for PBXProject "eglapi-core-lib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C70CEDCF15E7BF5100017A65 /* Debug */,
+				C70CEDD015E7BF5100017A65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C70CEDD115E7BF5100017A65 /* Build configuration list for PBXNativeTarget "egl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C70CEDD215E7BF5100017A65 /* Debug */,
+				C70CEDD315E7BF5100017A65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C70CEDD415E7BF5100017A65 /* Build configuration list for PBXNativeTarget "eglTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C70CEDD515E7BF5100017A65 /* Debug */,
+				C70CEDD615E7BF5100017A65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C70CEDA315E7BF5100017A65 /* Project object */;
+}
