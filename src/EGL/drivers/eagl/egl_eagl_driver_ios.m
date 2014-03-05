@@ -158,46 +158,6 @@ EGLBoolean convert_eagl_ios_config (struct EAGL_egl_driver *EAGL_drv,
     }
     _eglSetConfigKey(conf, EGL_BIND_TO_TEXTURE_RGB     ,EGL_FALSE); // TODO: How to get the right value ?
     _eglSetConfigKey(conf, EGL_BIND_TO_TEXTURE_RGBA    ,EGL_FALSE); // TODO: How to get the right value ?
-    //    /* pixmap surfaces must be single-buffered in EGL */
-    //    if (!GLX_conf->double_buffered)
-    //        GLX_conf->Base.SurfaceType |= EGL_PIXMAP_BIT;
-    
-    
-    //    for (i = 0; i < ARRAY_SIZE(visual_attributes); i++) {
-    //        EGLint egl_attr, egl_val;
-    //
-    //        attr = visual_attributes[i].attr;
-    //        egl_attr = visual_attributes[i].egl_attr;
-    //        if (!egl_attr)
-    //            continue;
-    //
-    //        err = GLX_drv->glXGetConfig(dpy, vinfo, attr, &val);
-    //        if (err) {
-    //            if (err == GLX_BAD_ATTRIBUTE) {
-    //                err = 0;
-    //                continue;
-    //            }
-    //            break;
-    //        }
-    //
-    //        switch (egl_attr) {
-    //            case EGL_CONFIG_CAVEAT:
-    //                egl_val = EGL_NONE;
-    //                if (val == GLX_SLOW_VISUAL_EXT) {
-    //                    egl_val = EGL_SLOW_CONFIG;
-    //                }
-    //                else if (val == GLX_NON_CONFORMANT_VISUAL_EXT) {
-    //                    GLX_conf->Base.Conformant &= ~EGL_OPENGL_BIT;
-    //                    egl_val = EGL_NONE;
-    //                }
-    //                break;
-    //                break;
-    //            default:
-    //                egl_val = val;
-    //                break;
-    //        }
-    //        _eglSetConfigKey(&GLX_conf->Base, egl_attr, egl_val);
-    //    }
     
     return (err) ? EGL_FALSE : EGL_TRUE;
 }
@@ -281,14 +241,6 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy/*, void** 
         
         memset(&template, 0, sizeof(template));
         _eglInitConfig(&template.Base, dpy, i);
-        //        if (EAGL_dpy->have_fbconfig) {
-        //            ok = convert_fbconfig(EAGL_drv, EAGL_dpy,
-        //                                  EAGL_dpy->fbconfigs[i], &template);
-        //        }
-        //        else {
-        //            ok = convert_visual(EAGL_drv, EAGL_dpy,
-        //                                &EAGL_dpy->visuals[i], &template);
-        //        }
         ok = convert_eagl_ios_config(EAGL_drv, EAGL_dpy,
                                      &realConfigs[i], &template);
         if (!ok)
@@ -460,10 +412,145 @@ void  eaglDestroyContext ( _EAGLWindow *dpy, struct EAGL_egl_context* ctx ) {
     freeEAGL_egl_context(ctx);
 }
 
+GLenum _createDepthBuffer(_OpenGLESAPI* api, GLuint* depthBuffer, GLint width, GLint height, GLuint bits)
+{
+    // Assumption: A render buffer is bound to the current context
+    GLuint depth_component = 0;
+    if (bits == 24) {
+        depth_component = api->GL_DEPTH_COMPONENT24_;
+    } else {
+        /* ignore the bits value and use the default 16 bits */
+        depth_component = api->GL_DEPTH_COMPONENT16_;
+    }
+    
+    GLenum error = GL_NO_ERROR;
+    GLenum step = 1;
+    GL_GET_ERROR(api->glGenRenderBuffers(1, depthBuffer), error, step)
+    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    
+    GL_GET_ERROR(api->glBindRenderBuffers(api->GL_RENDERBUFFER_, *depthBuffer), error, step)
+    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    
+    GL_GET_ERROR(api->glRenderbufferStorage(api->GL_RENDERBUFFER_, depth_component, width, height), error, step)
+    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    
+cleanup:
+    if (error != GL_NO_ERROR) {
+        //TODO
+    }
+    
+    return error;
+}
+
+bool setupFrameBuffer(_EAGLContext* context, _EAGLSurface* surface, _OpenGLESAPI* api, GLuint* framebuffer, GLuint* colorbuffer, GLuint* depthbuffer, GLuint depthBits) {
+    // Create the framebuffer object
+    GLenum error = GL_NO_ERROR;
+    GLuint step = 1;
+    GL_GET_ERROR(api->glGenFrameBuffers(1, framebuffer), error, step)
+    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    
+    // Create the color buffer object
+    GL_GET_ERROR(api->glGenRenderBuffers(1, colorbuffer), error, step)
+    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    
+    // Binds frame/color buffer objects
+    GL_GET_ERROR(api->glBindFrameBuffers(api->GL_FRAMEBUFFER_, *framebuffer), error, step);
+    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    GL_GET_ERROR(api->glBindRenderBuffers(api->GL_RENDERBUFFER_, *colorbuffer), error, step);
+    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    
+    // Associate color buffer to framebuffer
+    GL_GET_ERROR(api->glFramebufferRenderbuffer(api->GL_FRAMEBUFFER_, api->GL_COLOR_ATTACHMENT0_, api->GL_RENDERBUFFER_, *colorbuffer), error, step);
+    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    
+    // Binds a drawable object’s storage to an OpenGL ES renderbuffer object.
+    BOOL r = [context.nativeContext    renderbufferStorage:api->GL_RENDERBUFFER_
+                                                       fromDrawable: surface.windowSurface];
+    error = r ? GL_NO_ERROR : (GL_NO_ERROR+1);
+    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    
+    // Get buffer backing based on current surface size
+    GLint backingWidth = 0;
+    GLint backingHeight = 0;
+    GL_GET_ERROR(api->glGetRenderbufferParameteriv(api->GL_RENDERBUFFER_, api->GL_RENDERBUFFER_WIDTH_, &backingWidth), error, step);
+    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    GL_GET_ERROR(api->glGetRenderbufferParameteriv(api->GL_RENDERBUFFER_, api->GL_RENDERBUFFER_HEIGHT_, &backingHeight), error, step);
+    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    
+    if (depthBits) {
+        // Create the depth buffer
+        error = _createDepthBuffer(api, depthbuffer, backingWidth, backingHeight, depthBits);
+        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+        // Associate depth buffer to framebuffer
+        GL_GET_ERROR(api->glFramebufferRenderbuffer(api->GL_FRAMEBUFFER_, api->GL_DEPTH_ATTACHMENT_, api->GL_RENDERBUFFER_, *depthbuffer), error, step)
+        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    }
+
+    GLenum status = api->glCheckFramebufferStatus(api->GL_FRAMEBUFFER_);
+    if(status != api->GL_FRAMEBUFFER_COMPLETE_) {error = r ? GL_NO_ERROR : (GL_NO_ERROR+1);}
+    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    
+    // Make color buffer the current bound renderbuffer
+    GL_GET_ERROR(api->glBindRenderBuffers(api->GL_RENDERBUFFER_, *colorbuffer), error, step);
+    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    
+cleanup:
+    if (error != GL_NO_ERROR) {
+        //TODO
+    }
+    
+    return error == GL_NO_ERROR;
+}
+
 EGLBoolean eaglMakeCurrent(_EAGLWindow *dpy,
-                           _EAGLSurface* surface,
-                           _EAGLContext* ctx) {
-    return EGL_TRUE;
+                           struct EAGL_egl_surface* EAGL_dsurf,
+                           struct EAGL_egl_context* ctx,
+                           _OpenGLESAPI* api) {
+    
+    BOOL r = [EAGLContext setCurrentContext:[(ctx->context) nativeContext]];
+
+    if (!r) {
+        return EGL_FALSE;
+    }
+    
+    _OpenGLBuffers* buffers = EAGL_dsurf->eagl_drawable.buffers;
+    GLenum error = GL_NO_ERROR;
+    int step = 1;
+    if (!ctx->wasCurrent) {
+        GLuint fb = 0;
+        GLuint cb = 0;
+        GLuint db = 0;
+        bool rr = setupFrameBuffer(ctx->context, EAGL_dsurf->eagl_drawable, api, &fb, &cb, &db, ctx->Base.Config->DepthSize);
+        if (rr) {
+            buffers->framebuffer = fb;
+            buffers->colorbuffer = cb;
+            buffers->depthbuffer = db;
+            
+            EGLint surfaceWidth = EAGL_dsurf->Base.Width;
+            EGLint surfaceHeight = EAGL_dsurf->Base.Height;
+            GLenum error = GL_NO_ERROR;
+            GL_GET_ERROR(api->glViewport(0,0, surfaceWidth, surfaceHeight), error, step)
+            GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+            GL_GET_ERROR(api->glScissor(0,0, surfaceWidth, surfaceHeight), error, step)
+            GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+            ctx->wasCurrent = EGL_TRUE;
+            return EGL_TRUE;
+        }
+        GL_CLEANUP_ERROR(!rr, cleanup)
+    }
+    else {
+        GL_GET_ERROR(api->glBindFrameBuffers(api->GL_FRAMEBUFFER_, buffers->framebuffer), error, step);
+        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+        GL_GET_ERROR(api->glBindRenderBuffers(api->GL_RENDERBUFFER_, buffers->colorbuffer), error, step);
+        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+        return EGL_TRUE;
+    }
+    
+cleanup:
+    {
+        //TODO
+    }
+    return EGL_FALSE;
 }
 
 EGLBoolean eaglSwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf ) {

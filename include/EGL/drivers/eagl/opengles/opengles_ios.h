@@ -14,6 +14,9 @@
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>
 
+#define GL_GET_ERROR(f, error, step) { f; error = glGetError();  step += 1; }
+#define GL_CLEANUP_ERROR(condition, aLabel) if (condition) {goto aLabel;}
+
 typedef GLvoid (*glGenBuffersFuncPtr) (GLsizei n, GLuint* buffers);
 typedef GLvoid (*glBindBufferFuncPtr) (GLenum target,  GLuint framebuffer);
 typedef GLvoid (*glDeleteBuffersFuncPtr) (GLsizei n, const GLuint* buffers);

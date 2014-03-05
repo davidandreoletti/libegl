@@ -59,7 +59,7 @@ typedef void (*EAGLDESTROYCONTEXTPROC)( _EAGLWindow *dpy, struct EAGL_egl_contex
  * \param EAGL_ctx
  *  \return Non NULL instance IFF initialization succeeded only.
  */
-typedef EGLBoolean (*EAGLMAKECURRENTPROC)( _EAGLWindow *dpy, _EAGLSurface* surface, _EAGLContext* ctx);
+typedef EGLBoolean (*EAGLMAKECURRENTPROC)(_EAGLWindow *dpy, struct EAGL_egl_surface* surface, struct EAGL_egl_context* ctx, _OpenGLESAPI* api);
 /**
  *  Swap buffers
  * \param EAGL_dpy

@@ -271,85 +271,6 @@ destroy_surface(_EGLDisplay *disp, _EGLSurface *surf)
     free(EAGL_surf);
 }
 
-GLuint _createDepthBuffer(_OpenGLESAPI* api, GLint width, GLint height, GLuint bits)
-{
-    // Assumption: A render buffer is bound to the current context
-    
-    if (bits == 0) {
-        return 0;
-    }
-    
-    GLuint depth = 0;
-    api->glGenRenderBuffers(1, &depth);
-    if (!depth)
-        return 0;
-    
-    GLuint depth_component = 0;
-    if (bits == 24) {
-        depth_component = api->GL_DEPTH_COMPONENT24_;
-    } else {
-        /* ignore the bits value and use the default 16 bits */
-        depth_component = api->GL_DEPTH_COMPONENT16_;
-    }
-    
-    api->glBindRenderBuffers(api->GL_RENDERBUFFER_, depth);
-    api->glRenderbufferStorage(api->GL_RENDERBUFFER_, depth_component, width, height);
-    api->glFramebufferRenderbuffer(api->GL_FRAMEBUFFER_, api->GL_DEPTH_ATTACHMENT_, api->GL_RENDERBUFFER_, depth);
-    return depth;
-}
-
-bool setupFB(struct EAGL_egl_context* context, struct EAGL_egl_surface* surface, GLuint* framebuffer, GLuint* colorbuffer, GLuint* depthbuffer) {
-    
-    _OpenGLESAPI* api = &(context->openGLESAPI);
-    
-    // Create the framebuffer
-    api->glGenFrameBuffers(1, framebuffer);
-    api->glBindFrameBuffers(api->GL_FRAMEBUFFER_, *framebuffer);
-    
-    // Create the color buffer
-    api->glGenRenderBuffers(1, colorbuffer);
-    api->glBindRenderBuffers(api->GL_RENDERBUFFER_, *colorbuffer);
-    BOOL r = [context->context.nativeContext renderbufferStorage:api->GL_RENDERBUFFER_
-                                          fromDrawable: surface->eagl_drawable.windowSurface];
-    if (r == NO) {
-        api->glDeleteFrameBuffers(1, *framebuffer);
-        api->glDeleteRenderBuffers(1, *colorbuffer);
-        return false;
-    }
-    
-    api->glFramebufferRenderbuffer(api->GL_FRAMEBUFFER_, api->GL_COLOR_ATTACHMENT0_, api->GL_RENDERBUFFER_, *colorbuffer);
-    
-    if (context->Base.Config->DepthSize) {
-        // Create the depth buffer
-        GLint backingWidth, backingHeight;
-        api->glGetRenderbufferParameteriv(api->GL_RENDERBUFFER_, api->GL_RENDERBUFFER_WIDTH_, &backingWidth);
-        api->glGetRenderbufferParameteriv(api->GL_RENDERBUFFER_, api->GL_RENDERBUFFER_HEIGHT_, &backingHeight);
-        *depthbuffer = _createDepthBuffer(api, backingWidth, backingHeight, context->Base.Config->DepthSize);
-    }
-    
-    if (api->glCheckFramebufferStatus(api->GL_FRAMEBUFFER_) != api->GL_FRAMEBUFFER_COMPLETE_) {
-        return false;
-    }
-    
-    // Make color buffer the current bound renderbuffer
-    api->glBindRenderBuffers(api->GL_RENDERBUFFER_, *colorbuffer);
-
-    return true;
-}
-
-/**
- * Get Renderbuffer dimensions (in pixel)
- * \param api
- * \param renderbuffer
- * \param width
- * \param height
- */
-void getRenderBufferDimensions(_OpenGLESAPI* api, GLuint renderbuffer, GLint* width, GLint* height) {
-    api->glGetRenderbufferParameteriv(renderbuffer, api->GL_RENDERBUFFER_WIDTH_, width);
-    api->glGetRenderbufferParameteriv(renderbuffer, api->GL_RENDERBUFFER_HEIGHT_, height);
-}
-
-
 /**
  * Called via eglMakeCurrent(), drv->API.MakeCurrent().
  */
@@ -364,9 +285,6 @@ EAGL_eglMakeCurrent(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *dsurf,
     struct EAGL_egl_context *EAGL_ctx = EAGL_egl_context(ctx);
     _EGLContext *old_ctx;
     _EGLSurface *old_dsurf, *old_rsurf;
-    _EAGLSurface* ddraw = nil;
-//    _EAGLSurface* rdraw;
-    _EAGLContext* cctx;
     EGLBoolean ret = EGL_FALSE;
     
     if (!ctx) {
@@ -374,11 +292,13 @@ EAGL_eglMakeCurrent(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *dsurf,
         return EGL_FALSE;
     }
     /* make new bindings */
-    if (!_eglBindContext(ctx, dsurf, rsurf, &old_ctx, &old_dsurf, &old_rsurf))
+    if (!_eglBindContext(ctx, dsurf, rsurf, &old_ctx, &old_dsurf, &old_rsurf)) {
+        // TODO: Anything to do here ?
         return EGL_FALSE;
+    }
     
-    cctx = (EAGL_ctx) ? EAGL_ctx->context : NULL;
-    ret = EAGL_drv->eaglMakeCurrent(EAGL_dpy->dpy, ddraw, cctx);
+    ret = EAGL_drv->eaglMakeCurrent(EAGL_dpy->dpy, EAGL_dsurf, EAGL_ctx, &EAGL_ctx->openGLESAPI);
+
     if (ret) {
         if (_eglPutSurface(old_dsurf))
             destroy_surface(disp, old_dsurf);
@@ -401,30 +321,6 @@ EAGL_eglMakeCurrent(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *dsurf,
         _eglPutSurface(old_dsurf);
         _eglPutSurface(old_rsurf);
         _eglPutContext(old_ctx);
-    }
-    
-    //_eglBindContextToThread();
-    [EAGLContext setCurrentContext:[EAGL_ctx->context nativeContext]];
-    
-    GLuint fb = 0;
-    GLuint cb = 0;
-    GLuint db = 0;
-    if(setupFB(EAGL_ctx, EAGL_dsurf, &fb, &cb, &db)) {
-        _OpenGLBuffers* buffers = EAGL_dsurf->eagl_drawable.buffers;
-        buffers->framebuffer = fb;
-        buffers->colorbuffer = cb;
-        buffers->depthbuffer = db;
-        ret = EGL_TRUE;
-    }
-    if (!EAGL_ctx->wasCurrent) {
-//        EGLint surfaceWidth = 0;
-//        EGLint surfaceHeight = 0;
-//        eglQuerySurface(disp, ddraw, EGL_WIDTH, &surfaceWidth);
-//        eglQuerySurface(disp, ddraw, EGL_HEIGHT, &surfaceHeight);
-//        _OpenGLESAPI* api = &EAGL_ctx->openGLESAPI;
-//        api->glViewport(0,0, surfaceWidth, surfaceHeight);
-//        api->glScissor(0,0, surfaceWidth, surfaceHeight);
-//        EAGL_ctx->wasCurrent = EGL_TRUE;
     }
     return ret;
 }
