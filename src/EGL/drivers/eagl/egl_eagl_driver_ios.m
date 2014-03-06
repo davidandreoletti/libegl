@@ -504,13 +504,18 @@ cleanup:
 
 EGLBoolean eaglMakeCurrent(_EAGLWindow *dpy,
                            struct EAGL_egl_surface* EAGL_dsurf,
-                           struct EAGL_egl_context* ctx,
+                           struct EAGL_egl_context* context,
                            _OpenGLESAPI* api) {
+    struct EAGL_egl_context* ctx = (context != EGL_NO_CONTEXT) ? context : EAGL_egl_context(_eglGetCurrentContext());
+    EAGLContext* nativeContext = ctx != EGL_NO_CONTEXT ? [(ctx->context) nativeContext] : nil;
+    BOOL r = [EAGLContext setCurrentContext: nativeContext];
     
-    BOOL r = [EAGLContext setCurrentContext:[(ctx->context) nativeContext]];
-
     if (!r) {
         return EGL_FALSE;
+    }
+    
+    if (ctx == EGL_NO_CONTEXT) {
+        return EGL_TRUE;
     }
     
     _OpenGLBuffers* buffers = EAGL_dsurf->eagl_drawable.buffers;
