@@ -354,27 +354,20 @@ EAGL_eglCreateWindowSurface(_EGLDriver *drv, _EGLDisplay *disp,
         return NULL;
     }
     
-    //_eglLockMutex(_eglGlobal.Mutex); //FIXME: this mutex blocks Unit tests - WHY ???
-   
-    _EGLDisplay* disp2 = _eglGlobal.DisplayList;
-    while (disp2) {
-        if (0<_EGL_NUM_RESOURCES) { 
-            _EGLResource* res = disp2->ResourceLists[_EGL_RESOURCE_SURFACE];
-            struct EAGL_egl_surface *EAGL_surf2 = NULL;
-            while (res) {
-                _EGLSurface* surf = (_EGLSurface*) res;
-                EAGL_surf2 = EAGL_egl_surface(surf);
-                if (EAGL_surf2 && EAGL_surf2->eagl_drawable.windowSurface == window) {
-                    _eglError(EGL_BAD_ALLOC, "eglCreateWindowSurface");
-                    return NULL;
-                }
-                res = res->Next;
-            }
-        }
-        disp2 = disp2->Next;
-    }
+
+    struct findresource data = {0};
+    data.data = window;
+    data.found = false;
+    data.type = _EGL_RESOURCE_SURFACE;
+    data.requestType = SURFACE_NATIVEWINDOW;
     
-    //_eglUnlockMutex(_eglGlobal.Mutex); //FIXME: this mutex blocks Unit tests - WHY ??? 
+    _eglLockMutex(_eglGlobal.Mutex);
+    findResource(_eglGlobal.DisplayList, &data);
+    _eglUnlockMutex(_eglGlobal.Mutex);
+    if (data.found) {
+        _eglError(EGL_BAD_ALLOC, "eglCreateWindowSurface");
+        return NULL;
+    }
 
     EAGL_surf = CALLOC_STRUCT(EAGL_egl_surface);
     if (!EAGL_surf) {
