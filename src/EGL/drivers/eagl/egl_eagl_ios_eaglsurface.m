@@ -14,34 +14,37 @@
 
 @synthesize buffers;
 
-@synthesize windowSurface;
+@synthesize windowSurface = _windowSurface;
 
 @synthesize type;
 
--(void) setWindowSurface:(id<EAGLDrawable>)ws {
-    // Memory leak in ARC/non ARC compilation
-    if (windowSurface != ws) {
-        windowSurface = ws;
+-(void) setWindowSurface:(id<EAGLDrawable>)surf {
+    if (_windowSurface != surf) {
+        OWNERSHIP_RETAIN((id<NSObject>) surf);
+        OWNERSHIP_RELEASE((id<NSObject>) _windowSurface);
+        _windowSurface = surf;
         type = SURFACE_WINDOW;
     }
 }
 
-@synthesize pbufferSurface;
+@synthesize pbufferSurface = _pbufferSurface;
 
--(void) setPbufferSurface:(id)pb {
-    // Memory leak in ARC/non ARC compilation
-    if (pbufferSurface != pb) {
-        pbufferSurface = pb;
+-(void) setPbufferSurface:(id)surf {
+    if (_pbufferSurface != surf) {
+        OWNERSHIP_RETAIN((id<NSObject>) surf);
+        OWNERSHIP_RELEASE((id<NSObject>) _pbufferSurface);
+        _pbufferSurface = surf;
         type = SURFACE_PBUFFER;
     }
 }
 
-@synthesize pixmapSurface;
+@synthesize pixmapSurface = _pixmapSurface;
 
--(void) setPixmapSurface:(CGContextRef)px {
-    // Memory leak in ARC/non ARC compilation
-    if (pixmapSurface != px) {
-        pixmapSurface = px;
+-(void) setPixmapSurface:(CGContextRef)surf {
+    if (_pixmapSurface != surf) {
+        OWNERSHIP_RETAIN((id<NSObject>) surf);
+        OWNERSHIP_RELEASE((id<NSObject>) _pixmapSurface);
+        _pixmapSurface = surf;
         type = SURFACE_PIXMAP;
     }
 }
@@ -58,6 +61,9 @@
 
 - (void)dealloc {
     free(buffers);
+    OWNERSHIP_RELEASE((id<NSObject>) _windowSurface);
+    OWNERSHIP_RELEASE((id<NSObject>) _pixmapSurface);
+    OWNERSHIP_RELEASE((id<NSObject>) _pbufferSurface);
     [super METHOD_DEALLOC];
 }
 

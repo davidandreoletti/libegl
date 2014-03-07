@@ -37,11 +37,13 @@
  */
 @property (OWNERSHIP_QUALIFIER_WEAK, nonatomic) CGContextRef pixmapSurface;
 
+/** Native surface types */
 typedef enum {
     SURFACE_WINDOW,
     SURFACE_PBUFFER,
     SURFACE_PIXMAP,
-    SURFACE_NONE} surface_t;
+    SURFACE_NONE
+} surface_t;
 
 /**
  * Indicates which surface type this object is referering to
