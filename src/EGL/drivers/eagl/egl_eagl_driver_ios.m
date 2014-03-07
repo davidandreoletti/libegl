@@ -610,8 +610,56 @@ const char *eaglQueryClientString ( _EAGLWindow *dpy, int name ) {
     return "";
 }
 
-void * eaglCreateWindow (void) {
-    return NULL;
+EGLBoolean eaglCreateWindow(struct EAGL_egl_display *EAGL_dpy,
+                            struct EAGL_egl_config *EAGL_conf, EGLNativeWindowType window,
+                            const EGLint *attrib_list, struct EAGL_egl_surface *EAGL_surf) {
+    
+    //    EAGL_surf->drawable = window;
+    
+    //    id<NSObject> obj = (id<NSObject>)window;
+    //    if (![obj isKindOfClass:[UIView class]]) {
+    //        _eglError(EGL_BAD_NATIVE_WINDOW, "eglCreateWindowSurface: Not an UIView instance");
+    //        return EGL_FALSE;
+    //    }
+    id<EAGLDrawable> nativeEAGLDrawable = window;
+    
+    _EAGLSurface* eaglSurface = [[[_EAGLSurface alloc] init] retain];
+    [eaglSurface setWindowSurface:nativeEAGLDrawable];
+    EAGL_surf->eagl_drawable = eaglSurface;
+    
+    //    UIView* v = (UIView*)obj;
+    //    id<EAGLDrawable> eaglSurface = (id<EAGLDrawable>)[v layer];
+    NSDictionary* nativePrawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
+                                              [NSNumber numberWithBool:EAGL_conf->conf.retainBacking],
+                                              kEAGLDrawablePropertyRetainedBacking,
+                                              EAGL_conf->conf.colorFormat,
+                                              kEAGLDrawablePropertyColorFormat,
+                                              nil];
+    if (!nativePrawableProperties) {
+        _eglError(EGL_BAD_ALLOC, "eglCreateWindowSurface");
+        return EGL_FALSE;
+    }
+    
+    @try {
+        [nativeEAGLDrawable setDrawableProperties:nativePrawableProperties];
+    } @catch (NSException* e) {
+        _eglError(EGL_BAD_NATIVE_WINDOW, "eglCreateWindowSurface");
+        return EGL_FALSE;
+    }
+    
+    if (!EAGL_surf->eagl_drawable) {
+        free(EAGL_surf);
+        return EGL_FALSE;
+    }
+    
+    CAEAGLLayer* nativeEAGLLayer = (CAEAGLLayer*) window;
+    CGFloat contentScaleFactor = [nativeEAGLLayer contentsScale];
+    CGSize frameSize = nativeEAGLLayer.frame.size;
+    EAGL_surf->Base.Width = frameSize.width * contentScaleFactor;
+    EAGL_surf->Base.Height = frameSize.height * contentScaleFactor;
+    EAGL_surf->Base.RenderBuffer = EGL_SINGLE_BUFFER;
+    
+    return EGL_TRUE;
 }
 
 void * eaglDestroyWindow(void) {
@@ -661,6 +709,9 @@ static ProcAddressFuncPtr eaglIOSGetProcAddress(const char * proc_name) {
     else if (EQUAL_STRING(proc_name, "eaglCreateContext")) {
         return (ProcAddressFuncPtr) eaglCreateContext;
     }
+    else if (EQUAL_STRING(proc_name, "eaglCreateWindow")) {
+        return (ProcAddressFuncPtr) eaglCreateWindow;
+    }
     else if (EQUAL_STRING(proc_name, "eaglDestroyContext")) {
         return (ProcAddressFuncPtr) eaglDestroyContext;
     }
@@ -696,9 +747,6 @@ static ProcAddressFuncPtr eaglIOSGetProcAddress(const char * proc_name) {
     }
     else if (EQUAL_STRING(proc_name, "eaglGetConfigs")) {
         return (ProcAddressFuncPtr) eaglGetConfigs;
-    }
-    else if (EQUAL_STRING(proc_name, "eaglCreateWindow")) {
-        return (ProcAddressFuncPtr) eaglCreateWindow;
     }
     else if (EQUAL_STRING(proc_name, "eaglDestroyWindow")) {
         return (ProcAddressFuncPtr) eaglDestroyWindow;

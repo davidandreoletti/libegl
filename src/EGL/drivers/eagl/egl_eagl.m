@@ -333,11 +333,10 @@ EAGL_eglCreateWindowSurface(_EGLDriver *drv, _EGLDisplay *disp,
                             _EGLConfig *conf, EGLNativeWindowType window,
                             const EGLint *attrib_list)
 {
-//    struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
-//    struct EAGL_egl_display *EAGL_dpy = EAGL_egl_display(disp);
+    struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
+    struct EAGL_egl_display *EAGL_dpy = EAGL_egl_display(disp);
     struct EAGL_egl_config *EAGL_conf = EAGL_egl_config(conf);
     struct EAGL_egl_surface *EAGL_surf;
-//    unsigned width, height;
     
     if (!EAGL_conf) {
         _eglError(EGL_BAD_CONFIG, "eglCreateWindowSurface");
@@ -353,7 +352,6 @@ EAGL_eglCreateWindowSurface(_EGLDriver *drv, _EGLDisplay *disp,
         _eglError(EGL_BAD_NATIVE_WINDOW, "eglCreateWindowSurface");
         return NULL;
     }
-    
 
     struct findresource data = {0};
     data.data = window;
@@ -386,50 +384,10 @@ EAGL_eglCreateWindowSurface(_EGLDriver *drv, _EGLDisplay *disp,
         return NULL;
     }
     
-//    EAGL_surf->drawable = window;
-
-//    id<NSObject> obj = (id<NSObject>)window;
-//    if (![obj isKindOfClass:[UIView class]]) {
-//        _eglError(EGL_BAD_NATIVE_WINDOW, "eglCreateWindowSurface: Not an UIView instance");
-//        return NULL;
-//    }
-    id<EAGLDrawable> nativeEAGLDrawable = window;
-    
-    _EAGLSurface* eaglSurface = [[[_EAGLSurface alloc] init] retain];
-    [eaglSurface setWindowSurface:nativeEAGLDrawable];
-    EAGL_surf->eagl_drawable = eaglSurface;
-    
-//    UIView* v = (UIView*)obj;
-//    id<EAGLDrawable> eaglSurface = (id<EAGLDrawable>)[v layer];
-    NSDictionary* nativePrawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSNumber numberWithBool:EAGL_conf->conf.retainBacking],
-                          kEAGLDrawablePropertyRetainedBacking,
-                          EAGL_conf->conf.colorFormat,
-                          kEAGLDrawablePropertyColorFormat,
-                          nil];
-    if (!nativePrawableProperties) {
-        _eglError(EGL_BAD_ALLOC, "eglCreateWindowSurface");
-        return NULL;
-    }
-    
-    @try {
-        [nativeEAGLDrawable setDrawableProperties:nativePrawableProperties];
-    } @catch (NSException* e) {
-        _eglError(EGL_BAD_NATIVE_WINDOW, "eglCreateWindowSurface");
-        return NULL;
-    }
-    
-    if (!EAGL_surf->eagl_drawable) {
+    if(!(EAGL_drv->eaglCreateWindow(EAGL_dpy, EAGL_conf, window, attrib_list, EAGL_surf))) {
         free(EAGL_surf);
         return NULL;
     }
-    
-    CAEAGLLayer* nativeEAGLLayer = (CAEAGLLayer*) window;
-    CGFloat contentScaleFactor = [nativeEAGLLayer contentsScale];
-    CGSize frameSize = nativeEAGLLayer.frame.size;
-    EAGL_surf->Base.Width = frameSize.width * contentScaleFactor;
-    EAGL_surf->Base.Height = frameSize.height * contentScaleFactor;
-    EAGL_surf->Base.RenderBuffer = EGL_SINGLE_BUFFER;
     
     return &EAGL_surf->Base;
 }

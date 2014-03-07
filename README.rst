@@ -129,7 +129,7 @@ is supported in this implementation.
 | eglBindAPI                       | Supported              |         |
 | eglCreateContext                 | Supported              |         |
 | eglDestroyContext                | Supported              |         |
-| eglCreateWindowSurface           | Supported              |         |
+| eglCreateWindowSurface           | Supported              | EGLNativeWindowType MUST remain valid for as long as the EGLSurface handle is valid |
 | eglCreatePbufferSurface          | Unsupported            |         |
 | eglCreatePixmapSurface           | Unsupported            |         |
 | eglDestroySurface                | Supported              |         |
