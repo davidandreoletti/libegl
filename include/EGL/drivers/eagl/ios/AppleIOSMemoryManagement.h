@@ -84,6 +84,8 @@
     #define OWNERSHIP_BRIDGE_RETAINED(cfType, nsTypeRef) (__bridge_retained cfType) nsTypeRef // i.e CFBridgingRetain(nsTypeRef)
     #define OWNERSHIP_BRIDGE_TRANSFER(nsType, cfTypeRef) (__bridge_transfer nsType) cfTypeRef // i.e i.e CFBridgingRelease(cfTypeRef)
     #define METHOD_DEALLOC self // Usage: [self METHOD_DEALLOC];
+    #define OWNERSHIP_RETAIN(obj) [obj retain]
+    #define OWNERSHIP_RELEASE(obj) [obj release]
 #else
 	#define IF_ARC(ARCBlock, NoARCBlock) NoARCBlock
 	#define NO_ARC(NoARCBlock) NoARCBlock
@@ -98,10 +100,12 @@
     #define OWNERSHIP_BRIDGE_RETAINED(cfType, nsTypeRef) (cfType) nsTypeRef
     #define OWNERSHIP_BRIDGE_TRANSFER(nsType, cfTypeRef) (nsType) cfTypeRef
     #define METHOD_DEALLOC dealloc
+    #define OWNERSHIP_RETAIN(obj) (id)obj
+    #define OWNERSHIP_RELEASE(obj) (id)obj
 #endif
 
-#define OWNERSHIP_RETAIN(cfTypeRef) CFRetain(cfTypeRef)
-#define OWNERSHIP_RELEASE(cfTypeRef) CFRelease(cfTypeRef)
+#define OWNERSHIP_CFRETAIN(cfTypeRef) CFRetain(cfTypeRef)
+#define OWNERSHIP_CFRELEASE(cfTypeRef) CFRelease(cfTypeRef)
 
 /**
  * Transfer Objective-C compatible object's ownership to the caller
