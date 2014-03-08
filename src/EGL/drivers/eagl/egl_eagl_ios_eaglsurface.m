@@ -52,8 +52,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-        buffers = (_OpenGLBuffers*) malloc(sizeof(_OpenGLBuffers));
-        memset(buffers, 0,sizeof(_OpenGLBuffers));
+        memset(&buffers, 0,sizeof(_OpenGLBuffers));
         type = SURFACE_NONE;
         }
     return self;
@@ -61,7 +60,6 @@
 
 - (void)dealloc {
     METHOD_DEALLOC(super);
-    free(buffers);
     OWNERSHIP_RELEASE((id<NSObject>) _windowSurface);
     OWNERSHIP_RELEASE((id<NSObject>) _pixmapSurface);
     OWNERSHIP_RELEASE((id<NSObject>) _pbufferSurface);

@@ -520,20 +520,15 @@ EGLBoolean eaglMakeCurrent(_EAGLWindow *dpy,
     if (ctx == EGL_NO_CONTEXT) {
         return EGL_TRUE;
     }
-    
-    _OpenGLBuffers* buffers = EAGL_dsurf->eagl_drawable.buffers;
+
+    _OpenGLBuffers buffers = EAGL_dsurf->eagl_drawable.buffers;
     GLenum error = GL_NO_ERROR;
     int step = 1;
     if (!ctx->wasCurrent) {
-        GLuint fb = 0;
-        GLuint cb = 0;
-        GLuint db = 0;
-        bool rr = setupFrameBuffer(ctx->context, EAGL_dsurf->eagl_drawable, api, &fb, &cb, &db, ctx->Base.Config->DepthSize);
+
+        bool rr = setupFrameBuffer(ctx->context, EAGL_dsurf->eagl_drawable, api, &buffers.framebuffer, &buffers.colorbuffer, &buffers.depthbuffer, ctx->Base.Config->DepthSize);
         if (rr) {
-            buffers->framebuffer = fb;
-            buffers->colorbuffer = cb;
-            buffers->depthbuffer = db;
-            
+            EAGL_dsurf->eagl_drawable.buffers = buffers;
             EGLint surfaceWidth = EAGL_dsurf->Base.Width;
             EGLint surfaceHeight = EAGL_dsurf->Base.Height;
             GLenum error = GL_NO_ERROR;
@@ -547,9 +542,9 @@ EGLBoolean eaglMakeCurrent(_EAGLWindow *dpy,
         GL_CLEANUP_ERROR(!rr, cleanup)
     }
     else {
-        GL_GET_ERROR(api->glBindFrameBuffers(api->GL_FRAMEBUFFER_, buffers->framebuffer), error, step);
+        GL_GET_ERROR(api->glBindFrameBuffers(api->GL_FRAMEBUFFER_, buffers.framebuffer), error, step);
         GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-        GL_GET_ERROR(api->glBindRenderBuffers(api->GL_RENDERBUFFER_, buffers->colorbuffer), error, step);
+        GL_GET_ERROR(api->glBindRenderBuffers(api->GL_RENDERBUFFER_, buffers.colorbuffer), error, step);
         GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
         return EGL_TRUE;
     }

@@ -23,7 +23,7 @@
 /**
  * Native OpenGL buffers ids.
  */
-@property (nonatomic, assign) _OpenGLBuffers* buffers;
+@property (nonatomic, assign) _OpenGLBuffers buffers;
 /**
  * Native iOS Window Surface.
  */
