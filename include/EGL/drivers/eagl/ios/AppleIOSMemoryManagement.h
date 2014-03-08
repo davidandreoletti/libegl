@@ -48,8 +48,14 @@
 #ifdef OWNERSHIP_RETAIN
 #undef OWNERSHIP_RELEASE
 #endif
+#ifdef OWNERSHIP_CFRETAIN
+#undef OWNERSHIP_CFRELEASE
+#endif
 #ifdef OWNERSHIP_RELEASE
 #undef OWNERSHIP_RELEASE
+#endif
+#ifdef OWNERSHIP_AUTORELEASE
+#undef OWNERSHIP_AUTORELEASE
 #endif
 #ifdef METHOD_DEALLOC
 #undef METHOD_DEALLOC
@@ -83,9 +89,10 @@
     #define OWNERSHIP_BRIDGE_NONE(type, typeRef) (__bridge type) typeRef
     #define OWNERSHIP_BRIDGE_RETAINED(cfType, nsTypeRef) (__bridge_retained cfType) nsTypeRef // i.e CFBridgingRetain(nsTypeRef)
     #define OWNERSHIP_BRIDGE_TRANSFER(nsType, cfTypeRef) (__bridge_transfer nsType) cfTypeRef // i.e i.e CFBridgingRelease(cfTypeRef)
-    #define METHOD_DEALLOC self // Usage: [self METHOD_DEALLOC];
-    #define OWNERSHIP_RETAIN(obj) [obj retain]
-    #define OWNERSHIP_RELEASE(obj) [obj release]
+    #define METHOD_DEALLOC(obj) obj // Usage: [self METHOD_DEALLOC];
+    #define OWNERSHIP_RETAIN(obj) (id)obj
+    #define OWNERSHIP_RELEASE(obj) (id)obj
+    #define OWNERSHIP_AUTORELEASE(obj) (id)obj
 #else
 	#define IF_ARC(ARCBlock, NoARCBlock) NoARCBlock
 	#define NO_ARC(NoARCBlock) NoARCBlock
@@ -99,27 +106,14 @@
     #define OWNERSHIP_BRIDGE_NONE(type, typeRef) typeRef
     #define OWNERSHIP_BRIDGE_RETAINED(cfType, nsTypeRef) (cfType) nsTypeRef
     #define OWNERSHIP_BRIDGE_TRANSFER(nsType, cfTypeRef) (nsType) cfTypeRef
-    #define METHOD_DEALLOC dealloc
-    #define OWNERSHIP_RETAIN(obj) (id)obj
-    #define OWNERSHIP_RELEASE(obj) (id)obj
+    #define METHOD_DEALLOC(obj) [obj dealloc]
+    #define OWNERSHIP_RETAIN(obj) [obj retain]
+    #define OWNERSHIP_RELEASE(obj) [obj release]
+    #define OWNERSHIP_AUTORELEASE(obj) [obj autorelease]
 #endif
 
 #define OWNERSHIP_CFRETAIN(cfTypeRef) CFRetain(cfTypeRef)
 #define OWNERSHIP_CFRELEASE(cfTypeRef) CFRelease(cfTypeRef)
-
-/**
- * Transfer Objective-C compatible object's ownership to the caller
- * \param nsTypeRef Objective-C compatible id
- * \return C/Objective-C compatible handle
- */
-inline CFTypeRef ownership_bridge_retain (id nsTypeRef);
-
-/**
- * Transfer handle's ownership to the caller
- *
- * \param cfTypeRef C/Objective-C compatible handle
- */
-inline id ownership_bridge_release (CFTypeRef cfTypeRef);
 
 #endif
 

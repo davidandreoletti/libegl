@@ -11,4 +11,11 @@
 @implementation __EAGLIOSContext
 @synthesize nativeContext;
 @synthesize nativeSharedGroup;
+
+- (void)dealloc {
+    METHOD_DEALLOC(super);
+    OWNERSHIP_RELEASE(nativeContext);
+    OWNERSHIP_RELEASE(nativeSharedGroup);
+}
+
 @end

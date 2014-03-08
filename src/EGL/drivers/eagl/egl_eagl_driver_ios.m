@@ -280,13 +280,13 @@ EGLBoolean eaglInitialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
             w = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
         }
         
-        _UIWindow* _w = [[_UIWindow alloc] init];
+        _UIWindow* _w = OWNERSHIP_AUTORELEASE([[_UIWindow alloc] init]);
         if (!_w) {
             return _eglError(EGL_NOT_INITIALIZED, "eglInitialize");
         }
         
         _w.window = w;
-        dpy->dpy = _w;
+        dpy->dpy = OWNERSHIP_BRIDGE_RETAINED(_EAGLWindow *,_w);
     }
 
     disp->ClientAPIs = EGL_OPENGL_ES_BIT | EGL_OPENGL_ES2_BIT | EGL_OPENGL_ES3_BIT_KHR;
@@ -382,11 +382,11 @@ struct EAGL_egl_context * eaglCreateContext(struct EAGL_egl_display *EAGL_dpy,
     
     EAGLContext *nativeContext = nil;
     if (EAGL_ctx_shared != EGL_NO_CONTEXT) {
-        nativeContext = [[[EAGLContext alloc] initWithAPI:EAGL_conf->conf.eaglRenderingAPI
-                                          sharegroup: EAGL_ctx->context.nativeSharedGroup] autorelease];
+        nativeContext = OWNERSHIP_AUTORELEASE([[EAGLContext alloc] initWithAPI:EAGL_conf->conf.eaglRenderingAPI
+                                          sharegroup: EAGL_ctx->context.nativeSharedGroup]);
     }
     else {
-        nativeContext = [[[EAGLContext alloc] initWithAPI:EAGL_conf->conf.eaglRenderingAPI] autorelease];
+        nativeContext = OWNERSHIP_AUTORELEASE([[EAGLContext alloc] initWithAPI:EAGL_conf->conf.eaglRenderingAPI]);
     }
     
     if (!nativeContext) {
@@ -394,7 +394,7 @@ struct EAGL_egl_context * eaglCreateContext(struct EAGL_egl_display *EAGL_dpy,
         return NULL;
     }
 
-    __EAGLIOSContext* context = [[[__EAGLIOSContext alloc] init] autorelease];
+    __EAGLIOSContext* context = OWNERSHIP_AUTORELEASE([[__EAGLIOSContext alloc] init]);
     if (!context) {
         _eglError(EGL_BAD_ALLOC, "eaglCreateContext");
         return NULL;
@@ -402,14 +402,17 @@ struct EAGL_egl_context * eaglCreateContext(struct EAGL_egl_display *EAGL_dpy,
     
     [context setNativeContext:nativeContext];
     [context setNativeSharedGroup:EAGL_ctx->context.nativeSharedGroup];
-    EAGL_ctx->context = context;
+    EAGL_ctx->context = OWNERSHIP_BRIDGE_RETAINED(_EAGLContext*, context);
     
     EAGL_ctx->wasCurrent = EGL_FALSE;
     return EAGL_ctx;
 }
 
-void  eaglDestroyContext ( _EAGLWindow *dpy, struct EAGL_egl_context* ctx ) {
-    freeEAGL_egl_context(ctx);
+void  eaglDestroyContext ( _EAGLWindow *dpy, struct EAGL_egl_context* ctx) {
+    if(ctx->context != NULL) {
+        OWNERSHIP_BRIDGE_TRANSFER(_EAGLContext*, ctx->context);
+        ctx->context = NULL;
+    }
 }
 
 GLenum _createDepthBuffer(_OpenGLESAPI* api, GLuint* depthBuffer, GLint width, GLint height, GLuint bits)
@@ -623,9 +626,9 @@ EGLBoolean eaglCreateWindow(struct EAGL_egl_display *EAGL_dpy,
     //    }
     id<EAGLDrawable> nativeEAGLDrawable = window;
     
-    _EAGLSurface* eaglSurface = [[[_EAGLSurface alloc] init] retain];
+    _EAGLSurface* eaglSurface = OWNERSHIP_AUTORELEASE([[_EAGLSurface alloc] init]);
     [eaglSurface setWindowSurface:nativeEAGLDrawable];
-    EAGL_surf->eagl_drawable = eaglSurface;
+    EAGL_surf->eagl_drawable = OWNERSHIP_BRIDGE_RETAINED(CFTypeRef, eaglSurface);
     
     //    UIView* v = (UIView*)obj;
     //    id<EAGLDrawable> eaglSurface = (id<EAGLDrawable>)[v layer];

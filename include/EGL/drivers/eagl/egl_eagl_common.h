@@ -22,6 +22,7 @@
 #include "EGL/egllog.h"
 #include "EGL/eglsurface.h"
 #include "EGL/drivers/eagl/egl_eagl_typedefs.h"
+#include "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
 
 #define CALLOC_STRUCT(T)   (struct T *) calloc(1, sizeof(struct T))
 #define Bool    bool
@@ -50,7 +51,7 @@ struct EAGL_egl_display
 struct EAGL_egl_context
 {
     _EGLContext Base;   /**< base class */
-    _EAGLContext* context;
+    __OWNERSHIP_QUALIFIER_WEAK _EAGLContext* context;
     _OpenGLESAPI openGLESAPI;
     EGLBoolean wasCurrent; // EGL_TRUE if this context has been current at least once
 };
@@ -59,11 +60,7 @@ struct EAGL_egl_context
 struct EAGL_egl_surface
 {
     _EGLSurface Base;   /**< base class */
-    
-    //    Drawable drawable;
-    _EAGLSurface* eagl_drawable; // was glx_drawable glx_drawable
-    
-    void (*destroy)(_EAGLWindow *, _EAGLSurface*); // must [ eagl_drawable release]
+    __OWNERSHIP_QUALIFIER_WEAK _EAGLSurface* eagl_drawable;
 };
 
 /** iOS specific _EGLConfig */
@@ -95,21 +92,6 @@ EAGL_egl_config_index(_EGLConfig *conf)
     struct EAGL_egl_config *EAGL_conf = EAGL_egl_config(conf);
     return EAGL_conf->index;
 }
-
-/**
- * Free EAGL_egl_display
- */
-void freeEAGL_egl_display(struct EAGL_egl_display* disp);
-
-/**
- * Free EAGL_egl_context
- */
-void freeEAGL_egl_context(struct EAGL_egl_context* context);
-
-/**
- * Free EAGL_egl_surface
- */
-void freeEAGL_egl_surface(struct EAGL_egl_surface* surf);
 
 /** Find ressource query/result */
 struct findresource {

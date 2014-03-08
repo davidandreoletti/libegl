@@ -22,8 +22,8 @@
 
 - (void)dealloc
 {
-    [super dealloc];
-    [window release];
+    METHOD_DEALLOC(super);
+    OWNERSHIP_RELEASE(window);
 }
 
 @end
