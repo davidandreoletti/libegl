@@ -295,8 +295,9 @@ EGLBoolean eaglInitialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
     return EGL_TRUE;
 }
 
-EGLBoolean eaglTerminate (_EAGLWindow** dpy) {
-    return EGL_FALSE;
+EGLBoolean eaglTerminate (struct EAGL_egl_display *EAGL_dpy) {
+    OWNERSHIP_BRIDGE_TRANSFER(_EAGLWindow *,EAGL_dpy->dpy);
+    return EGL_TRUE;
 }
 
 /**

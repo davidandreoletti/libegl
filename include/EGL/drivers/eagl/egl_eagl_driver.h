@@ -27,7 +27,13 @@ typedef ProcAddressFuncPtr (*EAGLGETPROCADDRESSPROC)(const char * proc_name);
  *  \return EGL_TRUE if initialization succeeded.
  */
 typedef EGLBoolean (*EAGLINITIALIZEPROC)(struct EAGL_egl_display * dpy, _EGLDisplay *disp);
-typedef EGLBoolean (*EAGLTERMINATEPROC)(_EAGLWindow** dpy);
+
+/**
+ *  Terminates an EGL Display
+ *  \param dpy EGL Display.
+ *  \return EGL_TRUE if termination succeeded.
+ */
+typedef EGLBoolean (*EAGLTERMINATEPROC)(struct EAGL_egl_display *EAGL_dpy);
 
 /**
  *  Creates a native EGL Context

@@ -175,20 +175,14 @@ static EGLBoolean
 EAGL_eglTerminate(_EGLDriver *drv, _EGLDisplay *disp)
 {
     struct EAGL_egl_display *EAGL_dpy = EAGL_egl_display(disp);
+    struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
+
+    EAGL_drv->eaglTerminate(EAGL_dpy);
     
     _eglReleaseDisplayResources(drv, disp);
     _eglCleanupDisplay(disp);
-    
-    free(EAGL_dpy->visuals);
-//    free(EAGL_dpy->fbconfigs);
-    
-    if (!disp->PlatformDisplay) {
-//        XCloseDisplay(EAGL_dpy->dpy);
-        
-    }
-    free(EAGL_dpy);
-    
     disp->DriverData = NULL;
+    free(EAGL_dpy);
     
     return EGL_TRUE;
 }
