@@ -108,6 +108,11 @@ void sample0(void* eglDisplay, void* nativeWinSurface) {
     if (r == EGL_TRUE) {
         LOG(I, "")
     }
+    r = eglReleaseThread();
+    logEGLError("eglReleaseThread", eglGetError());
+    if (r == EGL_TRUE) {
+        LOG(I, "")
+    }
 }
 
 void run_sample0(TestPlatform* p) {

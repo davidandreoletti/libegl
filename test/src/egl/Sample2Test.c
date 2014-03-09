@@ -408,6 +408,7 @@ static void destroyRender() {
     eglDestroyContext(_display, _context);
     eglDestroySurface(_display, _surface);
     eglTerminate(_display);
+    eglReleaseThread();
     
     _display = EGL_NO_DISPLAY;
     _surface = EGL_NO_SURFACE;

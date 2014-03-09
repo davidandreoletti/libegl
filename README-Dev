@@ -1,15 +1,17 @@
 BUG/TODO (Priroity)
 
 TODO Priority List:
- - eaglMakeCurrent only working for Window Surface
+ - When is the OpenGL buffers associated to EGLSurface deleted ?
+ - Remove unsued _UIScreena
+ - App starts with 8.5Mb without EGL. Running the demo consumes more 16Mb. When the demo stops, the memory consumption is higher than 8.5Mb
  - eglMakeCurrent(EGLDisplay dpy, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT) 
- - "The first time a OpenGL or OpenGL ES context is made current the viewport and scissor dimensions are set to the size of the draw surface" in eglMakeCurrent
  - Add support for rotation ? Native Window Resizing
  - Add support for context lost
  - Replace MyFunctionNameFuncPtr into MYFUNCNAMEPROC 
  - contentScaleFactor == 1 ? IN EAGL_eglCreateWindowSurface
- - EGLNativeWindowType != NULL AND invalid (eg: 0x123456) Section 3.1 - Parameter validation - IF cannot be detected, then write warning in the documentation (consequence: EXEC_BAD_EXEC when deallocation EAGLSurface instance for instance)
- -- Dev HAS TO make sure all reference are valid until the surface is no longer in used
+FIXED - "The first time a OpenGL or OpenGL ES context is made current the viewport and scissor dimensions are set to the size of the draw surface" in eglMakeCurrent
+FIXED - EGLNativeWindowType != NULL AND invalid (eg: 0x123456) Section 3.1 - Parameter validation - IF cannot be detected, then write warning in the documentation (consequence: EXEC_BAD_EXEC when deallocation EAGLSurface instance for instance)
+      -- Dev HAS TO make sure all reference are valid until the surface is no longer in used
 
 
 Time: 12h
