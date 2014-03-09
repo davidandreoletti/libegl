@@ -82,36 +82,36 @@ void run_unit_tests(TestPlatform* p) {
     //   Some Unit Tests depends on it.
     // - f->validNativeDisplay display must be initialized at all times.
     //   Some Unit Tests depends on it.
-//    run_eglGetDisplay_unit_tests(p);
-//    run_eglInitialize_unit_tests(p);
-//    run_eglQueryString_unit_tests(p);
-//    run_eglGetConfigs_unit_tests(p);
-//    run_eglChooseConfig_unit_tests(p);
-//    run_eglBindAPI_unit_tests(p);
-//    run_eglCreateContext_unit_tests(p);
-//    run_eglDestroyContext_unit_tests(p);
-//    run_eglCreateWindowSurface_unit_tests(p);
-//    run_eglDestroySurface_unit_tests(p);
-//    run_eglQuerySurface_unit_tests(p);
-//    //run_eglQueryAPI_unit_tests(p); // See run_eglBindAPI_unit_tests
-//    run_eglQueryContext_unit_tests(p);
-//    //run_eglSurfaceAttrib_unit_tests(p);
-//    run_eglMakeCurrent_unit_tests(p);
-//    run_eglGetCurrentContext_unit_tests(p);
-//    run_eglGetCurrentSurface_unit_tests(p);
-//    run_eglGetCurrentDisplay_unit_tests(p);
-//    run_eglGetConfigAttrib_unit_tests(p);
-//    run_eglSwapBuffers_unit_tests(p);
-//    //run_eglGetError_unit_tests(p); // See any unit tests
-//    run_eglReleaseThread_unit_tests(p);
-//    run_eglTerminate_unit_tests(p);
+    run_eglGetDisplay_unit_tests(p);
+    run_eglInitialize_unit_tests(p);
+    run_eglQueryString_unit_tests(p);
+    run_eglGetConfigs_unit_tests(p);
+    run_eglChooseConfig_unit_tests(p);
+    run_eglBindAPI_unit_tests(p);
+    run_eglCreateContext_unit_tests(p);
+    run_eglDestroyContext_unit_tests(p);
+    run_eglCreateWindowSurface_unit_tests(p);
+    run_eglDestroySurface_unit_tests(p);
+    run_eglQuerySurface_unit_tests(p);
+    //run_eglQueryAPI_unit_tests(p); // See run_eglBindAPI_unit_tests
+    run_eglQueryContext_unit_tests(p);
+    //run_eglSurfaceAttrib_unit_tests(p);
+    run_eglMakeCurrent_unit_tests(p);
+    run_eglGetCurrentContext_unit_tests(p);
+    run_eglGetCurrentSurface_unit_tests(p);
+    run_eglGetCurrentDisplay_unit_tests(p);
+    run_eglGetConfigAttrib_unit_tests(p);
+    run_eglSwapBuffers_unit_tests(p);
+    //run_eglGetError_unit_tests(p); // See any unit tests
+    run_eglReleaseThread_unit_tests(p);
+    run_eglTerminate_unit_tests(p);
 }
 
 void run_samples(TestPlatform* p) {
     // EGL+OpenGL
     run_sample1(p);
-//    run_sample2(p);
+    run_sample2(p);
     // EGL
-//    run_sample0(p);
+    run_sample0(p);
 }
 
