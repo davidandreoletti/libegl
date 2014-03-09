@@ -94,7 +94,7 @@ typedef const char *(*EAGLQUERYSERVERSTRINGPROC)( _EAGLWindow *dpy, int screen, 
 typedef const char *(*EAGLGETCLIENTSTRINGPROC)( _EAGLWindow *dpy, int name );
 
 typedef void *(*EAGLCREATEWINDOWPROC)(struct EAGL_egl_display *EAGL_dpy, struct EAGL_egl_config *EAGL_conf, EGLNativeWindowType window, const EGLint *attrib_list, struct EAGL_egl_surface *EAGL_surf);
-typedef void *(*EAGLDESTROYWINDOWPROC)(void);
+typedef EGLBoolean (*EAGLDESTROYWINDOWPROC)(struct EAGL_egl_display *EAGL_dpy, struct EAGL_egl_surface *EAGL_surf);
 typedef void *(*EAGLCREATEPBUFFERPROC)(void);
 typedef void *(*EAGLDESTROYPBUFFERPROC)(void);
 typedef void *(*EAGLCREATENEWCONTEXTPROC)(void);

@@ -1,15 +1,15 @@
 BUG/TODO (Priroity)
 
 TODO Priority List:
- - Memory management C vs ObjC - dangling pointer ? use _weak and stuff
+ - eaglMakeCurrent only working for Window Surface
  - eglMakeCurrent(EGLDisplay dpy, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT) 
- - Mutex when locking ressources in eglCreateWindowSurface
  - "The first time a OpenGL or OpenGL ES context is made current the viewport and scissor dimensions are set to the size of the draw surface" in eglMakeCurrent
  - Add support for rotation ? Native Window Resizing
  - Add support for context lost
  - Replace MyFunctionNameFuncPtr into MYFUNCNAMEPROC 
  - contentScaleFactor == 1 ? IN EAGL_eglCreateWindowSurface
-
+ - EGLNativeWindowType != NULL AND invalid (eg: 0x123456) Section 3.1 - Parameter validation - IF cannot be detected, then write warning in the documentation (consequence: EXEC_BAD_EXEC when deallocation EAGLSurface instance for instance)
+ -- Dev HAS TO make sure all reference are valid until the surface is no longer in used
 
 
 Time: 12h

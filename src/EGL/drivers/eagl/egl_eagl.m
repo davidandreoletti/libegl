@@ -259,16 +259,30 @@ EAGL_eglDestroyContext(_EGLDriver *drv, _EGLDisplay *disp, _EGLContext *ctx)
 /**
  * Destroy a surface.  The display is allowed to be uninitialized.
  */
-static void
-destroy_surface(_EGLDisplay *disp, _EGLSurface *surf)
-{
+static EGLBoolean
+destroy_surface(_EGLDriver* drv, _EGLDisplay *disp, _EGLSurface *surf) {
+    struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
     struct EAGL_egl_display *EAGL_dpy = EAGL_egl_display(disp);
     struct EAGL_egl_surface *EAGL_surf = EAGL_egl_surface(surf);
     
-    if (EAGL_surf->destroy)
-        EAGL_surf->destroy(EAGL_dpy->dpy, EAGL_surf->eagl_drawable);
-    
-    free(EAGL_surf);
+    switch (surf->Type) {
+        case EGL_WINDOW_BIT:
+        {
+            if (EAGL_drv->eaglDestroyWindow(EAGL_dpy, EAGL_surf)) {
+                free(EAGL_surf);
+                return EGL_TRUE;
+            }
+        }
+        break;
+        default: {
+            // Not supported
+            _eglError(EGL_BAD_MATCH, "eglDestroySurface");
+            return EGL_FALSE;
+        }
+        break;
+    }
+    // Unknown error
+    return EGL_FALSE;
 }
 
 /**
@@ -301,9 +315,9 @@ EAGL_eglMakeCurrent(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *dsurf,
 
     if (ret) {
         if (_eglPutSurface(old_dsurf))
-            destroy_surface(disp, old_dsurf);
+            destroy_surface(drv, disp, old_dsurf);
         if (_eglPutSurface(old_rsurf))
-            destroy_surface(disp, old_rsurf);
+            destroy_surface(drv, disp, old_rsurf);
         /* no destroy? */
         _eglPutContext(old_ctx);
     }
@@ -463,11 +477,19 @@ EAGL_eglCreatePbufferSurface(_EGLDriver *drv, _EGLDisplay *disp,
 static EGLBoolean
 EAGL_eglDestroySurface(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *surf)
 {
-    (void) drv;
+    if (surf == NULL) {
+        _eglError(EGL_BAD_SURFACE, "eglDestroySurface");
+        return EGL_FALSE;
+    }
     
-    if (_eglPutSurface(surf))
-        destroy_surface(disp, surf);
-    
+    if (_eglPutSurface(surf)) {
+        if (!destroy_surface(drv, disp, surf)) {
+            // FIXME: What error code should be reported ?
+            return EGL_FALSE;
+        }
+        _eglError(EGL_SUCCESS, "eglDestroySurface");
+    }
+
     return EGL_TRUE;
 }
 
