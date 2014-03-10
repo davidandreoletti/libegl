@@ -18,6 +18,7 @@
 #include "EGL/drivers/eagl/egl_eagl_driver_ios.h"
 #include "EGL/drivers/eagl/egl_eagl_ios_eaglsurface.h"
 #include "EGL/drivers/eagl/opengles/opengles_ios.h"
+#include "EGL/drivers/eagl/egl_eagl_global.h"
 
 #include <OpenGLES/EAGL.h>
 #include <OpenGLES/EAGLDrawable.h>
@@ -25,6 +26,24 @@
 #include <QuartzCore/QuartzCore.h>
 
 #endif  // _EGL_OS_APPLE_IOS
+
+#define _EGL_CHECK_CONTEXTLOST(disp, ret) \
+    do {                                                 \
+        drv = _eglCheckContextLost(disp, __FUNCTION__);  \
+        if (!drv) {return ret;}                          \
+    } while (0)
+
+static INLINE _EGLDriver *
+_eglCheckContextLost(_EGLDisplay *disp, const char *msg) {
+    _eglLockMutex(_eaglGlobal.Mutex);
+    bool contextLost = !_eaglGlobal.foregroundApplication;
+    _eglUnlockMutex(_eaglGlobal.Mutex);
+    if (contextLost) {
+        _eglError(EGL_CONTEXT_LOST, msg);
+        return NULL;
+    }
+    return disp->Driver;
+}
 
 static void
 check_extensions(struct EAGL_egl_driver *EAGL_drv,
@@ -295,10 +314,13 @@ EAGL_eglMakeCurrent(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *dsurf,
     _EGLSurface *old_dsurf, *old_rsurf;
     EGLBoolean ret = EGL_FALSE;
     
+    _EGL_CHECK_CONTEXTLOST(disp, EGL_FALSE);
+    
     if (!ctx) {
         _eglError(EGL_BAD_CONTEXT, "eglMakeCurrent");
         return EGL_FALSE;
     }
+    
     /* make new bindings */
     if (!_eglBindContext(ctx, dsurf, rsurf, &old_ctx, &old_dsurf, &old_rsurf)) {
         // TODO: Anything to do here ?
@@ -498,6 +520,8 @@ EAGL_eglSwapBuffers(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *draw)
     struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
     struct EAGL_egl_display *EAGL_dpy = EAGL_egl_display(disp);
     struct EAGL_egl_surface *EAGL_surf = EAGL_egl_surface(draw);
+    
+    _EGL_CHECK_CONTEXTLOST(disp, EGL_FALSE);
     
     if (EAGL_surf == NULL) {
         return _eglError(EGL_BAD_SURFACE, "EAGL_eglSwapBuffers");

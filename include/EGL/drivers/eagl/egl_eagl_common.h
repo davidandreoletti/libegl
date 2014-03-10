@@ -22,6 +22,7 @@
 #include "EGL/egllog.h"
 #include "EGL/eglsurface.h"
 #include "EGL/drivers/eagl/egl_eagl_typedefs.h"
+#include "EGL/drivers/eagl/egl_eagl_global.h"
 #include "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
 
 #define CALLOC_STRUCT(T)   (struct T *) calloc(1, sizeof(struct T))

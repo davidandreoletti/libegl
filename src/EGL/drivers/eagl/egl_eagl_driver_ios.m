@@ -265,10 +265,33 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy/*, void** 
     
 }
 
+static void (^onContextLostOrRetrieved)(NSNotification*) = NULL;
 
 EGLBoolean eaglInitialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
     if (!dpy) {
         return EGL_FALSE;
+    }
+    
+    if (onContextLostOrRetrieved == NULL) {
+        onContextLostOrRetrieved = ^ (NSNotification* notification){
+            if ([notification.name isEqualToString:UIApplicationDidEnterBackgroundNotification]) {
+                setContextLost(&_eaglGlobal, true);
+            }
+            else if ([notification.name isEqualToString:UIApplicationWillEnterForegroundNotification]) {
+                setContextLost(&_eaglGlobal, false);
+            }
+            else if ([notification.name isEqualToString:UIApplicationWillTerminateNotification]) {
+                NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+                [center removeObserver:onContextLostOrRetrieved];
+                onContextLostOrRetrieved = NULL;
+                setContextLost(&_eaglGlobal, false);
+            }
+        };
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
+        [center addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:mainQueue usingBlock:onContextLostOrRetrieved];
+        [center addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:mainQueue usingBlock:onContextLostOrRetrieved];
+        [center addObserverForName:UIApplicationWillTerminateNotification object:nil queue:mainQueue usingBlock:onContextLostOrRetrieved];
     }
     
     if (!dpy->dpy) {

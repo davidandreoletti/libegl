@@ -110,6 +110,9 @@ const char* getErrorString(EGLint e) {
         case EGL_BAD_NATIVE_WINDOW:
             s = "EGL_BAD_NATIVE_WINDOW";
             break;
+        case EGL_CONTEXT_LOST:
+            s = "EGL_CONTEXT_LOST";
+            break;
         default:
             s = "UNDEFINED ERROR. Have you forgotten to add an EGL error ?";
             break;
