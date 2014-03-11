@@ -11,6 +11,7 @@
 
 #include "EGL/egltypedefs.h"
 #include "EGL/drivers/eagl/egl_eagl_driver.h"
+#include "EGL/drivers/eagl/egl_eagl_display.h"
 
 /**
  * Creates EGLConfig(s) for the iOS platform

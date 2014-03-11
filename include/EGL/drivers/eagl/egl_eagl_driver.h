@@ -13,6 +13,7 @@
 
 #include "EGL/egldriver.h"
 #include "EGL/drivers/eagl/egl_eagl_typedefs.h"
+#include "EGL/drivers/eagl/egl_eagl_display.h"
 #include "EGL/drivers/eagl/egl_eagl_common.h"
 
 typedef void(*ProcAddressFuncPtr)();

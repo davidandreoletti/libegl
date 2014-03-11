@@ -18,7 +18,8 @@
 #include "EGL/drivers/eagl/egl_eagl_driver_ios.h"
 #include "EGL/drivers/eagl/egl_eagl_ios_eaglsurface.h"
 #include "EGL/drivers/eagl/opengles/opengles_ios.h"
-#include "EGL/drivers/eagl/egl_eagl_global.h"
+#include "EGL/drivers/eagl/egl_eagl_globals.h"
+#include "EGL/drivers/eagl/egl_eagl_display.h"
 
 #include <OpenGLES/EAGL.h>
 #include <OpenGLES/EAGLDrawable.h>

@@ -6,7 +6,7 @@
 //  Copyright 2013 IO Stark. All rights reserved.
 //
 
-#include "EGL/drivers/eagl/egl_eagl_global.h"
+#include "EGL/drivers/eagl/egl_eagl_globals.h"
 #include "eglmutex.h"
 
 static _EGL_DECLARE_MUTEX(_eaglGlobalMutex);
@@ -27,6 +27,3 @@ void setContextLost(struct EAGL_egl_global* global, bool value) {
     global->foregroundApplication = value;
     _eglUnlockMutex(&_eaglGlobalMutex);
 }
-
-
-

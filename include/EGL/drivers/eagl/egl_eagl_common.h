@@ -22,31 +22,11 @@
 #include "EGL/egllog.h"
 #include "EGL/eglsurface.h"
 #include "EGL/drivers/eagl/egl_eagl_typedefs.h"
-#include "EGL/drivers/eagl/egl_eagl_global.h"
+#include "EGL/drivers/eagl/egl_eagl_globals.h"
 #include "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
 
 #define CALLOC_STRUCT(T)   (struct T *) calloc(1, sizeof(struct T))
 #define Bool    bool
-
-/** driver data of _EGLDisplay */
-struct EAGL_egl_display
-{
-//    _EGLDisplay Base;
-    _EAGLWindow *dpy;
-    _UIScreen *visuals; // Was XVisualInfo == pixel format
-    //EAGLFBConfig *fbconfigs;
-    
-    int VersionMajor, VersionMinor; // was glx_maj, glx_min
-    
-    const char *extensions;
-    EGLBoolean have_make_current_read;
-    //EGLBoolean have_fbconfig;
-    EGLBoolean have_pbuffer;
-    
-    /* workaround quirks of different EAGL implementations */
-    EGLBoolean single_buffered_quirk;
-    EGLBoolean glx_window_quirk;
-};
 
 /** subclass of _EGLContext */
 struct EAGL_egl_context

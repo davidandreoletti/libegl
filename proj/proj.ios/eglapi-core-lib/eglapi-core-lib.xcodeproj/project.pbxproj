@@ -107,8 +107,9 @@
 		C7A8C94D1721A59F0080BD68 /* khrplatform.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A8C94C1721A59F0080BD68 /* khrplatform.h */; };
 		C7A8C9511721A95B0080BD68 /* khrplatform.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7A8C94C1721A59F0080BD68 /* khrplatform.h */; };
 		C7BB03A5160DECA8000AD3AA /* libegl.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C70CEDAC15E7BF5100017A65 /* libegl.a */; };
-		F630BF4818CDF3B500816B11 /* egl_eagl_global.h in Headers */ = {isa = PBXBuildFile; fileRef = F630BF4718CDF3B500816B11 /* egl_eagl_global.h */; };
-		F630BF4A18CDF53D00816B11 /* egl_eagl_global.c in Sources */ = {isa = PBXBuildFile; fileRef = F630BF4918CDF53C00816B11 /* egl_eagl_global.c */; };
+		F630BF4818CDF3B500816B11 /* egl_eagl_globals.h in Headers */ = {isa = PBXBuildFile; fileRef = F630BF4718CDF3B500816B11 /* egl_eagl_globals.h */; };
+		F630BF4A18CDF53D00816B11 /* egl_eagl_globals.c in Sources */ = {isa = PBXBuildFile; fileRef = F630BF4918CDF53C00816B11 /* egl_eagl_globals.c */; };
+		F630BF4C18CE047B00816B11 /* egl_eagl_display.h in Headers */ = {isa = PBXBuildFile; fileRef = F630BF4B18CE047B00816B11 /* egl_eagl_display.h */; };
 		F639689218AAF7110076C110 /* AppleIOSMemoryManagement.h in Headers */ = {isa = PBXBuildFile; fileRef = F639689118AAF7110076C110 /* AppleIOSMemoryManagement.h */; };
 		F639689418AD9DB60076C110 /* AppleIOSMemoryManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = F639689318AD9DB60076C110 /* AppleIOSMemoryManagement.m */; };
 		F639689618ADA4B40076C110 /* egl_eagl_common.m in Sources */ = {isa = PBXBuildFile; fileRef = F639689518ADA4B40076C110 /* egl_eagl_common.m */; };
@@ -252,8 +253,9 @@
 		C7A86FBE172B94BC00739D0D /* eglmemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglmemory.h; sourceTree = "<group>"; };
 		C7A8C94C1721A59F0080BD68 /* khrplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = khrplatform.h; sourceTree = "<group>"; };
 		C7EC7983162327B1003F39D6 /* eglapi-core-libTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "eglapi-core-libTests-Info.plist"; sourceTree = "<group>"; };
-		F630BF4718CDF3B500816B11 /* egl_eagl_global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_global.h; sourceTree = "<group>"; };
-		F630BF4918CDF53C00816B11 /* egl_eagl_global.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = egl_eagl_global.c; sourceTree = "<group>"; };
+		F630BF4718CDF3B500816B11 /* egl_eagl_globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_globals.h; sourceTree = "<group>"; };
+		F630BF4918CDF53C00816B11 /* egl_eagl_globals.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = egl_eagl_globals.c; sourceTree = "<group>"; };
+		F630BF4B18CE047B00816B11 /* egl_eagl_display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_display.h; sourceTree = "<group>"; };
 		F639689118AAF7110076C110 /* AppleIOSMemoryManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleIOSMemoryManagement.h; sourceTree = "<group>"; };
 		F639689318AD9DB60076C110 /* AppleIOSMemoryManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppleIOSMemoryManagement.m; path = ios/AppleIOSMemoryManagement.m; sourceTree = "<group>"; };
 		F639689518ADA4B40076C110 /* egl_eagl_common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = egl_eagl_common.m; sourceTree = "<group>"; };
@@ -506,7 +508,8 @@
 		C7A86FD8172BCDDE00739D0D /* eagl */ = {
 			isa = PBXGroup;
 			children = (
-				F630BF4718CDF3B500816B11 /* egl_eagl_global.h */,
+				F630BF4B18CE047B00816B11 /* egl_eagl_display.h */,
+				F630BF4718CDF3B500816B11 /* egl_eagl_globals.h */,
 				F639689018AAF7110076C110 /* ios */,
 				F65C918C18A34665008418BC /* opengles */,
 				C72C34ED1731E83B005B5745 /* egl_eagl_driver_ios.h */,
@@ -534,7 +537,7 @@
 		C7A86FDC172BCE3400739D0D /* eagl */ = {
 			isa = PBXGroup;
 			children = (
-				F630BF4918CDF53C00816B11 /* egl_eagl_global.c */,
+				F630BF4918CDF53C00816B11 /* egl_eagl_globals.c */,
 				F639689518ADA4B40076C110 /* egl_eagl_common.m */,
 				F65C918F18A34807008418BC /* opengles */,
 				C70713CE1821D5620020806A /* ios */,
@@ -592,6 +595,7 @@
 				C7A86F80172B8B2300739D0D /* eglarray.h in Headers */,
 				C7A86F81172B8B2300739D0D /* eglcompiler.h in Headers */,
 				C7A86F82172B8B2300739D0D /* eglconfig.h in Headers */,
+				F630BF4C18CE047B00816B11 /* egl_eagl_display.h in Headers */,
 				C7A86F83172B8B2300739D0D /* eglcontext.h in Headers */,
 				C7A86F84172B8B2300739D0D /* eglcurrent.h in Headers */,
 				C7A86F85172B8B2300739D0D /* egldefines.h in Headers */,
@@ -617,7 +621,7 @@
 				C72C34CE1730FC08005B5745 /* egl_eagl_common.h in Headers */,
 				C72C34CF1730FC08005B5745 /* egl_eagl.h in Headers */,
 				F65C918E18A3468C008418BC /* opengles_ios.h in Headers */,
-				F630BF4818CDF3B500816B11 /* egl_eagl_global.h in Headers */,
+				F630BF4818CDF3B500816B11 /* egl_eagl_globals.h in Headers */,
 				C72C34D51730FF12005B5745 /* egl_eagl_driver.h in Headers */,
 				C72C34E21731445D005B5745 /* egl_eagl_typedefs.h in Headers */,
 				C72C34E617314A71005B5745 /* egl_eagl_ios_eaglcontext.h in Headers */,
@@ -782,7 +786,7 @@
 				C7A86FB7172B8B3600739D0D /* eglsync.c in Sources */,
 				C72C34CB1730FBE5005B5745 /* egl_eagl.m in Sources */,
 				C72C34F01731E868005B5745 /* egl_eagl_driver_ios.m in Sources */,
-				F630BF4A18CDF53D00816B11 /* egl_eagl_global.c in Sources */,
+				F630BF4A18CDF53D00816B11 /* egl_eagl_globals.c in Sources */,
 				C72C34F21732B31C005B5745 /* egl_eagl_ios_eaglwindow.mm in Sources */,
 				F639689618ADA4B40076C110 /* egl_eagl_common.m in Sources */,
 				C790C5A717FE45E000C614D4 /* egl_eagl_ios_eaglsurface.m in Sources */,
