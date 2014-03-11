@@ -24,18 +24,6 @@ EGLBoolean
 create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy/*, void** configs,*/, EGLint* num_configs);
 
 /**
- * Convert _EAGL_egl_Config_iOS(s) to EGLConfig(s) for the iOS platform
- * \param EAGL_drv Driver
- * \param dpy Display to store created EGConfig to
- * \param eagl_ios_config iOS format config
- * \param EAGL_conf COnverted EGLConfig
- * \return EGL_TRUE if convertion is successfull. EGL_FALSE otherwise.
- */
-EGLBoolean convert_eagl_ios_config (struct EAGL_egl_driver *EAGL_drv,
-                                    struct EAGL_egl_display *EAGL_dpy,
-                                    _EAGL_egl_Config_iOS *eagl_ios_config,
-                                    struct EAGL_egl_config *EAGL_conf);
-/**
  *  Loads iOS EAGL driver
  *  \param args
  *  \return Driver
