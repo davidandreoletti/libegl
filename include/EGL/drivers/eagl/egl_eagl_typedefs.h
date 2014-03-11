@@ -13,7 +13,6 @@
 
 #include "EGL/drivers/eagl/egl_eagl_ios_eaglwindow.h"
 #include "EGL/drivers/eagl/egl_eagl_ios_eaglcontext.h"
-#include "EGL/drivers/eagl/egl_eagl_ios_eaglscreen.h"
 #include "EGL/drivers/eagl/egl_eagl_ios_eaglsurface.h"
 #include "EGL/drivers/eagl/egl_eagl_ios_eaglimage.h"
 #include "EGL/drivers/eagl/opengles/opengles_ios.h"
@@ -21,7 +20,6 @@
 typedef _UIWindow _EAGLWindow;
 typedef __EAGLIOSContext _EAGLContext;
 typedef __OpenGLESAPI _OpenGLESAPI;
-typedef _UIScreen _EAGLScreen;
 typedef __EAGLSurface _EAGLSurface;
 typedef __EAGLImage _EAGLImage;
 

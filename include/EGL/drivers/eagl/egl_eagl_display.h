@@ -18,8 +18,6 @@ struct EAGL_egl_display
 {
     //    _EGLDisplay Base;
     _EAGLWindow *dpy;
-    _UIScreen *visuals; // Was XVisualInfo == pixel format
-    //EAGLFBConfig *fbconfigs;
     
     int VersionMajor, VersionMinor; // was glx_maj, glx_min
     

@@ -44,7 +44,6 @@
 		C72C34D51730FF12005B5745 /* egl_eagl_driver.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34D41730FF12005B5745 /* egl_eagl_driver.h */; };
 		C72C34E21731445D005B5745 /* egl_eagl_typedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34E11731445D005B5745 /* egl_eagl_typedefs.h */; };
 		C72C34E617314A71005B5745 /* egl_eagl_ios_eaglcontext.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34E317314A70005B5745 /* egl_eagl_ios_eaglcontext.h */; };
-		C72C34E717314A71005B5745 /* egl_eagl_ios_eaglscreen.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34E417314A70005B5745 /* egl_eagl_ios_eaglscreen.h */; };
 		C72C34E817314A71005B5745 /* egl_eagl_ios_eaglwindow.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34E517314A71005B5745 /* egl_eagl_ios_eaglwindow.h */; };
 		C72C34EA17314FA6005B5745 /* egl_eagl_ios_eaglsurface.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34E917314FA6005B5745 /* egl_eagl_ios_eaglsurface.h */; };
 		C72C34EC173150F0005B5745 /* egl_eagl_ios_eaglimage.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34EB173150F0005B5745 /* egl_eagl_ios_eaglimage.h */; };
@@ -191,7 +190,6 @@
 		C72C34D41730FF12005B5745 /* egl_eagl_driver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_driver.h; sourceTree = "<group>"; };
 		C72C34E11731445D005B5745 /* egl_eagl_typedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_typedefs.h; sourceTree = "<group>"; };
 		C72C34E317314A70005B5745 /* egl_eagl_ios_eaglcontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglcontext.h; sourceTree = "<group>"; };
-		C72C34E417314A70005B5745 /* egl_eagl_ios_eaglscreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglscreen.h; sourceTree = "<group>"; };
 		C72C34E517314A71005B5745 /* egl_eagl_ios_eaglwindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglwindow.h; sourceTree = "<group>"; };
 		C72C34E917314FA6005B5745 /* egl_eagl_ios_eaglsurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglsurface.h; sourceTree = "<group>"; };
 		C72C34EB173150F0005B5745 /* egl_eagl_ios_eaglimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglimage.h; sourceTree = "<group>"; };
@@ -526,7 +524,6 @@
 				C72C34EB173150F0005B5745 /* egl_eagl_ios_eaglimage.h */,
 				C72C34E917314FA6005B5745 /* egl_eagl_ios_eaglsurface.h */,
 				C72C34E317314A70005B5745 /* egl_eagl_ios_eaglcontext.h */,
-				C72C34E417314A70005B5745 /* egl_eagl_ios_eaglscreen.h */,
 				C72C34E517314A71005B5745 /* egl_eagl_ios_eaglwindow.h */,
 				C72C34E11731445D005B5745 /* egl_eagl_typedefs.h */,
 				C72C34D41730FF12005B5745 /* egl_eagl_driver.h */,
@@ -638,7 +635,6 @@
 				F630BF5218CF375200816B11 /* egl_eagl_config.h in Headers */,
 				C72C34E21731445D005B5745 /* egl_eagl_typedefs.h in Headers */,
 				C72C34E617314A71005B5745 /* egl_eagl_ios_eaglcontext.h in Headers */,
-				C72C34E717314A71005B5745 /* egl_eagl_ios_eaglscreen.h in Headers */,
 				C72C34E817314A71005B5745 /* egl_eagl_ios_eaglwindow.h in Headers */,
 				C72C34EA17314FA6005B5745 /* egl_eagl_ios_eaglsurface.h in Headers */,
 				C72C34EC173150F0005B5745 /* egl_eagl_ios_eaglimage.h in Headers */,

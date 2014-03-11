@@ -76,7 +76,7 @@ typedef EGLBoolean (*EAGLMAKECURRENTPROC)(_EAGLWindow *dpy, struct EAGL_egl_surf
  */
 typedef EGLBoolean (*EAGLSWAPBUFFERSPROC)( struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf);
 
-typedef _EAGLImage*/*GLXPixmap*/ (*EAGLCREATEPIXMAPPROC)( _EAGLWindow *dpy, _UIScreen *visual, _EAGLImage* pixmap );
+typedef _EAGLImage*/*GLXPixmap*/ (*EAGLCREATEPIXMAPPROC)( _EAGLWindow *dpy, _EAGLImage* pixmap );
 typedef void (*EAGLDESTROYPIXMAPPROC)( _EAGLWindow *dpy, _EAGLImage*/*GLXPixmap*/ pixmap );
 /**
  * Query version
@@ -94,7 +94,7 @@ typedef EGLBoolean (*EAGLQUERYVERSIONPROC)( _EAGLWindow *dpy, int *maj, int *min
  * \param value Value for attribute
  */
 typedef EGLBoolean (*EAGLQUERYYSURFACEPROC) (_EAGLSurface* surface, int attrib, int *value);
-typedef int (*EAGLGETCONFIGSPROC)( _EAGLWindow *dpy, _UIScreen *visual, int attrib, int *value );
+typedef int (*EAGLGETCONFIGSPROC)( _EAGLWindow *dpy, int attrib, int *value );
 typedef void (*EAGLWAITGLPROC)( void );
 typedef void (*EAGLWAITNATIVEPROC)( void );
 typedef const char *(*EAGLQUERYEXTENSIONSSTRINGPROC)( _EAGLWindow *dpy, int screen );

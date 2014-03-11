@@ -600,9 +600,7 @@ EGLBoolean eaglSwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_s
     return BOOL_TO_EGLBoolean(b);
 }
 
-_EAGLImage*/*GLXPixmap*/ eaglCreatePixmap(_EAGLWindow *dpy,
-                                       _UIScreen *visual,
-                                       _EAGLImage* pixmap ) {
+_EAGLImage*/*GLXPixmap*/ eaglCreatePixmap(_EAGLWindow *dpy, _EAGLImage* pixmap ) {
     return NULL;
 }
 
@@ -619,7 +617,7 @@ EGLBoolean eaglQueryVersion( _EAGLWindow *dpy, int *maj, int *min ) {
     return EGL_FALSE;
 }
 
-int eaglGetConfigs( _EAGLWindow *dpy, _UIScreen *visual, int attrib, int *value ) {
+int eaglGetConfigs( _EAGLWindow *dpy, int attrib, int *value ) {
     return 0;
 }
 
