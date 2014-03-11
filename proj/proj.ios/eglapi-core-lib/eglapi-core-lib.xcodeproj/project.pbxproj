@@ -106,6 +106,10 @@
 		C7A8C94D1721A59F0080BD68 /* khrplatform.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A8C94C1721A59F0080BD68 /* khrplatform.h */; };
 		C7A8C9511721A95B0080BD68 /* khrplatform.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7A8C94C1721A59F0080BD68 /* khrplatform.h */; };
 		C7BB03A5160DECA8000AD3AA /* libegl.a in CopyFiles */ = {isa = PBXBuildFile; fileRef = C70CEDAC15E7BF5100017A65 /* libegl.a */; };
+		F61BCB2C18CF4E480015D31E /* opengles1_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = F61BCB2B18CF4E480015D31E /* opengles1_ios.h */; };
+		F61BCB2E18CF4F840015D31E /* opengles2_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = F61BCB2D18CF4F840015D31E /* opengles2_ios.h */; };
+		F61BCB3118CF4FD90015D31E /* opengles1_ios.c in Sources */ = {isa = PBXBuildFile; fileRef = F61BCB2F18CF4FD90015D31E /* opengles1_ios.c */; };
+		F61BCB3218CF4FD90015D31E /* opengles2_ios.c in Sources */ = {isa = PBXBuildFile; fileRef = F61BCB3018CF4FD90015D31E /* opengles2_ios.c */; };
 		F630BF4818CDF3B500816B11 /* egl_eagl_globals.h in Headers */ = {isa = PBXBuildFile; fileRef = F630BF4718CDF3B500816B11 /* egl_eagl_globals.h */; };
 		F630BF4A18CDF53D00816B11 /* egl_eagl_globals.c in Sources */ = {isa = PBXBuildFile; fileRef = F630BF4918CDF53C00816B11 /* egl_eagl_globals.c */; };
 		F630BF4C18CE047B00816B11 /* egl_eagl_display.h in Headers */ = {isa = PBXBuildFile; fileRef = F630BF4B18CE047B00816B11 /* egl_eagl_display.h */; };
@@ -254,6 +258,10 @@
 		C7A86FBE172B94BC00739D0D /* eglmemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglmemory.h; sourceTree = "<group>"; };
 		C7A8C94C1721A59F0080BD68 /* khrplatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = khrplatform.h; sourceTree = "<group>"; };
 		C7EC7983162327B1003F39D6 /* eglapi-core-libTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "eglapi-core-libTests-Info.plist"; sourceTree = "<group>"; };
+		F61BCB2B18CF4E480015D31E /* opengles1_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengles1_ios.h; sourceTree = "<group>"; };
+		F61BCB2D18CF4F840015D31E /* opengles2_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengles2_ios.h; sourceTree = "<group>"; };
+		F61BCB2F18CF4FD90015D31E /* opengles1_ios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opengles1_ios.c; sourceTree = "<group>"; };
+		F61BCB3018CF4FD90015D31E /* opengles2_ios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opengles2_ios.c; sourceTree = "<group>"; };
 		F630BF4718CDF3B500816B11 /* egl_eagl_globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_globals.h; sourceTree = "<group>"; };
 		F630BF4918CDF53C00816B11 /* egl_eagl_globals.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = egl_eagl_globals.c; sourceTree = "<group>"; };
 		F630BF4B18CE047B00816B11 /* egl_eagl_display.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_display.h; sourceTree = "<group>"; };
@@ -575,6 +583,8 @@
 		F65C918C18A34665008418BC /* opengles */ = {
 			isa = PBXGroup;
 			children = (
+				F61BCB2D18CF4F840015D31E /* opengles2_ios.h */,
+				F61BCB2B18CF4E480015D31E /* opengles1_ios.h */,
 				F65C918D18A3468C008418BC /* opengles_ios.h */,
 			);
 			path = opengles;
@@ -583,6 +593,8 @@
 		F65C918F18A34807008418BC /* opengles */ = {
 			isa = PBXGroup;
 			children = (
+				F61BCB2F18CF4FD90015D31E /* opengles1_ios.c */,
+				F61BCB3018CF4FD90015D31E /* opengles2_ios.c */,
 				F65C919018A3481D008418BC /* opengles_ios.c */,
 			);
 			path = opengles;
@@ -605,6 +617,7 @@
 				C7A86F83172B8B2300739D0D /* eglcontext.h in Headers */,
 				C7A86F84172B8B2300739D0D /* eglcurrent.h in Headers */,
 				C7A86F85172B8B2300739D0D /* egldefines.h in Headers */,
+				F61BCB2C18CF4E480015D31E /* opengles1_ios.h in Headers */,
 				C7A86F86172B8B2300739D0D /* egldisplay.h in Headers */,
 				C7A86F87172B8B2300739D0D /* egldriver.h in Headers */,
 				C7A86F88172B8B2300739D0D /* eglext.h in Headers */,
@@ -614,6 +627,7 @@
 				C7A86F8C172B8B2300739D0D /* eglmesaext.h in Headers */,
 				C7A86F8D172B8B2300739D0D /* eglmisc.h in Headers */,
 				C7A86F8E172B8B2300739D0D /* eglmode.h in Headers */,
+				F61BCB2E18CF4F840015D31E /* opengles2_ios.h in Headers */,
 				C7A86F8F172B8B2300739D0D /* eglmutex.h in Headers */,
 				F639689218AAF7110076C110 /* AppleIOSMemoryManagement.h in Headers */,
 				C7A86F91172B8B2300739D0D /* eglscreen.h in Headers */,
@@ -779,11 +793,13 @@
 				C7A86FA8172B8B3600739D0D /* eglarray.c in Sources */,
 				C7A86FA9172B8B3600739D0D /* eglconfig.c in Sources */,
 				C7A86FAA172B8B3600739D0D /* eglcontext.c in Sources */,
+				F61BCB3218CF4FD90015D31E /* opengles2_ios.c in Sources */,
 				C7A86FAB172B8B3600739D0D /* eglcurrent.c in Sources */,
 				C7A86FAC172B8B3600739D0D /* egldisplay.c in Sources */,
 				F639689418AD9DB60076C110 /* AppleIOSMemoryManagement.m in Sources */,
 				C7A86FAD172B8B3600739D0D /* egldriver.c in Sources */,
 				C7A86FAE172B8B3600739D0D /* eglfallbacks.c in Sources */,
+				F61BCB3118CF4FD90015D31E /* opengles1_ios.c in Sources */,
 				C7A86FAF172B8B3600739D0D /* eglglobals.c in Sources */,
 				C7A86FB0172B8B3600739D0D /* eglimage.c in Sources */,
 				C7A86FB1172B8B3600739D0D /* egllog.c in Sources */,
