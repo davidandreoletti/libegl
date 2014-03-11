@@ -23,19 +23,11 @@
 #include "EGL/eglsurface.h"
 #include "EGL/drivers/eagl/egl_eagl_typedefs.h"
 #include "EGL/drivers/eagl/egl_eagl_globals.h"
+#include "EGL/drivers/eagl/egl_eagl_context.h"
 #include "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
 
 #define CALLOC_STRUCT(T)   (struct T *) calloc(1, sizeof(struct T))
 #define Bool    bool
-
-/** subclass of _EGLContext */
-struct EAGL_egl_context
-{
-    _EGLContext Base;   /**< base class */
-    __OWNERSHIP_QUALIFIER_WEAK _EAGLContext* context;
-    _OpenGLESAPI openGLESAPI;
-    EGLBoolean wasCurrent; // EGL_TRUE if this context has been current at least once
-};
 
 /** subclass of _EGLSurface */
 struct EAGL_egl_surface
