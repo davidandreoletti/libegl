@@ -17,15 +17,15 @@
 #define GL_GET_ERROR(f, error, step) { f; error = glGetError();  step += 1; }
 #define GL_CLEANUP_ERROR(condition, aLabel) if (condition) {goto aLabel;}
 
-typedef GLvoid (*glGenBuffersFuncPtr) (GLsizei n, GLuint* buffers);
-typedef GLvoid (*glBindBufferFuncPtr) (GLenum target,  GLuint framebuffer);
-typedef GLvoid (*glDeleteBuffersFuncPtr) (GLsizei n, const GLuint* buffers);
-typedef GLvoid (*glFramebufferRenderbufferFuncPtr) (GLenum target,  GLenum attachment,  GLenum renderbuffertarget,  GLuint renderbuffer);
-typedef GLvoid (*glGetRenderbufferParameterivFuncPtr) (GLenum target,  GLenum pname,  GLint * params);
-typedef GLenum (*glCheckFramebufferStatusFuncPtr) (GLenum target);
-typedef GLvoid (*glRenderbufferStorageFuncPtr) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
-typedef void (*glViewportFuncPtr)(GLint x,  GLint y,  GLsizei width,  GLsizei height);
-typedef void (*glScissorFuncPtr) (GLint x,  GLint y,  GLsizei width,  GLsizei height);
+typedef GLvoid (*GLGenBuffers_t) (GLsizei n, GLuint* buffers);
+typedef GLvoid (*GLBindBuffer_t) (GLenum target,  GLuint framebuffer);
+typedef GLvoid (*GLDeleteBuffers_t) (GLsizei n, const GLuint* buffers);
+typedef GLvoid (*GLFramebufferRenderbuffer_t) (GLenum target,  GLenum attachment,  GLenum renderbuffertarget,  GLuint renderbuffer);
+typedef GLvoid (*GLGetRenderbufferParameteriv_t) (GLenum target,  GLenum pname,  GLint * params);
+typedef GLenum (*GLCheckFramebufferStatus_t) (GLenum target);
+typedef GLvoid (*GLRenderbufferStorage_t) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
+typedef void (*GLViewport_t)(GLint x,  GLint y,  GLsizei width,  GLsizei height);
+typedef void (*GLScissor_t) (GLint x,  GLint y,  GLsizei width,  GLsizei height);
 
 /**
  * OpenGL ES API
@@ -33,28 +33,28 @@ typedef void (*glScissorFuncPtr) (GLint x,  GLint y,  GLsizei width,  GLsizei he
 typedef struct {
     int majorVersion;
     int minorVersion;
-    glGenBuffersFuncPtr glGenFrameBuffers;
-    glBindBufferFuncPtr glBindFrameBuffers;
+    GLGenBuffers_t glGenFrameBuffers;
+    GLBindBuffer_t glBindFrameBuffers;
     GLuint GL_FRAMEBUFFER_;
-    glGenBuffersFuncPtr glGenRenderBuffers;
-    glBindBufferFuncPtr glBindRenderBuffers;
+    GLGenBuffers_t glGenRenderBuffers;
+    GLBindBuffer_t glBindRenderBuffers;
     GLuint GL_RENDERBUFFER_;
-    glDeleteBuffersFuncPtr glDeleteFrameBuffers;
-    glDeleteBuffersFuncPtr glDeleteRenderBuffers;
-    glFramebufferRenderbufferFuncPtr glFramebufferRenderbuffer;
+    GLDeleteBuffers_t glDeleteFrameBuffers;
+    GLDeleteBuffers_t glDeleteRenderBuffers;
+    GLFramebufferRenderbuffer_t glFramebufferRenderbuffer;
     GLuint GL_COLOR_ATTACHMENT0_;
     GLuint GL_DEPTH_ATTACHMENT_;
-    glGetRenderbufferParameterivFuncPtr glGetRenderbufferParameteriv;
+    GLGetRenderbufferParameteriv_t glGetRenderbufferParameteriv;
     GLuint GL_RENDERBUFFER_WIDTH_;
     GLuint GL_RENDERBUFFER_HEIGHT_;
-    glCheckFramebufferStatusFuncPtr glCheckFramebufferStatus;
+    GLCheckFramebufferStatus_t glCheckFramebufferStatus;
     GLuint GL_FRAMEBUFFER_COMPLETE_;
-    glRenderbufferStorageFuncPtr glRenderbufferStorage;
+    GLRenderbufferStorage_t glRenderbufferStorage;
     GLuint renderbufferInternalFormat;
     GLuint GL_DEPTH_COMPONENT16_;
     GLuint GL_DEPTH_COMPONENT24_;
-    glViewportFuncPtr glViewport;
-    glScissorFuncPtr glScissor;
+    GLViewport_t glViewport;
+    GLScissor_t glScissor;
 } __OpenGLESAPI;
 
 typedef enum {

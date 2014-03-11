@@ -6,7 +6,6 @@ TODO Priority List:
  - eglMakeCurrent(EGLDisplay dpy, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT) 
  - Add support for rotation ? Native Window Resizing
  - Add support for context lost
- - Replace MyFunctionNameFuncPtr into MYFUNCNAMEPROC 
  - contentScaleFactor == 1 ? IN EAGL_eglCreateWindowSurface
  - Tidy up the code/filenames
  - Licence in all iOS driver files
