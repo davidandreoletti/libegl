@@ -9,8 +9,9 @@
 #ifndef INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLIMAGE_H_
 #define INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLIMAGE_H_
 
+#import <Foundation/Foundation.h>
+
 @interface __EAGLImage : NSObject
-// TODO: What to do with this ?
 @end
 
 

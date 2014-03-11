@@ -9,7 +9,7 @@
 #ifndef INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLSCREEN_H_
 #define INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLSCREEN_H_
 
-//TODO: What to do with this ?
+
 typedef struct _UIScreena {void* dummyNotUsed;} _UIScreen;
 
 #endif  // INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLSCREEN_H_

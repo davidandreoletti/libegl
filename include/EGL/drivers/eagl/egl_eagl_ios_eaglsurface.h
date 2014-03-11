@@ -11,8 +11,8 @@
 
 #import "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
 #import "EGL/drivers/eagl/opengles/opengles_ios.h"
-#include <OpenGLES/EAGLDrawable.h>
-#include <CoreGraphics/CGContext.h>
+#import <OpenGLES/EAGLDrawable.h>
+#import <CoreGraphics/CGContext.h>
 #import <Foundation/Foundation.h>
 
 /**

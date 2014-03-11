@@ -9,8 +9,9 @@
 #ifndef INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLCONTEXT_H_
 #define INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLCONTEXT_H_
 
-#import <OpenGLES/EAGL.h>
 #import "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
+#import <OpenGLES/EAGL.h>
+#import <Foundation/Foundation.h>
 
 /**
  * iOS specific EGLContext

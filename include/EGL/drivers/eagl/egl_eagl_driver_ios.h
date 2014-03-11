@@ -21,7 +21,7 @@
  * \return EGL_TRUE if creation is successfull. EGL_FALSE otherwise.
  */
 EGLBoolean
-create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy/*, void** configs,*/, EGLint* num_configs);
+create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* num_configs);
 
 /**
  *  Loads iOS EAGL driver

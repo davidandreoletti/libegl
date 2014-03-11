@@ -10,7 +10,7 @@
 #define INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLWINDOW_H_
 
 #import "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
-#import <Foundation/NSObject.h>
+#import <Foundation/Foundation.h>
 #import <UIKit/UIWindow.h>
 
 // TODO: How to document this ?
