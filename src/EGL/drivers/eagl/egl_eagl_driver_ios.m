@@ -8,8 +8,11 @@
 
 #include "EGL/drivers/eagl/egl_eagl_driver_ios.h"
 #include "EGL/drivers/eagl/egl_eagl_driver.h"
-#include "EGL/drivers/eagl/egl_eagl_common.h"
+#include "EGL/drivers/eagl/egl_eagl_memory.h"
 #include "EGL/egldriver.h"
+#include "EGL/egllog.h"
+#include "EGL/eglcurrent.h"
+
 #include <string.h>
 
 #ifdef __OBJC__

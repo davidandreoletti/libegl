@@ -10,6 +10,7 @@
 #define INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_SURFACE_H_
 
 #include "EGL/drivers/eagl/egl_eagl_typedefs.h"
+#include "EGL/eglSurface.h"
 
 /** subclass of _EGLSurface */
 struct EAGL_egl_surface

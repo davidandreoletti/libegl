@@ -10,6 +10,7 @@
 #define INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_CONTEXT_H_
 
 #include "EGL/drivers/eagl/egl_eagl_typedefs.h"
+#include "EGL/eglContext.h"
 
 /** subclass of _EGLContext */
 struct EAGL_egl_context

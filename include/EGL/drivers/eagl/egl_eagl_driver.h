@@ -14,7 +14,8 @@
 #include "EGL/egldriver.h"
 #include "EGL/drivers/eagl/egl_eagl_typedefs.h"
 #include "EGL/drivers/eagl/egl_eagl_display.h"
-#include "EGL/drivers/eagl/egl_eagl_common.h"
+#include "EGL/drivers/eagl/egl_eagl_config.h"
+#include "EGL/drivers/eagl/egl_eagl_surface.h"
 
 typedef void(*ProcAddressFuncPtr)();
 

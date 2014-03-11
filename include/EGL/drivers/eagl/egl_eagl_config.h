@@ -11,6 +11,7 @@
 
 #include "EGL/drivers/eagl/egl_eagl_typedefs.h"
 #include "EGL/drivers/eagl/egl_eagl_misc.h"
+#include "EGL/eglConfig.h"
 
 /** iOS specific _EGLConfig */
 typedef struct {

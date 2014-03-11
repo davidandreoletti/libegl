@@ -8,10 +8,11 @@
 
 #include "EGL/drivers/eagl/egl_eagl.h"
 #include "EGL/drivers/eagl/egl_eagl_driver.h"
-#include "EGL/drivers/eagl/egl_eagl_common.h"
+#include "EGL/drivers/eagl/egl_eagl_memory.h"
 #include "EGL/egldriver.h"
 #include "EGL/eglglobals.h"
-
+#include "EGL/eglcurrent.h"
+#include "EGL/egllog.h"
 
 #ifdef _EGL_OS_APPLE_IOS
 
