@@ -25,40 +25,12 @@
 #include "EGL/drivers/eagl/egl_eagl_globals.h"
 #include "EGL/drivers/eagl/egl_eagl_context.h"
 #include "EGL/drivers/eagl/egl_eagl_surface.h"
+#include "EGL/drivers/eagl/egl_eagl_config.h"
+#include "EGL/drivers/eagl/egl_eagl_misc.h"
 #include "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
 
 #define CALLOC_STRUCT(T)   (struct T *) calloc(1, sizeof(struct T))
 #define Bool    bool
-
-/** iOS specific _EGLConfig */
-typedef struct {
-    EGLint configID;
-    int eaglRenderingAPI;   // EAGLRenderingAPI
-    NSString* colorFormat;
-    int retainBacking;      // what is this for ?
-    int depth;              // Depth buffer in bits
-    int frameBufferLevel;
-    int surfaceType;        // Surface Type(s) : EGL_WINDOW_BIT/EGL_PIXMAP_BIT/EGL_PBUFFER_BIT
-} _EAGL_egl_Config_iOS;
-
-/** subclass of _EGLConfig */
-struct EAGL_egl_config
-{
-    _EGLConfig Base;   /**< base class */
-    EGLBoolean double_buffered;
-    _EAGL_egl_Config_iOS conf;
-    int index;
-};
-
-/* standard typecasts */
-_EGL_DRIVER_STANDARD_TYPECASTS(EAGL_egl)
-
-static int
-EAGL_egl_config_index(_EGLConfig *conf)
-{
-    struct EAGL_egl_config *EAGL_conf = EAGL_egl_config(conf);
-    return EAGL_conf->index;
-}
 
 /** Find ressource query/result */
 struct findresource {
