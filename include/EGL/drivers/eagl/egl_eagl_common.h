@@ -24,17 +24,11 @@
 #include "EGL/drivers/eagl/egl_eagl_typedefs.h"
 #include "EGL/drivers/eagl/egl_eagl_globals.h"
 #include "EGL/drivers/eagl/egl_eagl_context.h"
+#include "EGL/drivers/eagl/egl_eagl_surface.h"
 #include "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
 
 #define CALLOC_STRUCT(T)   (struct T *) calloc(1, sizeof(struct T))
 #define Bool    bool
-
-/** subclass of _EGLSurface */
-struct EAGL_egl_surface
-{
-    _EGLSurface Base;   /**< base class */
-    __OWNERSHIP_QUALIFIER_WEAK _EAGLSurface* eagl_drawable;
-};
 
 /** iOS specific _EGLConfig */
 typedef struct {
