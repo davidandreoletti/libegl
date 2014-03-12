@@ -35,6 +35,21 @@ struct EAGL_egl_context
     __OWNERSHIP_QUALIFIER_WEAK _EAGLContext* context;
     _OpenGLESAPI openGLESAPI;
     EGLBoolean wasCurrent; // EGL_TRUE if this context has been current at least once
+    EGLBoolean contextLost;
 };
+
+/**
+ * Returns context lost status
+ */
+static EGLBoolean _eaglIsContextLost(struct EAGL_egl_context* context) {
+    return context && context->contextLost;
+}
+
+/**
+ * Sets context lost status
+ */
+static void _eaglSetContextLost(struct EAGL_egl_context* context, EGLBoolean value) {
+    context->contextLost = value;
+}
 
 #endif  // INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_CONTEXT_H_

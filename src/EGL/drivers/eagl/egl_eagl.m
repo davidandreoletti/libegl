@@ -25,6 +25,7 @@
 #include "EGL/drivers/eagl/egl_eagl.h"
 #include "EGL/drivers/eagl/egl_eagl_driver.h"
 #include "EGL/drivers/eagl/egl_eagl_memory.h"
+#include "EGL/drivers/eagl/egl_eagl_context.h"
 #include "EGL/egldriver.h"
 #include "EGL/eglglobals.h"
 #include "EGL/eglcurrent.h"
@@ -45,18 +46,15 @@
 
 #endif  // _EGL_OS_APPLE_IOS
 
-#define _EGL_CHECK_CONTEXTLOST(disp, ret) \
+#define _EGL_CHECK_CONTEXTLOST(disp, context, ret) \
     do {                                                 \
-        drv = _eglCheckContextLost(disp, __FUNCTION__);  \
+        drv = _eglCheckContextLost(disp, context, __FUNCTION__);  \
         if (!drv) {return ret;}                          \
     } while (0)
 
 static INLINE _EGLDriver *
-_eglCheckContextLost(_EGLDisplay *disp, const char *msg) {
-    _eglLockMutex(_eaglGlobal.Mutex);
-    bool contextLost = !_eaglGlobal.foregroundApplication;
-    _eglUnlockMutex(_eaglGlobal.Mutex);
-    if (contextLost) {
+_eglCheckContextLost(_EGLDisplay *disp, struct EAGL_egl_context* context, const char *msg) {
+    if (_eaglIsContextLost(context)) {
         _eglError(EGL_CONTEXT_LOST, msg);
         return NULL;
     }
@@ -332,7 +330,7 @@ EAGL_eglMakeCurrent(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *dsurf,
     _EGLSurface *old_dsurf, *old_rsurf;
     EGLBoolean ret = EGL_FALSE;
     
-    _EGL_CHECK_CONTEXTLOST(disp, EGL_FALSE);
+    _EGL_CHECK_CONTEXTLOST(disp, EAGL_ctx, EGL_FALSE);
     
     if (!ctx) {
         _eglError(EGL_BAD_CONTEXT, "eglMakeCurrent");
@@ -401,16 +399,18 @@ EAGL_eglCreateWindowSurface(_EGLDriver *drv, _EGLDisplay *disp,
         return NULL;
     }
 
-    struct findresource data = {0};
-    data.data = window;
-    data.found = false;
-    data.type = _EGL_RESOURCE_SURFACE;
-    data.requestType = SURFACE_NATIVEWINDOW;
-    
     _eglLockMutex(_eglGlobal.Mutex);
+    struct findresource data = {
+        .data = window,
+        .resourceFound = false,
+        .type = _EGL_RESOURCE_SURFACE,
+        .requestType = SURFACE_NATIVEWINDOW,
+        .exec = ExecFindNativeWindowAssociatedSurface,
+        .display = NULL
+    };
     findResource(_eglGlobal.DisplayList, &data);
     _eglUnlockMutex(_eglGlobal.Mutex);
-    if (data.found) {
+    if (data.resourceFound) {
         _eglError(EGL_BAD_ALLOC, "eglCreateWindowSurface");
         return NULL;
     }
@@ -538,8 +538,9 @@ EAGL_eglSwapBuffers(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *draw)
     struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
     struct EAGL_egl_display *EAGL_dpy = EAGL_egl_display(disp);
     struct EAGL_egl_surface *EAGL_surf = EAGL_egl_surface(draw);
+    struct EAGL_egl_context *EAGL_context = EAGL_egl_context(EAGL_surf->Base.CurrentContext);
     
-    _EGL_CHECK_CONTEXTLOST(disp, EGL_FALSE);
+    _EGL_CHECK_CONTEXTLOST(disp, EAGL_context, EGL_FALSE);
     
     if (EAGL_surf == NULL) {
         return _eglError(EGL_BAD_SURFACE, "EAGL_eglSwapBuffers");

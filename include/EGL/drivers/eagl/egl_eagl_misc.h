@@ -34,38 +34,63 @@
 /* standard typecasts */
 _EGL_DRIVER_STANDARD_TYPECASTS(EAGL_egl)
 
-/** Find ressource query/result */
-struct findresource {
-    enum RequestType {SURFACE_NATIVEWINDOW};
-    /** criteria */
-    enum RequestType requestType;
-    enum _egl_resource_type type;
-    void* data;
-    /** result */
-    bool found;
+typedef void (*ExecOnResource_t) ();
+
+enum RequestType {
+    SURFACE_NATIVEWINDOW,
+    SET_CONTEXT_LOST_STATUS,
 };
 
+/** Find ressource query/result */
+struct findresource {
+    /** query criteria */
+    enum RequestType requestType;
+    enum _egl_resource_type type;
+    bool resourceFound;
+    _EGLDisplay* display; // NULL = All displays
+    /** query function */
+    ExecOnResource_t exec;
+    /** query function static data */
+    void* data;
+};
+
+static void ExecFindNativeWindowAssociatedSurface (_EGLSurface* surface, EGLNativeWindowType window, bool* found) {
+    struct EAGL_egl_surface* surf = EAGL_egl_surface(surface);
+    if (surf->eagl_drawable.windowSurface == window) {
+        *found = EGL_TRUE;
+    }
+}
+
+static void ExecSetContextLostStatus (_EGLContext* context) {
+    struct EAGL_egl_context* ctx = EAGL_egl_context(context);
+    _eaglSetContextLost(ctx, EGL_TRUE);
+}
+
+
 /**
- * Finds first occurence satisfying the citeria
+ * Finds occurences satisfying the criterion and execute a function on it
  * \param head Display list
- * \param data
+ * \param query
  */
 static void findResource(_EGLDisplay* head, struct findresource* query) {
     
     _EGLDisplay* disp = head;
-    while (disp) {
+    bool searchSingleDisplay = (head == query->display);
+    while (disp && ((disp != query->display) || searchSingleDisplay)) {
         if (0<_EGL_NUM_RESOURCES) {
             _EGLResource* res = disp->ResourceLists[query->type];
-            while (res && !query->found) {
+            while (res && !query->resourceFound) {
                 switch (query->requestType) {
                     case SURFACE_NATIVEWINDOW:
                     {
-                        struct EAGL_egl_surface* s = EAGL_egl_surface((_EGLSurface*)res);
-                        if (s->eagl_drawable.windowSurface == ((EGLNativeWindowType)query->data)) {
-                            query->found = true;
-                        }
-                    }
+                        query->exec((_EGLSurface*)res, query->data, &query->resourceFound);
                         break;
+                    }
+                    case SET_CONTEXT_LOST_STATUS:
+                    {
+                        query->exec((_EGLContext*)res);
+                        break;
+                    }
                     default:
                         break;
                 }
@@ -73,6 +98,9 @@ static void findResource(_EGLDisplay* head, struct findresource* query) {
             }
         }
         disp = disp->Next;
+        if (searchSingleDisplay) {
+            searchSingleDisplay = false;
+        }
     }
 }
 

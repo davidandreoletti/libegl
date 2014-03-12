@@ -28,6 +28,7 @@
 #include "EGL/egldriver.h"
 #include "EGL/egllog.h"
 #include "EGL/eglcurrent.h"
+#include "EGL/eglglobals.h"
 
 #include <string.h>
 
@@ -302,22 +303,32 @@ EGLBoolean eaglInitialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
     if (onContextLostOrRetrieved == NULL) {
         onContextLostOrRetrieved = ^ (NSNotification* notification){
             if ([notification.name isEqualToString:UIApplicationDidEnterBackgroundNotification]) {
-                setContextLost(&_eaglGlobal, true);
-            }
-            else if ([notification.name isEqualToString:UIApplicationWillEnterForegroundNotification]) {
-                setContextLost(&_eaglGlobal, false);
+                _eglLockMutex(_eglGlobal.Mutex);
+                _EGLDisplay* display = _eglGlobal.DisplayList;
+                while (display) {
+                    _eglLockMutex(&display->Mutex);
+                    struct findresource data = {
+                        .resourceFound = false,
+                        .type = _EGL_RESOURCE_CONTEXT,
+                        .requestType = SET_CONTEXT_LOST_STATUS,
+                        .exec = ExecSetContextLostStatus,
+                        .display = display
+                    };
+                    findResource(display, &data);
+                    _eglUnlockMutex(&display->Mutex);
+                    display = display->Next;
+                }
+                _eglUnlockMutex(_eglGlobal.Mutex);
             }
             else if ([notification.name isEqualToString:UIApplicationWillTerminateNotification]) {
                 NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
                 [center removeObserver:onContextLostOrRetrieved];
                 onContextLostOrRetrieved = NULL;
-                setContextLost(&_eaglGlobal, false);
             }
         };
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
         [center addObserverForName:UIApplicationDidEnterBackgroundNotification object:nil queue:mainQueue usingBlock:onContextLostOrRetrieved];
-        [center addObserverForName:UIApplicationWillEnterForegroundNotification object:nil queue:mainQueue usingBlock:onContextLostOrRetrieved];
         [center addObserverForName:UIApplicationWillTerminateNotification object:nil queue:mainQueue usingBlock:onContextLostOrRetrieved];
     }
     
