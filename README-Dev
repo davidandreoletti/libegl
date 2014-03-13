@@ -2,6 +2,7 @@ BUG/TODO (Priroity)
 
 TODO Priority List:
  - When is the OpenGL buffers associated to EGLSurface deleted ?
+ - Update Sample1 to recreate EGLContext on EGL_ONTEXT_LOST
  - Memory Leak: App starts with 8.5Mb without EGL. Running the demo consumes more 16Mb. When the demo stops, the memory consumption is higher than 8.5Mb
  - eglMakeCurrent(EGLDisplay dpy, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT) 
  - Add support for rotation ? Native Window Resizing
