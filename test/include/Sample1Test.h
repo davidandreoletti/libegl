@@ -34,7 +34,6 @@
 
 /*
  * Runs Sample1
- * Inspired from: http://code.google.com/p/android-native-egl-example/source/browse/jni/renderer.cpp
  * @param p
  */
 void run_sample1(TestPlatform* p);

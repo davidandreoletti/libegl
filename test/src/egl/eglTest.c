@@ -54,7 +54,6 @@
 #include "eglSwapBuffersTest.h"
 #include "Sample0Test.h"
 #include "Sample1Test.h"
-#include "Sample2Test.h"
 
 void setup(TestPlatform* f) {
     setenv(f->ios_platform_env_key, f->ios_platform_env_value, 1);
@@ -126,7 +125,6 @@ void run_unit_tests(TestPlatform* p) {
 void run_samples(TestPlatform* p) {
     // EGL+OpenGL
     run_sample1(p);
-    run_sample2(p);
     // EGL
     run_sample0(p);
 }

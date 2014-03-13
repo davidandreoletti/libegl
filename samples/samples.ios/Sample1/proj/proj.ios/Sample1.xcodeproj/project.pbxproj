@@ -21,12 +21,11 @@
 		C790C5AC1804284F00C614D4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C790C5AB1804284F00C614D4 /* QuartzCore.framework */; };
 		C790C5BE1806A83E00C614D4 /* OpenGLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C790C5BD1806A83E00C614D4 /* OpenGLViewController.m */; };
 		C7B20978171700C6004C53C6 /* libegl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B20977171700C6004C53C6 /* libegl.a */; };
-		F64C1F6718A242AB00D9E948 /* Sample2Test.c in Sources */ = {isa = PBXBuildFile; fileRef = F64C1F6618A242AB00D9E948 /* Sample2Test.c */; };
+		F64C1F6718A242AB00D9E948 /* Sample1Test.c in Sources */ = {isa = PBXBuildFile; fileRef = F64C1F6618A242AB00D9E948 /* Sample1Test.c */; };
 		F64C1F6A18A2651300D9E948 /* eglTestTimeUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = F64C1F6918A2651300D9E948 /* eglTestTimeUtils.c */; };
 		F6F66B8718A11291008636CE /* eglPlatformHarnessIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F66B8018A11291008636CE /* eglPlatformHarnessIOS.m */; };
 		F6F66B8A18A11291008636CE /* eglTestUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F6F66B8318A11291008636CE /* eglTestUtils.cpp */; };
 		F6F66B8B18A11291008636CE /* Sample0Test.c in Sources */ = {isa = PBXBuildFile; fileRef = F6F66B8418A11291008636CE /* Sample0Test.c */; };
-		F6F66B8D18A11291008636CE /* Sample1Test.c in Sources */ = {isa = PBXBuildFile; fileRef = F6F66B8618A11291008636CE /* Sample1Test.c */; };
 		F6F66B9018A114AE008636CE /* NSMutableArray+Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = F6F66B8F18A114AE008636CE /* NSMutableArray+Stack.m */; };
 		F6F66B9218A120C8008636CE /* eglTest.c in Sources */ = {isa = PBXBuildFile; fileRef = F6F66B8218A11291008636CE /* eglTest.c */; };
 /* End PBXBuildFile section */
@@ -59,8 +58,7 @@
 		F61685B518BC0F4F002FCEE0 /* eglGetCurrentSurfaceTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglGetCurrentSurfaceTest.h; sourceTree = "<group>"; };
 		F61685B618BC1066002FCEE0 /* eglReleaseThreadTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglReleaseThreadTest.h; sourceTree = "<group>"; };
 		F61685B718BC12C3002FCEE0 /* eglTerminateTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglTerminateTest.h; sourceTree = "<group>"; };
-		F64C1F6618A242AB00D9E948 /* Sample2Test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Sample2Test.c; sourceTree = "<group>"; };
-		F64C1F6818A262E200D9E948 /* Sample2Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sample2Test.h; sourceTree = "<group>"; };
+		F64C1F6618A242AB00D9E948 /* Sample1Test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Sample1Test.c; sourceTree = "<group>"; };
 		F64C1F6918A2651300D9E948 /* eglTestTimeUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglTestTimeUtils.c; sourceTree = "<group>"; };
 		F69EEAA518AFC168005C1F74 /* eglDestroyContextTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglDestroyContextTest.h; sourceTree = "<group>"; };
 		F6E0CE3918B6CA7D00F341B8 /* eglQuerySurfaceTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglQuerySurfaceTest.h; sourceTree = "<group>"; };
@@ -87,7 +85,6 @@
 		F6F66B8218A11291008636CE /* eglTest.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = eglTest.c; sourceTree = "<group>"; };
 		F6F66B8318A11291008636CE /* eglTestUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = eglTestUtils.cpp; sourceTree = "<group>"; };
 		F6F66B8418A11291008636CE /* Sample0Test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Sample0Test.c; sourceTree = "<group>"; };
-		F6F66B8618A11291008636CE /* Sample1Test.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Sample1Test.c; sourceTree = "<group>"; };
 		F6F66B8E18A1145F008636CE /* NSMutableArray+Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Stack.h"; sourceTree = "<group>"; };
 		F6F66B8F18A114AE008636CE /* NSMutableArray+Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Stack.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -192,7 +189,6 @@
 				F6E0CE3918B6CA7D00F341B8 /* eglQuerySurfaceTest.h */,
 				F6F66B7418A1126E008636CE /* eglMakeCurrentTest.h */,
 				F6F66B7818A1126E008636CE /* eglSwapBuffersTest.h */,
-				F64C1F6818A262E200D9E948 /* Sample2Test.h */,
 				F6F66B7518A1126E008636CE /* eglPlatformHarness.h */,
 				F6F66B7618A1126E008636CE /* eglPlatformHarnessIOS.h */,
 				F6F66B7918A1126E008636CE /* eglTest.h */,
@@ -224,8 +220,7 @@
 				F6F66B8218A11291008636CE /* eglTest.c */,
 				F6F66B8318A11291008636CE /* eglTestUtils.cpp */,
 				F6F66B8418A11291008636CE /* Sample0Test.c */,
-				F6F66B8618A11291008636CE /* Sample1Test.c */,
-				F64C1F6618A242AB00D9E948 /* Sample2Test.c */,
+				F64C1F6618A242AB00D9E948 /* Sample1Test.c */,
 				F6F66B8F18A114AE008636CE /* NSMutableArray+Stack.m */,
 			);
 			path = egl;
@@ -327,10 +322,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F64C1F6718A242AB00D9E948 /* Sample2Test.c in Sources */,
+				F64C1F6718A242AB00D9E948 /* Sample1Test.c in Sources */,
 				F6F66B9218A120C8008636CE /* eglTest.c in Sources */,
 				C712FF1C1711189800881C89 /* main.m in Sources */,
-				F6F66B8D18A11291008636CE /* Sample1Test.c in Sources */,
 				F6F66B8718A11291008636CE /* eglPlatformHarnessIOS.m in Sources */,
 				F6F66B8A18A11291008636CE /* eglTestUtils.cpp in Sources */,
 				C712FF201711189800881C89 /* AppDelegate.mm in Sources */,
