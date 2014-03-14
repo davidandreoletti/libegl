@@ -26,6 +26,12 @@
 #include "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
 #import <Foundation/Foundation.h>
 
+@interface __EAGLSurface ()
+@property (atomic, readonly) NSUInteger frameCount;
+@property (nonatomic, readonly) NSCondition* condition;
+- (void) onDisplayFrameUpdate:(CADisplayLink*) display;
+@end
+
 @implementation __EAGLSurface
 
 @synthesize buffers;
@@ -33,6 +39,14 @@
 @synthesize windowSurface = _windowSurface;
 
 @synthesize type;
+
+@synthesize displayLink;
+
+@synthesize loop;
+
+@synthesize frameCount;
+
+@synthesize condition;
 
 -(void) setWindowSurface:(id<EAGLDrawable>)surf {
     if (_windowSurface != surf) {
@@ -70,6 +84,8 @@
     if (self) {
         memset(&buffers, 0,sizeof(_OpenGLBuffers));
         type = SURFACE_NONE;
+        frameCount = 0;
+        condition = [[NSCondition alloc] init];
         }
     return self;
 }
@@ -79,6 +95,51 @@
     OWNERSHIP_RELEASE((id<NSObject>) _windowSurface);
     OWNERSHIP_RELEASE((id<NSObject>) _pixmapSurface);
     OWNERSHIP_RELEASE((id<NSObject>) _pbufferSurface);
+    [self setupVideoFrameIntervalUpdates:0];
+    OWNERSHIP_RELEASE((id<NSObject>) displayLink);
+    OWNERSHIP_RELEASE((id<NSObject>) condition);
+}
+
+- (void) setupVideoFrameIntervalUpdates:(NSUInteger) frameInterval {
+    if (!displayLink) {
+        if (frameInterval > 0) {
+            displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(onDisplayFrameUpdate:)];
+            displayLink.frameInterval = frameInterval;
+            loop = [NSRunLoop mainRunLoop]; //FIXME: What loop should be used ?
+            [displayLink addToRunLoop:loop forMode:[loop currentMode]];
+        }
+    }
+    else {
+        if (frameInterval == 0) {
+            [displayLink removeFromRunLoop:loop forMode:[loop currentMode]];
+            [displayLink invalidate];
+            displayLink = nil;
+        }
+        else if (frameInterval != [displayLink frameInterval]) {
+            displayLink.frameInterval = frameInterval;
+        }
+    }
+
+}
+
+- (void) onDisplayFrameUpdate:(CADisplayLink*) display {
+    [condition lock];
+    if (display && frameCount > 0) {
+        frameCount--;
+        if (frameCount == 0) {
+            [condition signal];
+        }
+    }
+    [condition unlock];
+}
+
+- (void) waitUntilMinIntervalFrameUpdated {
+    [condition lock];
+    while (frameCount > 0) {
+        [condition wait];
+    }
+    frameCount = [displayLink frameInterval];
+    [condition unlock];
 }
 
 @end

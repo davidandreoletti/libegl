@@ -155,8 +155,8 @@ static EGLBoolean convert_eagl_ios_config (struct EAGL_egl_driver *EAGL_drv,
     _eglSetConfigKey(conf, EGL_MAX_PBUFFER_WIDTH      ,0); // TODO: How to get the right value ?
     _eglSetConfigKey(conf, EGL_MAX_PBUFFER_HEIGHT     ,0); // TODO: How to get the right value ?
     _eglSetConfigKey(conf, EGL_MAX_PBUFFER_PIXELS     ,0); // TODO: How to get the right value ?
-    _eglSetConfigKey(conf, EGL_MAX_SWAP_INTERVAL      ,0); // TODO: How to get the right value ?
-    _eglSetConfigKey(conf, EGL_MIN_SWAP_INTERVAL      ,0); // TODO: How to get the right value ?
+    _eglSetConfigKey(conf, EGL_MAX_SWAP_INTERVAL      ,NSIntegerMax);
+    _eglSetConfigKey(conf, EGL_MIN_SWAP_INTERVAL      ,0);
     _eglSetConfigKey(conf, EGL_NATIVE_RENDERABLE      ,EGL_TRUE); // Let's say yes
     _eglSetConfigKey(conf, EGL_NATIVE_VISUAL_ID       ,0); // No visual
     _eglSetConfigKey(conf, EGL_NATIVE_VISUAL_TYPE     ,EGL_NONE); // No visual
@@ -571,7 +571,15 @@ EGLBoolean eaglMakeCurrent(_EAGLWindow *dpy,
                            struct EAGL_egl_surface* EAGL_dsurf,
                            struct EAGL_egl_context* context,
                            _OpenGLESAPI* api) {
-    struct EAGL_egl_context* ctx = (context != EGL_NO_CONTEXT) ? context : EAGL_egl_context(_eglGetCurrentContext());
+    struct EAGL_egl_context* cctx = EAGL_egl_context(_eglGetCurrentContext());
+    
+    if (cctx) {
+        struct EAGL_egl_surface* csurf = EAGL_egl_surface(cctx->Base.DrawSurface);
+        if (csurf) {
+            [csurf->eagl_drawable setupVideoFrameIntervalUpdates:0];
+        }
+    }
+    struct EAGL_egl_context* ctx = (context != EGL_NO_CONTEXT) ? context : cctx;
     EAGLContext* nativeContext = ctx != EGL_NO_CONTEXT ? [(ctx->context) nativeContext] : nil;
     BOOL r = [EAGLContext setCurrentContext: nativeContext];
     
@@ -618,13 +626,24 @@ cleanup:
     return EGL_FALSE;
 }
 
-EGLBoolean eaglSwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf ) {
+EGLBoolean eaglSwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf) {
     struct EAGL_egl_context *EAGL_context = EAGL_egl_context(EAGL_surf->Base.CurrentContext);
     if (EAGL_context->context == nil && EAGL_context->context.nativeContext == nil) {
        return _eglError(EGL_BAD_SURFACE, "eaglSwapBuffers");
     }
+    
+    [EAGL_surf->eagl_drawable setupVideoFrameIntervalUpdates: EAGL_surf->Base.SwapInterval];
+    
+    if (EAGL_surf->Base.SwapInterval > 0) {
+        [EAGL_surf->eagl_drawable waitUntilMinIntervalFrameUpdated];
+    }
+    
     BOOL b = [EAGL_context->context.nativeContext presentRenderbuffer:EAGL_context->openGLESAPI.GL_RENDERBUFFER_];
     return BOOL_TO_EGLBoolean(b);
+}
+
+EGLBoolean eaglSwapInterval(struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf, EGLint interval) {
+    return EGL_TRUE;
 }
 
 _EAGLImage*/*GLXPixmap*/ eaglCreatePixmap(_EAGLWindow *dpy, _EAGLImage* pixmap ) {
@@ -781,6 +800,9 @@ static ProcAddressFuncPtr eaglIOSGetProcAddress(const char * proc_name) {
     }
     else if (EQUAL_STRING(proc_name, "eaglSwapBuffers")) {
         return (ProcAddressFuncPtr) eaglSwapBuffers;
+    }
+    else if (EQUAL_STRING(proc_name, "eaglSwapInterval")) {
+        return (ProcAddressFuncPtr) eaglSwapInterval;
     }
     else if (EQUAL_STRING(proc_name, "eaglCreatePixmap")) {
         return (ProcAddressFuncPtr) eaglCreatePixmap;

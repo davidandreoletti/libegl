@@ -745,18 +745,23 @@ static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, in
         int i = 0;
         TimeRecord_t s;
         TimeRecord_t e;
-        while (i < maxFrameCount)
-        {
-            LOG(I, "FRAME ...")
-            renderer.renderFrame();
-            START_RECORD_DURATION(&s);
-            if (!eglSwapBuffers(_display, _surface)) {
-                logEGLError("eglSwapBuffers()", eglGetError());
+        if (!eglSwapInterval(_display, 1)) {
+            logEGLError("eglSwapInterval()", eglGetError());
+        }
+        else {
+            while (i < maxFrameCount)
+            {
+                LOG(I, "FRAME ...")
+                renderer.renderFrame();
+                START_RECORD_DURATION(&s);
+                if (!eglSwapBuffers(_display, _surface)) {
+                    logEGLError("eglSwapBuffers()", eglGetError());
+                }
+                LOG(I, "FRAME DONE")
+                END_RECORD_DURATION(&e);
+                LOG_DURATION(&s, &e)
+                i++;
             }
-            LOG(I, "FRAME DONE")
-            END_RECORD_DURATION(&e);
-            LOG_DURATION(&s, &e)
-            i++;
         }
     }
     renderer.destroy();

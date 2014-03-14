@@ -549,6 +549,20 @@ EAGL_eglSwapBuffers(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *draw)
     return EAGL_drv->eaglSwapBuffers(EAGL_dpy, EAGL_surf);
 }
 
+static EGLBoolean (EAGL_SwapInterval)(_EGLDriver *drv, _EGLDisplay *dpy, _EGLSurface *surf, EGLint interval) {
+    struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
+    struct EAGL_egl_display *EAGL_dpy = EAGL_egl_display(dpy);
+    struct EAGL_egl_surface *EAGL_surf = EAGL_egl_surface(surf);
+    
+    if (EAGL_surf == NULL) {
+        return _eglError(EGL_BAD_SURFACE, "EAGL_SwapInterval");
+    }
+    
+    _eglSwapInterval(drv, dpy, surf, interval);
+    
+    return EAGL_drv->eaglSwapInterval(EAGL_dpy, EAGL_surf, interval);
+}
+
 /*
  * Called from eglGetProcAddress() via drv->API.GetProcAddress().
  */
@@ -631,6 +645,7 @@ _EGLDriver* _eglBuiltInDriverEAGL(const char* args) {
     EAGL_drv->Base.API.DestroySurface = EAGL_eglDestroySurface;
     EAGL_drv->Base.API.QuerySurface = EAGL_eglQuerySurface;
     EAGL_drv->Base.API.SwapBuffers = EAGL_eglSwapBuffers;
+    EAGL_drv->Base.API.SwapInterval = EAGL_SwapInterval;
     EAGL_drv->Base.API.GetProcAddress = EAGL_eglGetProcAddress;
     EAGL_drv->Base.API.WaitClient = EAGL_eglWaitClient;
     EAGL_drv->Base.API.WaitNative = EAGL_eglWaitNative;

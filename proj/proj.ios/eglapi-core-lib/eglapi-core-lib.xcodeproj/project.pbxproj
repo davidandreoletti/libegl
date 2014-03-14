@@ -204,7 +204,6 @@
 		C75F3E1516148A1A0023C0D2 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		C75F3E3716148AA60023C0D2 /* eglapiTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglapiTests.h; sourceTree = "<group>"; };
 		C75F3E3816148AA60023C0D2 /* eglapiTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = eglapiTests.mm; sourceTree = "<group>"; };
-		C784D395171455EB0086C69F /* eglplatformconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglplatformconfig.h; sourceTree = "<group>"; };
 		C784D397171457B10086C69F /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		C790C5A017FDB58200C614D4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C790C5A217FDB97D00C614D4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -380,7 +379,6 @@
 		C709B8B51706817700FBCA04 /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				C784D395171455EB0086C69F /* eglplatformconfig.h */,
 				C709B8B61706817700FBCA04 /* eglapi.h */,
 			);
 			path = ios;

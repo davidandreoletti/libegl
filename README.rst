@@ -151,7 +151,7 @@ is supported in this implementation.
 | eglReleaseTexImage               | Unsupported            |         |
 | eglCopyBuffers                   | Unsupported            |         |
 | eglCreatePbufferFromClientBuffer | Unsupported            |         |
-| eglSwapInterval                  | Planned                |         |
+| eglSwapInterval                  | Supported              |         |
 | eglGetProcAddress                | Planned                |         |
 | eglGetError                      | Supported              |         |
 | eglReleaseThread                 | Supported              |         |

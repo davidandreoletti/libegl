@@ -90,7 +90,15 @@ typedef EGLBoolean (*EAGLMAKECURRENTPROC)(_EAGLWindow *dpy, struct EAGL_egl_surf
  * \param EAGL_surf
  * \return EGL_TRUE if swap succeeded.
  */
-typedef EGLBoolean (*EAGLSWAPBUFFERSPROC)( struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf);
+typedef EGLBoolean (*EAGLSWAPBUFFERSPROC)(struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf);
+
+/**
+ *  Swap intervals
+ * \param EAGL_dpy
+ * \param EAGL_surf
+ * \return EGL_TRUE if interval successfully set.
+ */
+typedef EGLBoolean (*EAGLSWAPINTERVALPROC)(struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf, EGLint interval);
 
 typedef _EAGLImage*/*GLXPixmap*/ (*EAGLCREATEPIXMAPPROC)( _EAGLWindow *dpy, _EAGLImage* pixmap );
 typedef void (*EAGLDESTROYPIXMAPPROC)( _EAGLWindow *dpy, _EAGLImage*/*GLXPixmap*/ pixmap );
@@ -148,6 +156,7 @@ struct EAGL_egl_driver
 
 
     EAGLSWAPBUFFERSPROC eaglSwapBuffers;
+    EAGLSWAPINTERVALPROC eaglSwapInterval;
     EAGLQUERYVERSIONPROC eaglQueryVersion;
 
     EAGLWAITGLPROC eaglWaitGL;
@@ -204,6 +213,7 @@ EAGL_Load(_EGLDriver *drv)
     GET_PROC(EAGLDESTROYCONTEXTPROC,  eaglDestroyContext, EGL_TRUE);
     GET_PROC(EAGLMAKECURRENTPROC,  eaglMakeCurrent, EGL_TRUE);
     GET_PROC(EAGLSWAPBUFFERSPROC,  eaglSwapBuffers, EGL_TRUE);
+    GET_PROC(EAGLSWAPINTERVALPROC,  eaglSwapInterval, EGL_TRUE);
     GET_PROC(EAGLQUERYVERSIONPROC,  eaglQueryVersion, EGL_TRUE);
     GET_PROC(EAGLWAITGLPROC,  eaglWaitGL, EGL_TRUE);
     GET_PROC(EAGLWAITNATIVEPROC,  eaglWaitNative, EGL_TRUE);

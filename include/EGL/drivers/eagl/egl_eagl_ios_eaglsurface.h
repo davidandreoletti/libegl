@@ -30,6 +30,7 @@
 #import <OpenGLES/EAGLDrawable.h>
 #import <CoreGraphics/CGContext.h>
 #import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
 
 /**
  * iOS specific EGLSurface
@@ -65,6 +66,26 @@ typedef enum {
  * Indicates which surface type this object is referering to
  */
 @property (readonly) surface_t type;
+/**
+ * Native Display Frame Rate.
+ */
+@property (OWNERSHIP_QUALIFIER_STRONG, nonatomic) CADisplayLink* displayLink;
+
+/**
+ * Native Run Loop.
+ */
+@property (OWNERSHIP_QUALIFIER_STRONG, nonatomic) NSRunLoop* loop;
+
+/**
+ * @param frameInterval -1 to disable video frames updated
+ */
+- (void) setupVideoFrameIntervalUpdates:(NSUInteger) frameInterval;
+
+/**
+ * Wait until the requested number of video frame updates occurred 
+ */
+- (void) waitUntilMinIntervalFrameUpdated;
+
 @end
 
 
