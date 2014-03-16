@@ -25,6 +25,7 @@
 #include "EGL/drivers/eagl/egl_eagl_driver_ios.h"
 #include "EGL/drivers/eagl/egl_eagl_driver.h"
 #include "EGL/drivers/eagl/egl_eagl_memory.h"
+#include "EGL/drivers/eagl/opengles/opengles_ios.h"
 #include "EGL/egldriver.h"
 #include "EGL/egllog.h"
 #include "EGL/eglcurrent.h"
@@ -198,71 +199,103 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy/*, void** 
     if (!num_configs) {
         return EGL_FALSE;
     }
-
-    // TODO: check opengl es 3 support at runtime
-    // TODO: check opengl es 2 support at runtime
-    // TODO: check opengl es 1 support at runtime
     
-    *num_configs = 6;
-    _EAGL_egl_Config_iOS realConfigs[] = {
-        {
-            0,
-            kEAGLRenderingAPIOpenGLES1,
-            kEAGLColorFormatRGBA8,
-            NO,
-            GL_DEPTH_COMPONENT16,
-            0, // TODO: How to get the right value ?
-            EGL_WINDOW_BIT
-        },
-        {
-            0,
-            kEAGLRenderingAPIOpenGLES1,
-            kEAGLColorFormatRGB565,
-            NO,
-            GL_DEPTH_COMPONENT16,
-            0,
-            EGL_WINDOW_BIT
-        },
-        {
-            0,
-            kEAGLRenderingAPIOpenGLES2,
-            kEAGLColorFormatRGBA8,
-            NO,
-            GL_DEPTH_COMPONENT16,
-            0,
-            EGL_WINDOW_BIT
-        },
-        {
-            0,
-            kEAGLRenderingAPIOpenGLES2,
-            kEAGLColorFormatRGB565,
-            NO,
-            GL_DEPTH_COMPONENT16,
-            0,
-            EGL_WINDOW_BIT
-        },
-        {
-            0,
-            kEAGLRenderingAPIOpenGLES3,
-            kEAGLColorFormatRGBA8,
-            NO,
-            GL_DEPTH_COMPONENT16,
-            0,
-            EGL_WINDOW_BIT
-        },
-        {
-            0,
-            kEAGLRenderingAPIOpenGLES3,
-            kEAGLColorFormatRGB565,
-            NO,
-            GL_DEPTH_COMPONENT16,
-            0,
-            EGL_WINDOW_BIT
-        }
+    struct node {
+        struct node* next;
+        _EAGL_egl_Config_iOS config;
     };
+
+    #define APPEND_NODE_CONFIG(last, conf) \
+    { \
+        struct node* pn = (struct node*) malloc(sizeof(struct node)); \
+        pn->next = NULL; \
+        pn->config = conf; \
+        if (last) { \
+            last->next = pn; \
+            last = pn; \
+        } \
+        else {\
+            last = pn; \
+        } \
+    }
+
+    _OpenGLESAPIVersion maxGLVersion = opengles_max_version_supported();
+    *num_configs = 0;
+    struct node* realConfigs = NULL;
+    struct node* last = NULL;
+    if (maxGLVersion >= OPENGL_ES_1_1) {
+        _EAGL_egl_Config_iOS conf = {
+                0,
+                kEAGLRenderingAPIOpenGLES1,
+                kEAGLColorFormatRGBA8,
+                NO,
+                GL_DEPTH_COMPONENT16,
+                0, // TODO: How to get the right value ?
+                EGL_WINDOW_BIT
+        };
+        APPEND_NODE_CONFIG(realConfigs, conf)
+        last = realConfigs;
+        _EAGL_egl_Config_iOS conf2 = {
+                0,
+                kEAGLRenderingAPIOpenGLES1,
+                kEAGLColorFormatRGB565,
+                NO,
+                GL_DEPTH_COMPONENT16,
+                0,
+                EGL_WINDOW_BIT
+        };
+        APPEND_NODE_CONFIG(last, conf2)
+    }
+    if (maxGLVersion >= OPENGL_ES_2_0) {
+        _EAGL_egl_Config_iOS conf = {
+                0,
+                kEAGLRenderingAPIOpenGLES2,
+                kEAGLColorFormatRGBA8,
+                NO,
+                GL_DEPTH_COMPONENT16,
+                0,
+                EGL_WINDOW_BIT
+        };
+        APPEND_NODE_CONFIG(last, conf)
+        _EAGL_egl_Config_iOS conf2 = {
+                0,
+                kEAGLRenderingAPIOpenGLES2,
+                kEAGLColorFormatRGB565,
+                NO,
+                GL_DEPTH_COMPONENT16,
+                0,
+                EGL_WINDOW_BIT
+        };
+        APPEND_NODE_CONFIG(last, conf2)
+    }
+    if (maxGLVersion >= OPENGL_ES_3_0) {
+        _EAGL_egl_Config_iOS conf = {
+                0,
+                kEAGLRenderingAPIOpenGLES3,
+                kEAGLColorFormatRGBA8,
+                NO,
+                GL_DEPTH_COMPONENT16,
+                0,
+                EGL_WINDOW_BIT
+        };
+        APPEND_NODE_CONFIG(last, conf)
+        _EAGL_egl_Config_iOS conf2 = {
+                0,
+                kEAGLRenderingAPIOpenGLES3,
+                kEAGLColorFormatRGB565,
+                NO,
+                GL_DEPTH_COMPONENT16,
+                0,
+                EGL_WINDOW_BIT
+        };
+        APPEND_NODE_CONFIG(last, conf2)
+    }
     
-    for (int i = 0; i < *num_configs; i++) {
-        realConfigs[i].configID = i+1;
+    struct node* current = realConfigs;
+    struct node* prev = NULL;
+    int i = 0;
+    while (current) {
+        current->config.configID = i+1;
         
         struct EAGL_egl_config *EAGL_conf, template;
         EGLBoolean ok;
@@ -270,7 +303,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy/*, void** 
         memset(&template, 0, sizeof(template));
         _eglInitConfig(&template.Base, dpy, i);
         ok = convert_eagl_ios_config(EAGL_drv, EAGL_dpy,
-                                     &realConfigs[i], &template);
+                                     &(current->config), &template);
         if (!ok)
             continue;
         
@@ -287,6 +320,9 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy/*, void** 
             
             _eglLinkConfig(&EAGL_conf->Base);
         }
+        prev = current;
+        current = current->next;
+        free(prev);
     }
     
     return EGL_TRUE;
