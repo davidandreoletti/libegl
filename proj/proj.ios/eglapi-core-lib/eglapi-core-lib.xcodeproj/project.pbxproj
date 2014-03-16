@@ -125,6 +125,8 @@
 		F6F66B49189F57D3008636CE /* eglmesaext.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7A86F74172B8B2300739D0D /* eglmesaext.h */; };
 		F6F66B4B18A109BE008636CE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C784D397171457B10086C69F /* OpenGLES.framework */; };
 		F6F66B4C18A10A1C008636CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C790C5A217FDB97D00C614D4 /* UIKit.framework */; };
+		F6F8047718D556E9009F64C0 /* opengles3_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = F6F8047618D556E9009F64C0 /* opengles3_ios.h */; };
+		F6F8047918D55716009F64C0 /* opengles3_ios.c in Sources */ = {isa = PBXBuildFile; fileRef = F6F8047818D55716009F64C0 /* opengles3_ios.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -273,6 +275,8 @@
 		F64D45F618BC69AA00AAB390 /* README.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.rst; path = ../../../README.rst; sourceTree = "<group>"; };
 		F65C918D18A3468C008418BC /* opengles_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengles_ios.h; sourceTree = "<group>"; };
 		F65C919018A3481D008418BC /* opengles_ios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opengles_ios.c; sourceTree = "<group>"; };
+		F6F8047618D556E9009F64C0 /* opengles3_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengles3_ios.h; sourceTree = "<group>"; };
+		F6F8047818D55716009F64C0 /* opengles3_ios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opengles3_ios.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -581,6 +585,7 @@
 		F65C918C18A34665008418BC /* opengles */ = {
 			isa = PBXGroup;
 			children = (
+				F6F8047618D556E9009F64C0 /* opengles3_ios.h */,
 				F61BCB2D18CF4F840015D31E /* opengles2_ios.h */,
 				F61BCB2B18CF4E480015D31E /* opengles1_ios.h */,
 				F65C918D18A3468C008418BC /* opengles_ios.h */,
@@ -591,6 +596,7 @@
 		F65C918F18A34807008418BC /* opengles */ = {
 			isa = PBXGroup;
 			children = (
+				F6F8047818D55716009F64C0 /* opengles3_ios.c */,
 				F61BCB2F18CF4FD90015D31E /* opengles1_ios.c */,
 				F61BCB3018CF4FD90015D31E /* opengles2_ios.c */,
 				F65C919018A3481D008418BC /* opengles_ios.c */,
@@ -643,6 +649,7 @@
 				C72C34CF1730FC08005B5745 /* egl_eagl.h in Headers */,
 				F65C918E18A3468C008418BC /* opengles_ios.h in Headers */,
 				F630BF4818CDF3B500816B11 /* egl_eagl_globals.h in Headers */,
+				F6F8047718D556E9009F64C0 /* opengles3_ios.h in Headers */,
 				C72C34D51730FF12005B5745 /* egl_eagl_driver.h in Headers */,
 				F630BF5218CF375200816B11 /* egl_eagl_config.h in Headers */,
 				C72C34E21731445D005B5745 /* egl_eagl_typedefs.h in Headers */,
@@ -792,6 +799,7 @@
 				C7A86FA9172B8B3600739D0D /* eglconfig.c in Sources */,
 				C7A86FAA172B8B3600739D0D /* eglcontext.c in Sources */,
 				F61BCB3218CF4FD90015D31E /* opengles2_ios.c in Sources */,
+				F6F8047918D55716009F64C0 /* opengles3_ios.c in Sources */,
 				C7A86FAB172B8B3600739D0D /* eglcurrent.c in Sources */,
 				C7A86FAC172B8B3600739D0D /* egldisplay.c in Sources */,
 				F639689418AD9DB60076C110 /* AppleIOSMemoryManagement.m in Sources */,

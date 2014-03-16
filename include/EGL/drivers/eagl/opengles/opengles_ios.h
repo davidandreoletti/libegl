@@ -25,23 +25,20 @@
 #ifndef INCLUDE_EGL_DRIVERS_EAGL_OPENGLES_OPENGLES_IOS_H_
 #define INCLUDE_EGL_DRIVERS_EAGL_OPENGLES_OPENGLES_IOS_H_
 
-#include <OpenGLES/ES1/gl.h>
-#include <OpenGLES/ES1/glext.h>
-#include <OpenGLES/ES2/gl.h>
-#include <OpenGLES/ES2/glext.h>
+/** Temporary GL types */
+#define GLuint unsigned int
+#define GLenum unsigned int
 
-#define GL_GET_ERROR(f, error, step) { f; error = glGetError();  step += 1; }
-#define GL_CLEANUP_ERROR(condition, aLabel) if (condition) {goto aLabel;}
-
-typedef GLvoid (*GLGenBuffers_t) (GLsizei n, GLuint* buffers);
-typedef GLvoid (*GLBindBuffer_t) (GLenum target,  GLuint framebuffer);
-typedef GLvoid (*GLDeleteBuffers_t) (GLsizei n, const GLuint* buffers);
-typedef GLvoid (*GLFramebufferRenderbuffer_t) (GLenum target,  GLenum attachment,  GLenum renderbuffertarget,  GLuint renderbuffer);
-typedef GLvoid (*GLGetRenderbufferParameteriv_t) (GLenum target,  GLenum pname,  GLint * params);
-typedef GLenum (*GLCheckFramebufferStatus_t) (GLenum target);
-typedef GLvoid (*GLRenderbufferStorage_t) (GLenum target, GLenum internalformat, GLsizei width, GLsizei height);
-typedef void (*GLViewport_t)(GLint x,  GLint y,  GLsizei width,  GLsizei height);
-typedef void (*GLScissor_t) (GLint x,  GLint y,  GLsizei width,  GLsizei height);
+/** GL functions prototypes */
+typedef void (*GLGenBuffers_t) ();
+typedef void (*GLBindBuffer_t) ();
+typedef void (*GLDeleteBuffers_t) ();
+typedef void (*GLFramebufferRenderbuffer_t) ();
+typedef void (*GLGetRenderbufferParameteriv_t) ();
+typedef unsigned int (*GLCheckFramebufferStatus_t) ();
+typedef void (*GLRenderbufferStorage_t) ();
+typedef void (*GLViewport_t)();
+typedef void (*GLScissor_t) ();
 
 /**
  * OpenGL ES API
@@ -112,5 +109,10 @@ typedef struct {
     GLuint depthbuffer;
 } _OpenGLBuffers;
 
+#undef GLuint
+#undef GLenum
+
+#define GL_GET_ERROR(f, error, step) { f; error = glGetError();  step += 1; }
+#define GL_CLEANUP_ERROR(condition, aLabel) if (condition) {goto aLabel;}
 
 #endif  // INCLUDE_EGL_DRIVERS_EAGL_OPENGLES_OPENGLES_IOS_H_

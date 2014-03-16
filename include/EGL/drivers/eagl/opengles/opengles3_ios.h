@@ -22,28 +22,17 @@
  * THE SOFTWARE.
  **************************************************************************/
 
-#include "EGL/drivers/eagl/opengles/opengles_ios.h"
-#include "EGL/drivers/eagl/opengles/opengles1_ios.h"
-#include "EGL/drivers/eagl/opengles/opengles2_ios.h"
-#include "EGL/drivers/eagl/opengles/opengles3_ios.h"
-#include <stddef.h>
+#ifndef INCLUDE_EGL_DRIVERS_EAGL_OPENGLES_OPENGLES3_IOS_H_
+#define INCLUDE_EGL_DRIVERS_EAGL_OPENGLES_OPENGLES3_IOS_H_
 
-void opengles_api_init(__OpenGLESAPI* api, _OpenGLESAPIVersion version) {
-    if (api == NULL) {return;}
-    switch (version) {
-        case OPENGL_ES_1_1:
-            api->majorVersion = 1;
-            opengles1_api_init(api);
-            break;
-        case OPENGL_ES_2_0:
-            api->majorVersion = 2;
-            opengles2_api_init(api);
-            break;
-        case OPENGL_ES_3_0:
-            api->majorVersion = 3;
-            opengles3_api_init(api);
-            break;
-        default:
-            break;
-    }
-}
+#include "EGL/drivers/eagl/opengles/opengles_ios.h"
+
+/**
+ * Initializes an OpenGL ES 3.x abstraction API instance pointing to functions for the requested
+ * OpenGL API ES version
+ * \param api OpenGL ES abstraction API instance. If NULL, no initialization occurs.
+ * \param version Requested OpenGL API ES version
+ */
+void opengles3_api_init(__OpenGLESAPI* api);
+
+#endif  // INCLUDE_EGL_DRIVERS_EAGL_OPENGLES_OPENGLES3_IOS_H_

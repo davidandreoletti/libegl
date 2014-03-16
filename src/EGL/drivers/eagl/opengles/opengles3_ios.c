@@ -22,28 +22,33 @@
  * THE SOFTWARE.
  **************************************************************************/
 
-#include "EGL/drivers/eagl/opengles/opengles_ios.h"
-#include "EGL/drivers/eagl/opengles/opengles1_ios.h"
-#include "EGL/drivers/eagl/opengles/opengles2_ios.h"
 #include "EGL/drivers/eagl/opengles/opengles3_ios.h"
 #include <stddef.h>
+#include <OpenGLES/ES3/gl.h>
+#include <OpenGLES/ES3/glext.h>
 
-void opengles_api_init(__OpenGLESAPI* api, _OpenGLESAPIVersion version) {
+void opengles3_api_init(__OpenGLESAPI* api) {
     if (api == NULL) {return;}
-    switch (version) {
-        case OPENGL_ES_1_1:
-            api->majorVersion = 1;
-            opengles1_api_init(api);
-            break;
-        case OPENGL_ES_2_0:
-            api->majorVersion = 2;
-            opengles2_api_init(api);
-            break;
-        case OPENGL_ES_3_0:
-            api->majorVersion = 3;
-            opengles3_api_init(api);
-            break;
-        default:
-            break;
-    }
+    api->minorVersion = 0;
+    api->glGenFrameBuffers = glGenFramebuffers;
+    api->glBindFrameBuffers = glBindFramebuffer;
+    api->GL_FRAMEBUFFER_ = GL_FRAMEBUFFER;
+    api->glGenRenderBuffers = glGenRenderbuffers;
+    api->glBindRenderBuffers = glBindRenderbuffer;
+    api->GL_RENDERBUFFER_ = GL_RENDERBUFFER;
+    api->glDeleteFrameBuffers = glDeleteFramebuffers;
+    api->glDeleteRenderBuffers = glDeleteRenderbuffers;
+    api->glFramebufferRenderbuffer = glFramebufferRenderbuffer;
+    api->GL_COLOR_ATTACHMENT0_ = GL_COLOR_ATTACHMENT0;
+    api->GL_DEPTH_ATTACHMENT_ = GL_DEPTH_ATTACHMENT;
+    api->glGetRenderbufferParameteriv = glGetRenderbufferParameteriv;
+    api->GL_RENDERBUFFER_WIDTH_ = GL_RENDERBUFFER_WIDTH;
+    api->GL_RENDERBUFFER_HEIGHT_ = GL_RENDERBUFFER_HEIGHT;
+    api->glCheckFramebufferStatus = glCheckFramebufferStatus;
+    api->GL_FRAMEBUFFER_COMPLETE_ = GL_FRAMEBUFFER_COMPLETE;
+    api->glRenderbufferStorage = glRenderbufferStorage;
+    api->GL_DEPTH_COMPONENT16_ = GL_DEPTH_COMPONENT16;
+    api->GL_DEPTH_COMPONENT24_ = GL_DEPTH_COMPONENT24;
+    api->glViewport = glViewport;
+    api->glScissor = glScissor;
 }
