@@ -71,9 +71,10 @@ typedef struct {
 } __OpenGLESAPI;
 
 typedef enum {
-    OPENGL_ES_1_1 = 1, // OpenGL ES 1.1
-    OPENGL_ES_2_0 = 2, // OpenGL ES 2.0
-    OPENGL_ES_3_0 = 3  // OpenGL ES 3.0
+    OPENGL_ES_NOT_SUPPORTED = 0,    // No OpenGL ES support
+    OPENGL_ES_1_1 = 1,              // OpenGL ES 1.1
+    OPENGL_ES_2_0 = 2,              // OpenGL ES 2.0
+    OPENGL_ES_3_0 = 3               // OpenGL ES 3.0
 } _OpenGLESAPIVersion;
 
 /**
@@ -89,7 +90,7 @@ void opengles_api_init(__OpenGLESAPI* api, _OpenGLESAPIVersion version);
  * \param num Will contain the number of version supported
  * \return Array containing num supported version
  */
-//_OpenGLESAPIVersion* opengles_supported_api(short* num);
+_OpenGLESAPIVersion opengles_max_version_supported();
 
 /**
  * OpenGL ES buffer ids

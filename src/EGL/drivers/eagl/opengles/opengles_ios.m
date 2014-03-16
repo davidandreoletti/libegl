@@ -28,6 +28,8 @@
 #include "EGL/drivers/eagl/opengles/opengles3_ios.h"
 #include <stddef.h>
 
+#import <Foundation/NSObjCRuntime.h>
+
 void opengles_api_init(__OpenGLESAPI* api, _OpenGLESAPIVersion version) {
     if (api == NULL) {return;}
     switch (version) {
@@ -46,4 +48,21 @@ void opengles_api_init(__OpenGLESAPI* api, _OpenGLESAPIVersion version) {
         default:
             break;
     }
+}
+
+_OpenGLESAPIVersion opengles_max_version_supported() {
+
+#define GREATER_THAN(versionNumber) NSFoundationVersionNumber > versionNumber
+#define GREATER_THAN_OR_EQUAL(versionNumber) NSFoundationVersionNumber >= versionNumber
+    
+    if(GREATER_THAN(NSFoundationVersionNumber_iOS_6_1)) {
+            return OPENGL_ES_3_0;
+    }
+    if(GREATER_THAN_OR_EQUAL(NSFoundationVersionNumber_iPhoneOS_3_0)) {
+        return OPENGL_ES_2_0;
+    }
+    if(GREATER_THAN_OR_EQUAL(NSFoundationVersionNumber_iPhoneOS_2_0)) {
+        return OPENGL_ES_1_1;
+    }
+    return OPENGL_ES_NOT_SUPPORTED;
 }
