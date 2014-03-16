@@ -61,53 +61,6 @@ _eglCheckContextLost(_EGLDisplay *disp, struct EAGL_egl_context* context, const 
     return disp->Driver;
 }
 
-static void
-check_extensions(struct EAGL_egl_driver *EAGL_drv,
-                 struct EAGL_egl_display *EAGL_dpy, EGLint screen);
-static void
-check_extensions(struct EAGL_egl_driver *EAGL_drv,
-                 struct EAGL_egl_display *EAGL_dpy, EGLint screen) {
-}
-
-static void
-check_quirks(struct EAGL_egl_driver *EAGL_drv,
-              struct EAGL_egl_display *EAGL_dpy, EGLint screen);
- static void
-check_quirks(struct EAGL_egl_driver *EAGL_drv,
-              struct EAGL_egl_display *EAGL_dpy, EGLint screen)
-{}
-
-
-
-static void fix_config(struct EAGL_egl_display *EAGL_dpy, struct EAGL_egl_config *EAGL_conf)
-{
-   _EGLConfig *conf = &EAGL_conf->Base;
-
-   if (!EAGL_conf->double_buffered && EAGL_dpy->single_buffered_quirk) {
-      /* some GLX impls do not like single-buffered window surface */
-      conf->SurfaceType &= ~EGL_WINDOW_BIT;
-      /* pbuffer bit is usually not set */
-      if (EAGL_dpy->have_pbuffer)
-         conf->SurfaceType |= EGL_PBUFFER_BIT;
-   }
-
-   /* no visual attribs unless window bit is set */
-   if (!(conf->SurfaceType & EGL_WINDOW_BIT)) {
-      conf->NativeVisualID = 0;
-      conf->NativeVisualType = EGL_NONE;
-   }
-
-   if (conf->TransparentType != EGL_TRANSPARENT_RGB) {
-      conf->TransparentRedValue = 0;
-      conf->TransparentGreenValue = 0;
-      conf->TransparentBlueValue = 0;
-   }
-
-   /* make sure buffer size is set correctly */
-   conf->BufferSize =
-      conf->RedSize + conf->GreenSize + conf->BlueSize + conf->AlphaSize;
-}
-
 static EGLBoolean
 create_configs(_EGLDriver *drv, _EGLDisplay *dpy, EGLint screen)
 {
@@ -180,9 +133,6 @@ EAGL_eglInitialize(_EGLDriver *drv, _EGLDisplay *disp) {
     }
     
     disp->DriverData = (void *) EAGL_dpy;
-    
-    check_extensions(EAGL_drv, EAGL_dpy, 0);
-    check_quirks(EAGL_drv, EAGL_dpy, 0);
     
     create_configs(drv, disp, 0);
     if (!_eglGetArraySize(disp->Configs)) {
@@ -440,6 +390,9 @@ EAGL_eglCreateWindowSurface(_EGLDriver *drv, _EGLDisplay *disp,
     return &EAGL_surf->Base;
 }
 
+/**
+ * Called via eglCreatePixmapSurface(), drv->API.CreatePixmapSurface().
+ */
 static _EGLSurface *
 EAGL_eglCreatePixmapSurface(_EGLDriver *drv, _EGLDisplay *disp,
                             _EGLConfig *conf, EGLNativePixmapType pixmap,
@@ -476,6 +429,9 @@ EAGL_eglCreatePixmapSurface(_EGLDriver *drv, _EGLDisplay *disp,
     return &EAGL_surf->Base;
 }
 
+/**
+ * Called via eglCreatePbufferSurface(), drv->API.CreatePbufferSurface().
+ */
 static _EGLSurface *
 EAGL_eglCreatePbufferSurface(_EGLDriver *drv, _EGLDisplay *disp,
                              _EGLConfig *conf, const EGLint *attrib_list)
@@ -507,7 +463,9 @@ EAGL_eglCreatePbufferSurface(_EGLDriver *drv, _EGLDisplay *disp,
     return &EAGL_surf->Base;
 }
 
-
+/**
+ * Called via eglDestroySurface(), drv->API.DestroySurface().
+ */
 static EGLBoolean
 EAGL_eglDestroySurface(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *surf)
 {
@@ -527,11 +485,17 @@ EAGL_eglDestroySurface(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *surf)
     return EGL_TRUE;
 }
 
+/**
+ * Called via eglQuerySurface(), drv->API.QuerySurface().
+ */
 static EGLBoolean EAGL_eglQuerySurface(_EGLDriver *drv, _EGLDisplay *dpy, _EGLSurface *surface, EGLint attribute, EGLint *value) {
     
     return _eglQuerySurface(drv, dpy, surface, attribute, value);
 }
 
+/**
+ * Called via eglSwapBuffers(), drv->API.SwapBuffers().
+ */
 static EGLBoolean
 EAGL_eglSwapBuffers(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *draw)
 {
@@ -549,7 +513,10 @@ EAGL_eglSwapBuffers(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *draw)
     return EAGL_drv->eaglSwapBuffers(EAGL_dpy, EAGL_surf);
 }
 
-static EGLBoolean (EAGL_SwapInterval)(_EGLDriver *drv, _EGLDisplay *dpy, _EGLSurface *surf, EGLint interval) {
+/**
+ * Called via eglSwapInterval(), drv->API.SwapInterval().
+ */
+static EGLBoolean EAGL_eglSwapInterval(_EGLDriver *drv, _EGLDisplay *dpy, _EGLSurface *surf, EGLint interval) {
     struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
     struct EAGL_egl_display *EAGL_dpy = EAGL_egl_display(dpy);
     struct EAGL_egl_surface *EAGL_surf = EAGL_egl_surface(surf);
@@ -574,6 +541,9 @@ EAGL_eglGetProcAddress(_EGLDriver *drv, const char *procname)
     return (_EGLProc) EAGL_drv->eaglGetProcAddress((const char *) procname);
 }
 
+/**
+ * Called via eglWaitClient(), drv->API.WaitClient().
+ */
 static EGLBoolean
 EAGL_eglWaitClient(_EGLDriver *drv, _EGLDisplay *dpy, _EGLContext *ctx)
 {
@@ -586,6 +556,9 @@ EAGL_eglWaitClient(_EGLDriver *drv, _EGLDisplay *dpy, _EGLContext *ctx)
     return EGL_TRUE;
 }
 
+/**
+ * Called via eglWaitNative(), drv->API.WaitNative().
+ */
 static EGLBoolean
 EAGL_eglWaitNative(_EGLDriver *drv, _EGLDisplay *dpy, EGLint engine)
 {
@@ -599,6 +572,9 @@ EAGL_eglWaitNative(_EGLDriver *drv, _EGLDisplay *dpy, EGLint engine)
     return EGL_TRUE;
 }
 
+/**
+ * Called via eglQueryContext(), drv->API.QueryContext().
+ */
 static EGLBoolean
 EAGL_eglQueryContext (_EGLDriver *drv, _EGLDisplay *dpy, _EGLContext *ctx, EGLint attribute, EGLint *value) {
     return _eglQueryContext(drv, dpy, ctx, attribute, value);
@@ -645,7 +621,7 @@ _EGLDriver* _eglBuiltInDriverEAGL(const char* args) {
     EAGL_drv->Base.API.DestroySurface = EAGL_eglDestroySurface;
     EAGL_drv->Base.API.QuerySurface = EAGL_eglQuerySurface;
     EAGL_drv->Base.API.SwapBuffers = EAGL_eglSwapBuffers;
-    EAGL_drv->Base.API.SwapInterval = EAGL_SwapInterval;
+    EAGL_drv->Base.API.SwapInterval = EAGL_eglSwapInterval;
     EAGL_drv->Base.API.GetProcAddress = EAGL_eglGetProcAddress;
     EAGL_drv->Base.API.WaitClient = EAGL_eglWaitClient;
     EAGL_drv->Base.API.WaitNative = EAGL_eglWaitNative;

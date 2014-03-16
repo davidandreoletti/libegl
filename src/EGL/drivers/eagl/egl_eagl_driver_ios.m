@@ -54,8 +54,6 @@
 #define EAGL_IOS_MAJOR_VERSION 1
 #define EAGL_IOS_MINOR_VERSION 4
 
-#define BOOL_TO_EGLBoolean(b) (b == YES ? EGL_TRUE : EGL_FALSE)
-
 /**
  * Convert _EAGL_egl_Config_iOS(s) to EGLConfig(s) for the iOS platform
  * \param EAGL_drv Driver
@@ -192,7 +190,7 @@ static EGLBoolean convert_eagl_ios_config (struct EAGL_egl_driver *EAGL_drv,
 }
 
 EGLBoolean
-create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy/*, void** configs*/, EGLint* num_configs)
+create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* num_configs)
 {
     struct EAGL_egl_display* EAGL_dpy = EAGL_egl_display(dpy);
     
@@ -307,7 +305,6 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy/*, void** 
         if (!ok)
             continue;
         
-        //fix_config(EAGL_dpy, &template);
         if (!_eglValidateConfig(&template.Base, EGL_FALSE)) {
             _eglLog(_EGL_DEBUG, "EAGL: failed to validate config %d", i);
             continue;
@@ -675,7 +672,7 @@ EGLBoolean eaglSwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_s
     }
     
     BOOL b = [EAGL_context->context.nativeContext presentRenderbuffer:EAGL_context->openGLESAPI.GL_RENDERBUFFER_];
-    return BOOL_TO_EGLBoolean(b);
+    return b == YES ? EGL_TRUE : EGL_FALSE;
 }
 
 EGLBoolean eaglSwapInterval(struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf, EGLint interval) {
