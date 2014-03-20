@@ -65,6 +65,11 @@ Static library .a file requires:
         - _EGL_OS_APPLE_IOS=1
         - _EGL_BUILT_IN_DRIVER_IOSEAGL=1
         - DEBUG=1 (optional)
+
+# ARC vs MRR support
+
+The code is fully compatible with MRR. ARC support is on the way.
+
 #SOURCE
 
 Main source repository: 
