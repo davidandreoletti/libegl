@@ -180,6 +180,16 @@ See CHANGELOG file
 
 See CHANGELOG file
 
+#DONATING
+
+Gittip:
+
+[![Support via Gittip](https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png)](https://www.gittip.com/davidandreoletti)
+
+Bitcoin:
+
+**1DaE8Dq4rm9XQKh2Po4pskiwZK526r4xUT**
+
 #CONTRIBUTORS:
 
 If you would like to contribute, feel free to drop me an email or contribute 
