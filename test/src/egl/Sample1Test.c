@@ -56,6 +56,8 @@ struct renderer {
     InitRender_t init;
     RenderFrame_t renderFrame;
     DestroyRender_t destroy;
+    EGLint renderableType;
+    EGLint clientVersion;
 };
 
 static struct renderer renderer = {0};
@@ -125,7 +127,7 @@ static int createSurface(struct renderer* renderer, void* nativeWinSurface) {
     return 1;
 }
 
-static int initContext(struct renderer* renderer, EGLint clientVersion) {
+static int createContext(struct renderer* renderer, EGLint clientVersion) {
     LOG(I, "Initializing context")
     EGLint attribs[] = {
         EGL_CONTEXT_CLIENT_VERSION, clientVersion /* 1 or 2 or 3 */,
@@ -135,28 +137,40 @@ static int initContext(struct renderer* renderer, EGLint clientVersion) {
         renderer->destroy();
         return 0;
     }
-    
+        
+    LOG(I, "Context initialized")
+    return 1;
+}
+
+static int setAsCurrent(struct renderer* renderer) {
+    LOG(I, "Setting current context")
     if (!eglMakeCurrent(display, surface, surface, context)) {
         logEGLError( "eglMakeCurrent", eglGetError());
         renderer->destroy();
         return 0;
     }
     
-    LOG(I, "Context initialized")
+    LOG(I, "Set current context")
     return 1;
 }
 
 static int destroyContext () {
-    eglMakeCurrent(display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
     eglDestroyContext(display, context);
+    context = EGL_NO_CONTEXT;
+    return 1;
+}
+
+static int destroySurface () {
     eglDestroySurface(display, surface);
+    surface = EGL_NO_SURFACE;
+    return 1;
+}
+
+static int destroyDisplay () {
     eglTerminate(display);
     eglReleaseThread();
     
     display = EGL_NO_DISPLAY;
-    surface = EGL_NO_SURFACE;
-    context = EGL_NO_CONTEXT;
-    
     return 1;
 }
 
@@ -223,32 +237,9 @@ static void renderFrameOpenGLES1()
 
 static void destroyRenderOpenGLES1() {
     LOG(I, "Destroying OpenGL 1 context")
-    
-    if (!destroyContext()) {
-    
-    }
-    return;
 }
 
 static int initRenderOpenGLES1(TestPlatform* p, void* eglDisplay, void* nativeWinSurface) {
-    setenv(p->ios_platform_env_key, p->ios_platform_env_value, 1);
-
-    if (!getAndInitDisplay(&renderer, p, eglDisplay)) {
-        return 0;
-    }
-    
-    if (!chooseConfig(&renderer, EGL_OPENGL_ES_BIT)) {
-        return 0;
-    }
-    
-    if (!createSurface(&renderer, nativeWinSurface)) {
-        return 0;
-    }
-    
-    if (!initContext(&renderer,1)) {
-        return 0;
-    }
-    
     glDisable(GL_DITHER);
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
     glClearColor(0, 0, 0, 0);
@@ -262,8 +253,6 @@ static int initRenderOpenGLES1(TestPlatform* p, void* eglDisplay, void* nativeWi
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glFrustumf(-ratio, ratio, -1, 1, 1, 10);
-    
-    LOG(I, "Context initialized")
     return 1;
 }
 
@@ -653,31 +642,9 @@ static void renderFrameOpenGLES2()
 
 static void destroyRenderOpenGLES2() {
     LOG(I, "Destroying OpenGL 2 context")
-    
-    if (!destroyContext()) {
-        
-    }
-    return;
 }
 
 static int initRenderOpenGLES2(TestPlatform* p, void* eglDisplay, void* nativeWinSurface) {
-    
-    if (!getAndInitDisplay(&renderer, p, eglDisplay)) {
-        return 0;
-    }
-
-    if (!chooseConfig(&renderer, EGL_OPENGL_ES2_BIT)) {
-        return 0;
-    }
-    
-    if (!createSurface(&renderer, nativeWinSurface)) {
-        return 0;
-    }
-    
-    if (!initContext(&renderer,2)) {
-        return 0;
-    }
-    
     if(!compileShaders(vertexShader, fragmentShader, &vertexShaderObjectId, &fragmentShaderObjectId, &programObjectId)) {
         renderer.destroy();
         return 0;
@@ -705,6 +672,8 @@ static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, in
             renderer.init = initRenderOpenGLES1;
             renderer.renderFrame = renderFrameOpenGLES1;
             renderer.destroy = destroyRenderOpenGLES1;
+            renderer.renderableType = EGL_OPENGL_ES_BIT;
+            renderer.clientVersion = 1;
             LOG(I, "Running with OpenGL ES 1.X")
             break;
         }
@@ -713,6 +682,8 @@ static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, in
             renderer.init = initRenderOpenGLES2;
             renderer.renderFrame = renderFrameOpenGLES2;
             renderer.destroy = destroyRenderOpenGLES2;
+            renderer.renderableType = EGL_OPENGL_ES2_BIT;
+            renderer.clientVersion = 2;
             LOG(I, "Running with OpenGL ES 2.X")
             break;
         }
@@ -721,40 +692,97 @@ static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, in
             break;
     }
     
-    
-    if (renderer.init(p, eglDisplay, nativeWinSurface)) {
-        int i = 0;
-        TimeRecord_t s;
-        TimeRecord_t e;
-        if (!eglSwapInterval(display, 1)) {
-            logEGLError("eglSwapInterval()", eglGetError());
-        }
-        else {
-            while (i < maxFrameCount)
-            {
-                LOG(I, "FRAME ...")
-                renderer.renderFrame();
-                START_RECORD_DURATION(&s);
-                if (!eglSwapBuffers(display, surface)) {
-                    logEGLError("eglSwapBuffers()", eglGetError());
-                }
-                LOG(I, "FRAME DONE")
-                END_RECORD_DURATION(&e);
-                LOG_DURATION(&s, &e)
-                i++;
-            }
-        }
+    if (!getAndInitDisplay(&renderer, p, eglDisplay)) {
+        return;
     }
+    
+    if (!chooseConfig(&renderer, renderer.renderableType)) {
+        return;
+    }
+    
+    init:
+    if (!createSurface(&renderer, nativeWinSurface)) {
+        return;
+    }
+    
+    if (!createContext(&renderer,renderer.clientVersion)) {
+        return;
+    }
+    
+    if (!setAsCurrent(&renderer)) {
+        return;
+    }
+    
+    if (!eglSwapInterval(display, 1)) {
+        logEGLError("eglSwapInterval()", eglGetError());
+        return;
+    }
+
+    EGLint error;
+    if (!renderer.init(p, eglDisplay, nativeWinSurface)) {
+        return;
+    }
+    
+    int i = 0;
+    TimeRecord_t s;
+    TimeRecord_t e;
+    while (i < maxFrameCount)
+    {
+        LOG(I, "FRAME ...")
+        renderer.renderFrame();
+        START_RECORD_DURATION(&s);
+        if (!eglSwapBuffers(display, surface)) {
+            error = eglGetError();
+            logEGLError("eglSwapBuffers()", error);
+            if (error != EGL_CONTEXT_LOST) {
+                break;
+            }
+            if (!destroySurface()) {
+                return;
+            }
+            
+            if (!destroyContext()) {
+                return;
+            }
+
+            if (!setAsCurrent(&renderer)) {
+                return;
+            }
+            
+            goto init;
+        }
+        LOG(I, "FRAME DONE")
+        END_RECORD_DURATION(&e);
+        LOG_DURATION(&s, &e)
+        i++;
+    }
+    
     renderer.destroy();
+    
+    if (!destroySurface()) {
+        return;
+    }
+    
+    if (!destroyContext()) {
+        return;
+    }
+    
+    if (!setAsCurrent(&renderer)) {
+        return;
+    }
+
+    if (!destroyDisplay()) {
+        return;
+    }
 }
 
 void run_sample1(TestPlatform* p) {
     LOG(I, "Executing: " __FILE__)
     setup(p);
-    sample(p, p->validNativeDisplay, p->validNativeWindow, 1000, 1);
+    sample(p, p->validNativeDisplay, p->validNativeWindow, 100, 1);
     teardown(p);
     setup(p);
-    sample(p, p->validNativeDisplay, p->validNativeWindow, 1000, 2);
+    sample(p, p->validNativeDisplay, p->validNativeWindow, 100, 2);
     teardown(p);
 }
 

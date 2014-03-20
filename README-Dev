@@ -6,7 +6,7 @@ TODO Priority List:
  - [self setupVideoFrameIntervalUpdates:0]; -> Sample1[85592:3303] *** -[__EAGLSurface setupVideoFrameIntervalUpdates:]: message sent to deallocated instance 0x8bab670 
  - Update Sample1 to recreate EGLContext on EGL_ONTEXT_LOST
  - Memory Leak: App starts with 8.5Mb without EGL. Running the demo consumes more 16Mb. When the demo stops, the memory consumption is higher than 8.5Mb
- - eglMakeCurrent(EGLDisplay dpy, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT) 
+ - eglMakeCurrent(EGLDisplay dpy, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT) -> impact on ressource count 
  - Add support for rotation ? Native Window Resizing
  - contentScaleFactor == 1 ? IN EAGL_eglCreateWindowSurface
 
