@@ -44,6 +44,123 @@ static EGLint width;
 static EGLint height;
 
 /**************************************************************************
+ Sample
+ **************************************************************************/
+
+typedef int (*InitRender_t) (TestPlatform*, void*, void*);
+typedef void (*RenderFrame_t)(void);
+typedef void (*DestroyRender_t)(void);
+
+/** OpenGL renderer */
+struct renderer {
+    InitRender_t init;
+    RenderFrame_t renderFrame;
+    DestroyRender_t destroy;
+};
+
+static struct renderer renderer = {0};
+
+static int getAndInitDisplay(struct renderer* renderer, TestPlatform* p, void* eglDisplay) {
+    LOG(I, "Getting and initializing display")
+    setenv(p->ios_platform_env_key, p->ios_platform_env_value, 1);
+    if ((display = eglGetDisplay(eglDisplay)) == EGL_NO_DISPLAY) {
+        logEGLError( "eglGetDisplay", eglGetError());
+        return 0;
+    }
+    if (!eglInitialize(display, 0, 0)) {
+        logEGLError( "eglInitialize", eglGetError());
+        return 0;
+    }
+    LOG(I, "Display got and initialized")
+    return 1;
+}
+
+static int chooseConfig(struct renderer* renderer, EGLint renderableType) {
+    LOG(I, "Choosing config")
+    EGLint attribs[] = {
+        EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
+        EGL_BLUE_SIZE, 8,
+        EGL_GREEN_SIZE, 8,
+        EGL_RED_SIZE, 8,
+        EGL_RENDERABLE_TYPE, renderableType,
+        EGL_NONE
+    };
+    
+    if (!eglChooseConfig(display, attribs, &config, 1, &numConfigs)) {
+        logEGLError( "eglChooseConfig", eglGetError());
+        renderer->destroy();
+        return 0;
+    }
+    
+    EGLint num_attrs = 0;
+    getEGLConfigAttributeForEGLAPIVersion(1,
+                                          4,
+                                          NULL,
+                                          &num_attrs);
+    EGLint* attrs = (EGLint* ) malloc(num_attrs * sizeof(EGLint));
+    getEGLConfigAttributeForEGLAPIVersion(1,
+                                          4,
+                                          attrs,
+                                          &num_attrs);
+    displayEGLConfig(display, config, attrs, num_attrs);
+    LOG(I, "Config chosen")
+    return 1;
+}
+
+static int createSurface(struct renderer* renderer, void* nativeWinSurface) {
+    LOG(I, "Creating surface")
+    if (!(surface = eglCreateWindowSurface(display, config, nativeWinSurface, NULL))) {
+        logEGLError( "eglCreateWindowSurface", eglGetError());
+        renderer->destroy();
+        return 0;
+    }
+    
+    if (!eglQuerySurface(display, surface, EGL_WIDTH, &width) ||
+        !eglQuerySurface(display, surface, EGL_HEIGHT, &height)) {
+        logEGLError( "eglQuerySurface", eglGetError());
+        renderer->destroy();
+        return 0;
+    }
+    LOG(I, "Surface created")
+    return 1;
+}
+
+static int initContext(struct renderer* renderer, EGLint clientVersion) {
+    LOG(I, "Initializing context")
+    EGLint attribs[] = {
+        EGL_CONTEXT_CLIENT_VERSION, clientVersion /* 1 or 2 or 3 */,
+        EGL_NONE};
+    if (!(context = eglCreateContext(display, config, EGL_NO_CONTEXT, attribs))) {
+        logEGLError( "eglCreateContext", eglGetError());
+        renderer->destroy();
+        return 0;
+    }
+    
+    if (!eglMakeCurrent(display, surface, surface, context)) {
+        logEGLError( "eglMakeCurrent", eglGetError());
+        renderer->destroy();
+        return 0;
+    }
+    
+    LOG(I, "Context initialized")
+    return 1;
+}
+
+static int destroyContext () {
+    eglMakeCurrent(display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
+    eglDestroyContext(display, context);
+    eglDestroySurface(display, surface);
+    eglTerminate(display);
+    eglReleaseThread();
+    
+    display = EGL_NO_DISPLAY;
+    surface = EGL_NO_SURFACE;
+    context = EGL_NO_CONTEXT;
+    
+    return 1;
+}
+
+/**************************************************************************
  OpenGL ES 1.x
  Inspired from: http://code.google.com/p/android-native-egl-example/source/browse/jni/renderer.cpp
  **************************************************************************/
@@ -81,9 +198,6 @@ GLubyte indicesES1[] = {
     3, 0, 1,    3, 1, 2
 };
 
-EGLDisplay _display;
-EGLSurface _surface;
-EGLContext _context;
 GLfloat _angle;
 
 static void renderFrameOpenGLES1()
@@ -108,84 +222,32 @@ static void renderFrameOpenGLES1()
 }
 
 static void destroyRenderOpenGLES1() {
-    LOG(I, "Destroying context")
+    LOG(I, "Destroying OpenGL 1 context")
     
-    eglMakeCurrent(_display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
-    eglDestroyContext(_display, _context);
-    eglDestroySurface(_display, _surface);
-    eglTerminate(_display);
-    eglReleaseThread();
+    if (!destroyContext()) {
     
-    _display = EGL_NO_DISPLAY;
-    _surface = EGL_NO_SURFACE;
-    _context = EGL_NO_CONTEXT;
+    }
     return;
 }
 
 static int initRenderOpenGLES1(TestPlatform* p, void* eglDisplay, void* nativeWinSurface) {
     setenv(p->ios_platform_env_key, p->ios_platform_env_value, 1);
-    const EGLint attribs[] = {
-        EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
-        EGL_BLUE_SIZE, 8,
-        EGL_GREEN_SIZE, 8,
-        EGL_RED_SIZE, 8,
-        EGL_RENDERABLE_TYPE, EGL_OPENGL_ES_BIT,
-        EGL_NONE
-    };
-    EGLDisplay display = NULL;
-    EGLConfig config = NULL;
-    EGLint numConfigs = NULL;
-    EGLSurface surface = NULL;
-    EGLContext context = NULL;
-    EGLint width = 0;
-    EGLint height = 0;
-    GLfloat ratio= 0;
-    
-    LOG(I, "Initializing context")
-    
-    if ((display = eglGetDisplay(eglDisplay)) == EGL_NO_DISPLAY) {
-        logEGLError( "eglGetDisplay", eglGetError());
-        return 0;
-    }
-    if (!eglInitialize(display, 0, 0)) {
-        logEGLError( "eglInitialize", eglGetError());
+
+    if (!getAndInitDisplay(&renderer, p, eglDisplay)) {
         return 0;
     }
     
-    if (!eglChooseConfig(display, attribs, &config, 1, &numConfigs)) {
-        logEGLError( "eglChooseConfig", eglGetError());
-        destroyRenderOpenGLES1();
+    if (!chooseConfig(&renderer, EGL_OPENGL_ES_BIT)) {
         return 0;
     }
     
-    if (!(surface = eglCreateWindowSurface(display, config, nativeWinSurface, NULL))) {
-        logEGLError( "eglCreateWindowSurface", eglGetError());
-        destroyRenderOpenGLES1();
+    if (!createSurface(&renderer, nativeWinSurface)) {
         return 0;
     }
     
-    if (!(context = eglCreateContext(display, config, EGL_NO_CONTEXT, NULL))) {
-        logEGLError( "eglCreateContext", eglGetError());
-        destroyRenderOpenGLES1();
+    if (!initContext(&renderer,1)) {
         return 0;
     }
-    
-    if (!eglMakeCurrent(display, surface, surface, context)) {
-        logEGLError( "eglMakeCurrent", eglGetError());
-        destroyRenderOpenGLES1();
-        return 0;
-    }
-    
-    if (!eglQuerySurface(display, surface, EGL_WIDTH, &width) ||
-        !eglQuerySurface(display, surface, EGL_HEIGHT, &height)) {
-        logEGLError( "eglQuerySurface", eglGetError());
-        destroyRenderOpenGLES1();
-        return 0;
-    }
-    
-    _display = display;
-    _surface = surface;
-    _context = context;
     
     glDisable(GL_DITHER);
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
@@ -196,7 +258,7 @@ static int initRenderOpenGLES1(TestPlatform* p, void* eglDisplay, void* nativeWi
     
     glViewport(0, 0, width, height);
     
-    ratio = (GLfloat) width / height;
+    GLfloat ratio = (GLfloat) width / height;
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glFrustumf(-ratio, ratio, -1, 1, 1, 10);
@@ -554,10 +616,6 @@ static GLboolean setupVBOs(GLuint* vertexBuffer, GLuint* indexBuffer, GLsizeiptr
     return GL_TRUE;
 }
 
-EGLDisplay _display;
-EGLSurface _surface;
-EGLContext _context;
-
 static void renderFrameOpenGLES2()
 {
     glClearColor(0, 0, 0, 0);
@@ -594,109 +652,44 @@ static void renderFrameOpenGLES2()
 }
 
 static void destroyRenderOpenGLES2() {
-    LOG(I, "Destroying context")
+    LOG(I, "Destroying OpenGL 2 context")
     
-    eglMakeCurrent(_display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
-    eglDestroyContext(_display, _context);
-    eglDestroySurface(_display, _surface);
-    eglTerminate(_display);
-    eglReleaseThread();
-    
-    _display = EGL_NO_DISPLAY;
-    _surface = EGL_NO_SURFACE;
-    _context = EGL_NO_CONTEXT;
+    if (!destroyContext()) {
+        
+    }
     return;
 }
 
 static int initRenderOpenGLES2(TestPlatform* p, void* eglDisplay, void* nativeWinSurface) {
-    setenv(p->ios_platform_env_key, p->ios_platform_env_value, 1);
-//    EGLint openglClientVersion = EGL_OPENGL_ES2_BIT;
-    EGLint openglClientVersion = EGL_OPENGL_ES3_BIT_KHR;
-    EGLint attribs[] = {
-        EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
-        EGL_BLUE_SIZE, 8,
-        EGL_GREEN_SIZE, 8,
-        EGL_RED_SIZE, 8,
-        EGL_RENDERABLE_TYPE, openglClientVersion,
-        EGL_NONE
-    };
     
-    LOG(I, "Initializing context")
-    
-    if ((display = eglGetDisplay(eglDisplay)) == EGL_NO_DISPLAY) {
-        logEGLError( "eglGetDisplay", eglGetError());
+    if (!getAndInitDisplay(&renderer, p, eglDisplay)) {
         return 0;
     }
-    if (!eglInitialize(display, 0, 0)) {
-        logEGLError( "eglInitialize", eglGetError());
+
+    if (!chooseConfig(&renderer, EGL_OPENGL_ES2_BIT)) {
         return 0;
     }
     
-    if (!eglChooseConfig(display, attribs, &config, 1, &numConfigs)) {
-        logEGLError( "eglChooseConfig", eglGetError());
-        destroyRenderOpenGLES2();
+    if (!createSurface(&renderer, nativeWinSurface)) {
         return 0;
     }
     
-    EGLint num_attrs = 0;
-    getEGLConfigAttributeForEGLAPIVersion(1,
-                                          4,
-                                          NULL,
-                                          &num_attrs);
-    EGLint* attrs = (EGLint* ) malloc(num_attrs * sizeof(EGLint));
-    getEGLConfigAttributeForEGLAPIVersion(1,
-                                          4,
-                                          attrs,
-                                          &num_attrs);
-    displayEGLConfig(display, config, attrs, num_attrs);
-    
-    if (!(surface = eglCreateWindowSurface(display, config, nativeWinSurface, NULL))) {
-        logEGLError( "eglCreateWindowSurface", eglGetError());
-        destroyRenderOpenGLES2();
+    if (!initContext(&renderer,2)) {
         return 0;
     }
-    
-    attribs[0] = EGL_CONTEXT_CLIENT_VERSION;
-//    attribs[1] = 2;
-    attribs[1] = 3;
-    attribs[2] = EGL_NONE;
-    if (!(context = eglCreateContext(display, config, EGL_NO_CONTEXT, attribs))) {
-        logEGLError( "eglCreateContext", eglGetError());
-        destroyRenderOpenGLES2();
-        return 0;
-    }
-    
-    if (!eglMakeCurrent(display, surface, surface, context)) {
-        logEGLError( "eglMakeCurrent", eglGetError());
-        destroyRenderOpenGLES2();
-        return 0;
-    }
-    
-    if (!eglQuerySurface(display, surface, EGL_WIDTH, &width) ||
-        !eglQuerySurface(display, surface, EGL_HEIGHT, &height)) {
-        logEGLError( "eglQuerySurface", eglGetError());
-        destroyRenderOpenGLES2();
-        return 0;
-    }
-    
-    _display = display;
-    _surface = surface;
-    _context = context;
     
     if(!compileShaders(vertexShader, fragmentShader, &vertexShaderObjectId, &fragmentShaderObjectId, &programObjectId)) {
-        destroyRenderOpenGLES2();
+        renderer.destroy();
         return 0;
     }
     if(!setupAttribLocations(&programObjectId, &_positionSlot, &_colorSlot, &_projectionUniform, &_modelViewUniform)){
-        destroyRenderOpenGLES2();
+        renderer.destroy();
         return 0;
     }
     if(!setupVBOs(&vertexBuffer, &indexBuffer, sizeof(verticesES2), verticesES2, sizeof(indicesES2), indicesES2)) {
-        destroyRenderOpenGLES2();
+        renderer.destroy();
         return 0;
     }
-    
-    LOG(I, "Context initialized")
     return 1;
 }
 
@@ -704,27 +697,15 @@ static int initRenderOpenGLES2(TestPlatform* p, void* eglDisplay, void* nativeWi
  Sample
  **************************************************************************/
 
-typedef int (*InitRender_t) (TestPlatform*, void*, void*);
-typedef void (*RenderFrame_t)(void);
-typedef void (*DestroyRender_t)(void);
-
-/** OpenGL renderer */
-struct renderer {
-    InitRender_t init;
-    RenderFrame_t renderFrame;
-    DestroyRender_t destroy;
-};
-
 static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, int maxFrameCount, int openglesVersion) {
     
-    struct renderer renderer = {0};
     switch (openglesVersion) {
         case 1:
         {
             renderer.init = initRenderOpenGLES1;
             renderer.renderFrame = renderFrameOpenGLES1;
             renderer.destroy = destroyRenderOpenGLES1;
-            LOG(I, "Running with OPENGL ES 1.X")
+            LOG(I, "Running with OpenGL ES 1.X")
             break;
         }
         case 2:
@@ -732,7 +713,7 @@ static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, in
             renderer.init = initRenderOpenGLES2;
             renderer.renderFrame = renderFrameOpenGLES2;
             renderer.destroy = destroyRenderOpenGLES2;
-            LOG(I, "Running with OPENGL ES 2.X")
+            LOG(I, "Running with OpenGL ES 2.X")
             break;
         }
         default:
@@ -745,7 +726,7 @@ static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, in
         int i = 0;
         TimeRecord_t s;
         TimeRecord_t e;
-        if (!eglSwapInterval(_display, 1)) {
+        if (!eglSwapInterval(display, 1)) {
             logEGLError("eglSwapInterval()", eglGetError());
         }
         else {
@@ -754,7 +735,7 @@ static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, in
                 LOG(I, "FRAME ...")
                 renderer.renderFrame();
                 START_RECORD_DURATION(&s);
-                if (!eglSwapBuffers(_display, _surface)) {
+                if (!eglSwapBuffers(display, surface)) {
                     logEGLError("eglSwapBuffers()", eglGetError());
                 }
                 LOG(I, "FRAME DONE")
