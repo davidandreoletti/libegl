@@ -34,10 +34,9 @@ typedef struct {
     EGLint configID;
     int eaglRenderingAPI;   // EAGLRenderingAPI
     NSString* colorFormat;
-    int retainBacking;      // what is this for ?
     int depth;              // Depth buffer in bits
     int frameBufferLevel;
-    int surfaceType;        // Surface Type(s) : EGL_WINDOW_BIT/EGL_PIXMAP_BIT/EGL_PBUFFER_BIT
+    int surfaceType;        // i.e EGL_WINDOW_BIT/EGL_PIXMAP_BIT/EGL_PBUFFER_BIT
 } _EAGL_egl_Config_iOS;
 
 /** subclass of _EGLConfig */

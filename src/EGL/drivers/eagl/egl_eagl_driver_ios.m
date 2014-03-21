@@ -226,7 +226,6 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES1,
                 kEAGLColorFormatRGBA8,
-                NO,
                 GL_DEPTH_COMPONENT16,
                 0, // TODO: How to get the right value ?
                 EGL_WINDOW_BIT
@@ -237,7 +236,6 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES1,
                 kEAGLColorFormatRGB565,
-                NO,
                 GL_DEPTH_COMPONENT16,
                 0,
                 EGL_WINDOW_BIT
@@ -249,7 +247,6 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES2,
                 kEAGLColorFormatRGBA8,
-                NO,
                 GL_DEPTH_COMPONENT16,
                 0,
                 EGL_WINDOW_BIT
@@ -259,7 +256,6 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES2,
                 kEAGLColorFormatRGB565,
-                NO,
                 GL_DEPTH_COMPONENT16,
                 0,
                 EGL_WINDOW_BIT
@@ -271,7 +267,6 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES3,
                 kEAGLColorFormatRGBA8,
-                NO,
                 GL_DEPTH_COMPONENT16,
                 0,
                 EGL_WINDOW_BIT
@@ -281,7 +276,6 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 0,
                 kEAGLRenderingAPIOpenGLES3,
                 kEAGLColorFormatRGB565,
-                NO,
                 GL_DEPTH_COMPONENT16,
                 0,
                 EGL_WINDOW_BIT
@@ -717,6 +711,16 @@ const char *eaglQueryClientString ( _EAGLWindow *dpy, int name ) {
     return "";
 }
 
+BOOL convertToEAGLDrawablePropertyRetainedBacking(EGLenum swapBehavior) {
+    if (swapBehavior == EGL_BUFFER_PRESERVED) {
+        return YES;
+    }
+    if (swapBehavior == EGL_BUFFER_DESTROYED) {
+        return NO;
+    }
+    return NO;
+}
+
 EGLBoolean eaglCreateWindow(struct EAGL_egl_display *EAGL_dpy,
                             struct EAGL_egl_config *EAGL_conf, EGLNativeWindowType window,
                             const EGLint *attrib_list, struct EAGL_egl_surface *EAGL_surf) {
@@ -737,7 +741,7 @@ EGLBoolean eaglCreateWindow(struct EAGL_egl_display *EAGL_dpy,
     //    UIView* v = (UIView*)obj;
     //    id<EAGLDrawable> eaglSurface = (id<EAGLDrawable>)[v layer];
     NSDictionary* nativePrawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                              [NSNumber numberWithBool:EAGL_conf->conf.retainBacking],
+                                              convertToEAGLDrawablePropertyRetainedBacking(EAGL_surf->Base.SwapBehavior),
                                               kEAGLDrawablePropertyRetainedBacking,
                                               EAGL_conf->conf.colorFormat,
                                               kEAGLDrawablePropertyColorFormat,
