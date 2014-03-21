@@ -62,7 +62,7 @@ struct renderer {
 
 static struct renderer renderer = {0};
 
-static int getAndInitDisplay(struct renderer* renderer, TestPlatform* p, void* eglDisplay) {
+static int getAndInitDisplay(TestPlatform* p, void* eglDisplay) {
     LOG(I, "Getting and initializing display")
     setenv(p->ios_platform_env_key, p->ios_platform_env_value, 1);
     if ((display = eglGetDisplay(eglDisplay)) == EGL_NO_DISPLAY) {
@@ -77,7 +77,7 @@ static int getAndInitDisplay(struct renderer* renderer, TestPlatform* p, void* e
     return 1;
 }
 
-static int chooseConfig(struct renderer* renderer, EGLint renderableType) {
+static int chooseConfig(EGLint renderableType) {
     LOG(I, "Choosing config")
     EGLint attribs[] = {
         EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
@@ -90,7 +90,6 @@ static int chooseConfig(struct renderer* renderer, EGLint renderableType) {
     
     if (!eglChooseConfig(display, attribs, &config, 1, &numConfigs)) {
         logEGLError( "eglChooseConfig", eglGetError());
-        renderer->destroy();
         return 0;
     }
     
@@ -109,32 +108,29 @@ static int chooseConfig(struct renderer* renderer, EGLint renderableType) {
     return 1;
 }
 
-static int createSurface(struct renderer* renderer, void* nativeWinSurface) {
+static int createSurface(void* nativeWinSurface) {
     LOG(I, "Creating surface")
     if (!(surface = eglCreateWindowSurface(display, config, nativeWinSurface, NULL))) {
         logEGLError( "eglCreateWindowSurface", eglGetError());
-        renderer->destroy();
         return 0;
     }
     
     if (!eglQuerySurface(display, surface, EGL_WIDTH, &width) ||
         !eglQuerySurface(display, surface, EGL_HEIGHT, &height)) {
         logEGLError( "eglQuerySurface", eglGetError());
-        renderer->destroy();
         return 0;
     }
     LOG(I, "Surface created")
     return 1;
 }
 
-static int createContext(struct renderer* renderer, EGLint clientVersion) {
+static int createContext(EGLint clientVersion) {
     LOG(I, "Initializing context")
     EGLint attribs[] = {
         EGL_CONTEXT_CLIENT_VERSION, clientVersion /* 1 or 2 or 3 */,
         EGL_NONE};
     if (!(context = eglCreateContext(display, config, EGL_NO_CONTEXT, attribs))) {
         logEGLError( "eglCreateContext", eglGetError());
-        renderer->destroy();
         return 0;
     }
         
@@ -146,7 +142,6 @@ static int setAsCurrent(struct renderer* renderer) {
     LOG(I, "Setting current context")
     if (!eglMakeCurrent(display, surface, surface, context)) {
         logEGLError( "eglMakeCurrent", eglGetError());
-        renderer->destroy();
         return 0;
     }
     
@@ -155,22 +150,33 @@ static int setAsCurrent(struct renderer* renderer) {
 }
 
 static int destroyContext () {
-    eglDestroyContext(display, context);
+    if (!eglDestroyContext(display, context)) {
+        logEGLError( "eglDestroyContext", eglGetError());
+        return 0;
+    };
     context = EGL_NO_CONTEXT;
     return 1;
 }
 
 static int destroySurface () {
-    eglDestroySurface(display, surface);
+    if (!eglDestroySurface(display, surface)) {
+        logEGLError( "eglDestroySurface", eglGetError());
+        return 0;
+    }
     surface = EGL_NO_SURFACE;
     return 1;
 }
 
 static int destroyDisplay () {
-    eglTerminate(display);
-    eglReleaseThread();
-    
+    if(!eglTerminate(display)) {
+        logEGLError( "eglTerminate", eglGetError());
+        return 0;
+    }
     display = EGL_NO_DISPLAY;
+    if(!eglReleaseThread()) {
+        logEGLError( "eglReleaseThread", eglGetError());
+        return 0;
+    }
     return 1;
 }
 
@@ -692,20 +698,20 @@ static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, in
             break;
     }
     
-    if (!getAndInitDisplay(&renderer, p, eglDisplay)) {
+    if (!getAndInitDisplay(p, eglDisplay)) {
         return;
     }
     
-    if (!chooseConfig(&renderer, renderer.renderableType)) {
+    if (!chooseConfig(renderer.renderableType)) {
         return;
     }
     
     init:
-    if (!createSurface(&renderer, nativeWinSurface)) {
+    if (!createSurface(nativeWinSurface)) {
         return;
     }
     
-    if (!createContext(&renderer,renderer.clientVersion)) {
+    if (!createContext(renderer.clientVersion)) {
         return;
     }
     
@@ -738,15 +744,15 @@ static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, in
                 break;
             }
             if (!destroySurface()) {
-                return;
+                break;
             }
             
             if (!destroyContext()) {
-                return;
+                break;
             }
 
             if (!setAsCurrent(&renderer)) {
-                return;
+                break;
             }
             
             goto init;
@@ -779,10 +785,10 @@ static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, in
 void run_sample1(TestPlatform* p) {
     LOG(I, "Executing: " __FILE__)
     setup(p);
-    sample(p, p->validNativeDisplay, p->validNativeWindow, 100, 1);
+    sample(p, p->validNativeDisplay, p->validNativeWindow, 1500, 1);
     teardown(p);
     setup(p);
-    sample(p, p->validNativeDisplay, p->validNativeWindow, 100, 2);
+    sample(p, p->validNativeDisplay, p->validNativeWindow, 1500, 2);
     teardown(p);
 }
 
