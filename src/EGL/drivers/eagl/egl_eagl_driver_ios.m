@@ -339,7 +339,6 @@ EGLBoolean eaglInitialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
                 _eglLockMutex(_eglGlobal.Mutex);
                 _EGLDisplay* display = _eglGlobal.DisplayList;
                 while (display) {
-                    _eglLockMutex(&display->Mutex);
                     struct findresource data = {
                         .resourceFound = false,
                         .type = _EGL_RESOURCE_CONTEXT,
@@ -348,7 +347,6 @@ EGLBoolean eaglInitialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
                         .display = display
                     };
                     findResource(display, &data);
-                    _eglUnlockMutex(&display->Mutex);
                     display = display->Next;
                 }
                 _eglUnlockMutex(_eglGlobal.Mutex);
@@ -670,7 +668,6 @@ EGLBoolean eaglSwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_s
     if (EAGL_surf->Base.SwapInterval > 0) {
         [EAGL_surf->eagl_drawable waitUntilMinIntervalFrameUpdated];
     }
-    
     BOOL b = [EAGL_context->context.nativeContext presentRenderbuffer:EAGL_context->openGLESAPI.GL_RENDERBUFFER_];
     return b == YES ? EGL_TRUE : EGL_FALSE;
 }

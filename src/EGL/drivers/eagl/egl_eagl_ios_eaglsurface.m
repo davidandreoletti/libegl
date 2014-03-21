@@ -27,7 +27,12 @@
 #import <Foundation/Foundation.h>
 
 @interface __EAGLSurface ()
-@property (atomic, readonly) NSUInteger frameCount;
+/** 
+ *  0 == number of video frame update reached
+ *  0< == number of video frame update not yet reached
+ *  0< == updates cancelled
+ */
+@property (atomic, readonly) NSInteger frameCount;
 @property (nonatomic, readonly) NSCondition* condition;
 - (void) onDisplayFrameUpdate:(CADisplayLink*) display;
 @end
@@ -138,7 +143,14 @@
     while (frameCount > 0) {
         [condition wait];
     }
-    frameCount = [displayLink frameInterval];
+    if (frameCount == 0) {frameCount++;}
+    [condition unlock];
+}
+
+- (void) cancelWaitUntilMinIntervalFrameUpdated {
+    [condition lock];
+    frameCount = -1;
+    [condition signal];
     [condition unlock];
 }
 

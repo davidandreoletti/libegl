@@ -86,6 +86,11 @@ typedef enum {
  */
 - (void) waitUntilMinIntervalFrameUpdated;
 
+/**
+ * Cancels waiting until the requested number of video frame updates occurred
+ */
+- (void) cancelWaitUntilMinIntervalFrameUpdated;
+
 @end
 
 
