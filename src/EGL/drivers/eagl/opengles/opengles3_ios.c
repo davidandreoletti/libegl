@@ -24,11 +24,18 @@
 
 #include "EGL/drivers/eagl/opengles/opengles3_ios.h"
 #include <stddef.h>
+#include <Availability.h>
+
+#ifdef  __IPHONE_7_0
+
 #include <OpenGLES/ES3/gl.h>
 #include <OpenGLES/ES3/glext.h>
 
+#endif // __IPHONE_7_0
+
 void opengles3_api_init(__OpenGLESAPI* api) {
     if (api == NULL) {return;}
+#ifdef  __IPHONE_7_0
     api->minorVersion = 0;
     api->glGenFrameBuffers = glGenFramebuffers;
     api->glBindFrameBuffers = glBindFramebuffer;
@@ -51,4 +58,5 @@ void opengles3_api_init(__OpenGLESAPI* api) {
     api->GL_DEPTH_COMPONENT24_ = GL_DEPTH_COMPONENT24;
     api->glViewport = glViewport;
     api->glScissor = glScissor;
+#endif // __IPHONE_7_0
 }

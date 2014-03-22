@@ -26,9 +26,11 @@
 #include "EGL/drivers/eagl/opengles/opengles1_ios.h"
 #include "EGL/drivers/eagl/opengles/opengles2_ios.h"
 #include "EGL/drivers/eagl/opengles/opengles3_ios.h"
+#include "EGL/drivers/eagl/ios/ObjCMemoryManagement.h"
 #include <stddef.h>
-
+#include <Availability.h>
 #import <Foundation/NSObjCRuntime.h>
+#import <OpenGLES/EAGL.h>
 
 void opengles_api_init(__OpenGLESAPI* api, _OpenGLESAPIVersion version) {
     if (api == NULL) {return;}
@@ -51,18 +53,26 @@ void opengles_api_init(__OpenGLESAPI* api, _OpenGLESAPIVersion version) {
 }
 
 _OpenGLESAPIVersion opengles_max_version_supported() {
-
-#define GREATER_THAN(versionNumber) NSFoundationVersionNumber > versionNumber
-#define GREATER_THAN_OR_EQUAL(versionNumber) NSFoundationVersionNumber >= versionNumber
-    
-    if(GREATER_THAN(NSFoundationVersionNumber_iOS_6_1)) {
-            return OPENGL_ES_3_0;
-    }
-    if(GREATER_THAN_OR_EQUAL(NSFoundationVersionNumber_iPhoneOS_3_0)) {
-        return OPENGL_ES_2_0;
-    }
-    if(GREATER_THAN_OR_EQUAL(NSFoundationVersionNumber_iPhoneOS_2_0)) {
-        return OPENGL_ES_1_1;
-    }
-    return OPENGL_ES_NOT_SUPPORTED;
+    EAGLRenderingAPI renderingAPIs[] = {
+#ifdef  __IPHONE_7_0
+        kEAGLRenderingAPIOpenGLES3,
+        OPENGL_ES_3_0,
+#endif // __IPHONE_7_0
+#ifdef  __IPHONE_3_0
+        kEAGLRenderingAPIOpenGLES2,
+        OPENGL_ES_2_0,
+#endif // __IPHONE_3_0
+        kEAGLRenderingAPIOpenGLES1,
+        OPENGL_ES_1_1
+    };
+    int count = sizeof(renderingAPIs)/sizeof(renderingAPIs[0]);
+    bool supported = false;
+    int i = 0;
+    while (!supported && i<count) {
+        EAGLContext *context = [[EAGLContext alloc] initWithAPI:renderingAPIs[i]];
+        supported = (context != nil);
+        OWNERSHIP_RELEASE(context);
+        if (!supported) {i+=2;}
+    };
+    return supported ? (_OpenGLESAPIVersion)renderingAPIs[++i] : OPENGL_ES_NOT_SUPPORTED;
 }
