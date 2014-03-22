@@ -216,20 +216,29 @@ EAGL_eglCreateContext(_EGLDriver *drv, _EGLDisplay *disp, _EGLConfig *conf,
 }
 
 /**
+ * Destroy a context.
+ */
+static EGLBoolean
+destroy_context(_EGLDriver* drv, _EGLDisplay *disp, _EGLContext *context) {
+    struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
+    struct EAGL_egl_display *EAGL_dpy = EAGL_egl_display(disp);
+    struct EAGL_egl_context *EAGL_ctx = EAGL_egl_context(context);
+    
+    assert(EAGL_ctx);
+    EAGL_drv->eaglDestroyContext(EAGL_dpy->dpy, EAGL_ctx);
+    free(EAGL_ctx);
+    
+    return EGL_TRUE;
+}
+
+/**
  * Called via eglDestroyContext(), drv->API.DestroyContext().
  */
 static EGLBoolean
 EAGL_eglDestroyContext(_EGLDriver *drv, _EGLDisplay *disp, _EGLContext *ctx)
 {
-    struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
-    struct EAGL_egl_display *EAGL_dpy = EAGL_egl_display(disp);
-    struct EAGL_egl_context *EAGL_ctx = EAGL_egl_context(ctx);
-    
     if (_eglPutContext(ctx)) {
-        assert(EAGL_ctx);
-        EAGL_drv->eaglDestroyContext(EAGL_dpy->dpy, EAGL_ctx);
-        
-        free(EAGL_ctx);
+        destroy_context(drv, disp, ctx);
     }
     
     return EGL_TRUE;
@@ -295,8 +304,9 @@ EAGL_eglMakeCurrent(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *dsurf,
             destroy_surface(drv, disp, old_dsurf);
         if (_eglPutSurface(old_rsurf))
             destroy_surface(drv, disp, old_rsurf);
-        /* no destroy? */
-        _eglPutContext(old_ctx);
+        if (_eglPutContext(old_ctx)) {
+            destroy_context(drv, disp, old_ctx);
+        }
     }
     else {
         /* undo the previous _eglBindContext */

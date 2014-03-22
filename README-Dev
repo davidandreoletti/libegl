@@ -3,8 +3,7 @@ TODO Bug Priority List:
  - frameBufferLevel must be 0
  - [self setupVideoFrameIntervalUpdates:0]; -> Sample1[85592:3303] *** -[__EAGLSurface setupVideoFrameIntervalUpdates:]: message sent to deallocated instance 0x8bab670 
  - Memory Leak: App starts with 8.5Mb without EGL. Running the demo consumes more 16Mb. When the demo stops, the memory consumption is higher than 8.5Mb
- - eglMakeCurrent(EGLDisplay dpy, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT) -> impact on ressource count 
- -- are FB/CB etc clear ??? Should they ?
+ - eglMakeCurrent(EGLDisplay dpy, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT) -> are FB/CB etc clear ??? Should they ?
  - contentScaleFactor == 1 ? IN EAGL_eglCreateWindowSurface
 
 
@@ -13,6 +12,8 @@ TODO Feature Priority List:
     surface swap is EGL_BUFFER_PRESERVED or EGL_BUFFER_DESTROYED, ? See kEAGLDrawablePropertyRetainedBacking 
 - Add support for rotation ? Native Window Resizing
 
+TODO Code Cleanup Priority List:
+- move destroy_context/surface to the top
 
 FIXED - "The first time a OpenGL or OpenGL ES context is made current the viewport and scissor dimensions are set to the size of the draw surface" in eglMakeCurrent
 FIXED - EGLNativeWindowType != NULL AND invalid (eg: 0x123456) Section 3.1 - Parameter validation - IF cannot be detected, then write warning in the documentation (consequence: EXEC_BAD_EXEC when deallocation EAGLSurface instance for instance)
