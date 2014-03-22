@@ -46,7 +46,7 @@
 #include <OpenGLES/ES1/glext.h>
 #include <OpenGLES/ES2/gl.h>
 
-#import <EGL/drivers/eagl/ios/egl_eagl_ios_eaglwindow.h>
+#import <EGL/drivers/eagl/ios/EAGLIOSWindow.h>
 #import "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
 
 #endif  // __OBJC__
@@ -366,13 +366,13 @@ EGLBoolean eaglInitialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
             w = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
         }
         
-        _UIWindow* _w = OWNERSHIP_AUTORELEASE([[_UIWindow alloc] init]);
+        EAGLIOSWindow* _w = OWNERSHIP_AUTORELEASE([[EAGLIOSWindow alloc] init]);
         if (!_w) {
             return _eglError(EGL_NOT_INITIALIZED, "eglInitialize");
         }
         
         _w.window = w;
-        dpy->dpy = OWNERSHIP_BRIDGE_RETAINED(_EAGLWindow *,_w);
+        dpy->dpy = OWNERSHIP_BRIDGE_RETAINED(EAGLIOSWindow *,_w);
     }
 
     disp->ClientAPIs = EGL_OPENGL_ES_BIT | EGL_OPENGL_ES2_BIT | EGL_OPENGL_ES3_BIT_KHR;
@@ -382,7 +382,7 @@ EGLBoolean eaglInitialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
 }
 
 EGLBoolean eaglTerminate (struct EAGL_egl_display *EAGL_dpy) {
-    OWNERSHIP_BRIDGE_TRANSFER(_EAGLWindow *,EAGL_dpy->dpy);
+    OWNERSHIP_BRIDGE_TRANSFER(EAGLIOSWindow *,EAGL_dpy->dpy);
     return EGL_TRUE;
 }
 
@@ -481,7 +481,7 @@ struct EAGL_egl_context * eaglCreateContext(struct EAGL_egl_display *EAGL_dpy,
         return NULL;
     }
 
-    __EAGLIOSContext* context = OWNERSHIP_AUTORELEASE([[__EAGLIOSContext alloc] init]);
+    EAGLIOSContext* context = OWNERSHIP_AUTORELEASE([[EAGLIOSContext alloc] init]);
     if (!context) {
         _eglError(EGL_BAD_ALLOC, "eaglCreateContext");
         return NULL;

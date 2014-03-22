@@ -22,15 +22,14 @@
  * THE SOFTWARE.
  **************************************************************************/
 
-#ifndef INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLWINDOW_H_
-#define INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLWINDOW_H_
+#ifndef INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSWINDOW_H_
+#define INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSWINDOW_H_
 
 #import "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
 #import <Foundation/Foundation.h>
 #import <UIKit/UIWindow.h>
 
-// TODO: How to document this ?
-@interface _UIWindow : NSObject
+@interface EAGLIOSWindow : NSObject
 
 @property(OWNERSHIP_QUALIFIER_STRONG, nonatomic) UIWindow* window;
 
@@ -47,4 +46,4 @@
 - (void)dealloc;
 @end
 
-#endif  // INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLWINDOW_H_
+#endif  // INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSWINDOW_H_

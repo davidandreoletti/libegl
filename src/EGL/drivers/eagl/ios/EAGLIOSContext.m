@@ -22,9 +22,9 @@
  * THE SOFTWARE.
  **************************************************************************/
 
-#import "EGL/drivers/eagl/ios/egl_eagl_ios_eaglcontext.h"
+#import "EGL/drivers/eagl/ios/EAGLIOSContext.h"
 
-@implementation __EAGLIOSContext
+@implementation EAGLIOSContext
 @synthesize nativeContext;
 @synthesize nativeSharedGroup;
 

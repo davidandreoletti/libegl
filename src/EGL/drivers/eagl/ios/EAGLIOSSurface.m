@@ -22,11 +22,11 @@
  * THE SOFTWARE.
  **************************************************************************/
 
-#include "EGL/drivers/eagl/ios/egl_eagl_ios_eaglsurface.h"
+#include "EGL/drivers/eagl/ios/EAGLIOSSurface.h"
 #include "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
 #import <Foundation/Foundation.h>
 
-@interface __EAGLSurface ()
+@interface EAGLIOSSurface ()
 /** 
  *  0 == number of video frame update reached
  *  0< == number of video frame update not yet reached
@@ -37,7 +37,7 @@
 - (void) onDisplayFrameUpdate:(CADisplayLink*) display;
 @end
 
-@implementation __EAGLSurface
+@implementation EAGLIOSSurface
 
 @synthesize buffers;
 

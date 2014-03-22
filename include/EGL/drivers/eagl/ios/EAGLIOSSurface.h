@@ -22,8 +22,8 @@
  * THE SOFTWARE.
  **************************************************************************/
 
-#ifndef INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLSURFACE_H_
-#define INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLSURFACE_H_
+#ifndef INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSSURFACE_H_
+#define INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSSURFACE_H_
 
 #import "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
 #import "EGL/drivers/eagl/opengles/opengles_ios.h"
@@ -35,7 +35,7 @@
 /**
  * iOS specific EGLSurface
  */
-@interface __EAGLSurface : NSObject {
+@interface EAGLIOSSurface : NSObject {
 }
 /**
  * Native OpenGL buffers ids.
@@ -94,4 +94,4 @@ typedef enum {
 @end
 
 
-#endif  // INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLSURFACE_H_
+#endif  // INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSSURFACE_H_

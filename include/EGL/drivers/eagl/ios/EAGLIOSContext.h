@@ -22,24 +22,25 @@
  * THE SOFTWARE.
  **************************************************************************/
 
-#include "EGL/drivers/eagl/ios/egl_eagl_ios_eaglwindow.h"
+#ifndef INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSCONTEXT_H_
+#define INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSCONTEXT_H_
 
-@implementation _UIWindow
+#import "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
+#import <OpenGLES/EAGL.h>
+#import <Foundation/Foundation.h>
 
-@synthesize window;
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-    }
-    return self;
-}
-
-- (void)dealloc
-{
-    OWNERSHIP_RELEASE(window);
-    METHOD_DEALLOC(super);
-}
-
+/**
+ * iOS specific EGLContext
+ */
+@interface EAGLIOSContext : NSObject
+/**
+ * iOS Native EAGL Context
+ */
+@property (OWNERSHIP_QUALIFIER_STRONG, nonatomic) EAGLContext* nativeContext;
+/**
+ * iOS Native  EAGL Shared Context
+ */
+@property (OWNERSHIP_QUALIFIER_STRONG, nonatomic) EAGLSharegroup* nativeSharedGroup;
 @end
+
+#endif  // INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSCONTEXT_H_

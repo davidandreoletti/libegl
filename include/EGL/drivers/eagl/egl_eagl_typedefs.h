@@ -27,17 +27,17 @@
 
 #ifdef _EGL_BUILT_IN_DRIVER_IOSEAGL
 
-#include "EGL/drivers/eagl/ios/egl_eagl_ios_eaglwindow.h"
-#include "EGL/drivers/eagl/ios/egl_eagl_ios_eaglcontext.h"
-#include "EGL/drivers/eagl/ios/egl_eagl_ios_eaglsurface.h"
-#include "EGL/drivers/eagl/ios/egl_eagl_ios_eaglimage.h"
+#include "EGL/drivers/eagl/ios/EAGLIOSWindow.h"
+#include "EGL/drivers/eagl/ios/EAGLIOSContext.h"
+#include "EGL/drivers/eagl/ios/EAGLIOSSurface.h"
+#include "EGL/drivers/eagl/ios/EAGLIOSImage.h"
 #include "EGL/drivers/eagl/opengles/opengles_ios.h"
 
-typedef _UIWindow _EAGLWindow;
-typedef __EAGLIOSContext _EAGLContext;
+typedef EAGLIOSWindow _EAGLWindow;
+typedef EAGLIOSContext _EAGLContext;
 typedef __OpenGLESAPI _OpenGLESAPI;
-typedef __EAGLSurface _EAGLSurface;
-typedef __EAGLImage _EAGLImage;
+typedef EAGLIOSSurface _EAGLSurface;
+typedef EAGLIOSImage _EAGLImage;
 
 #else
 

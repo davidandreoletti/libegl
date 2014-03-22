@@ -22,13 +22,13 @@
  * THE SOFTWARE.
  **************************************************************************/
 
-#ifndef INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLIMAGE_H_
-#define INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLIMAGE_H_
+#ifndef INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSIMAGE_H_
+#define INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSIMAGE_H_
 
 #import <Foundation/Foundation.h>
 
-@interface __EAGLImage : NSObject
+@interface EAGLIOSImage : NSObject
 @end
 
 
-#endif  // INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_IOS_EAGLIMAGE_H_
+#endif  // INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSIMAGE_H_
