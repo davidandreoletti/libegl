@@ -108,7 +108,7 @@
 		F630BF5018CF34EE00816B11 /* egl_eagl_surface.h in Headers */ = {isa = PBXBuildFile; fileRef = F630BF4F18CF34EE00816B11 /* egl_eagl_surface.h */; };
 		F630BF5218CF375200816B11 /* egl_eagl_config.h in Headers */ = {isa = PBXBuildFile; fileRef = F630BF5118CF375100816B11 /* egl_eagl_config.h */; };
 		F630BF5418CF3BD900816B11 /* egl_eagl_misc.h in Headers */ = {isa = PBXBuildFile; fileRef = F630BF5318CF3BD900816B11 /* egl_eagl_misc.h */; };
-		F639689218AAF7110076C110 /* AppleIOSMemoryManagement.h in Headers */ = {isa = PBXBuildFile; fileRef = F639689118AAF7110076C110 /* AppleIOSMemoryManagement.h */; };
+		F639689218AAF7110076C110 /* ObjCMemoryManagement.h in Headers */ = {isa = PBXBuildFile; fileRef = F639689118AAF7110076C110 /* ObjCMemoryManagement.h */; };
 		F639689418AD9DB60076C110 /* AppleIOSMemoryManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = F639689318AD9DB60076C110 /* AppleIOSMemoryManagement.m */; };
 		F65C918E18A3468C008418BC /* opengles_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = F65C918D18A3468C008418BC /* opengles_ios.h */; };
 		F65C919118A3481D008418BC /* opengles_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = F65C919018A3481D008418BC /* opengles_ios.m */; };
@@ -262,7 +262,7 @@
 		F630BF4F18CF34EE00816B11 /* egl_eagl_surface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_surface.h; sourceTree = "<group>"; };
 		F630BF5118CF375100816B11 /* egl_eagl_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_config.h; sourceTree = "<group>"; };
 		F630BF5318CF3BD900816B11 /* egl_eagl_misc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_misc.h; sourceTree = "<group>"; };
-		F639689118AAF7110076C110 /* AppleIOSMemoryManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppleIOSMemoryManagement.h; sourceTree = "<group>"; };
+		F639689118AAF7110076C110 /* ObjCMemoryManagement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjCMemoryManagement.h; sourceTree = "<group>"; };
 		F639689318AD9DB60076C110 /* AppleIOSMemoryManagement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppleIOSMemoryManagement.m; path = ios/AppleIOSMemoryManagement.m; sourceTree = "<group>"; };
 		F64D45F618BC69AA00AAB390 /* README.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.rst; path = ../../../README.rst; sourceTree = "<group>"; };
 		F65C918D18A3468C008418BC /* opengles_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengles_ios.h; sourceTree = "<group>"; };
@@ -580,7 +580,7 @@
 				F6794CF418DD7945002B8AFF /* EAGLIOSImage.h */,
 				F6794CF518DD7945002B8AFF /* EAGLIOSSurface.h */,
 				F6794CF618DD7945002B8AFF /* EAGLIOSWindow.h */,
-				F639689118AAF7110076C110 /* AppleIOSMemoryManagement.h */,
+				F639689118AAF7110076C110 /* ObjCMemoryManagement.h */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -638,7 +638,7 @@
 				C7A86F8E172B8B2300739D0D /* eglmode.h in Headers */,
 				F61BCB2E18CF4F840015D31E /* opengles2_ios.h in Headers */,
 				C7A86F8F172B8B2300739D0D /* eglmutex.h in Headers */,
-				F639689218AAF7110076C110 /* AppleIOSMemoryManagement.h in Headers */,
+				F639689218AAF7110076C110 /* ObjCMemoryManagement.h in Headers */,
 				C7A86F91172B8B2300739D0D /* eglscreen.h in Headers */,
 				C7A86F92172B8B2300739D0D /* eglstring.h in Headers */,
 				C7A86F93172B8B2300739D0D /* eglsurface.h in Headers */,

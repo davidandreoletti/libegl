@@ -25,7 +25,7 @@
 #ifndef INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSSURFACE_H_
 #define INCLUDE_EGL_DRIVERS_EAGL_IOS_EAGLIOSSURFACE_H_
 
-#import "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
+#import "EGL/drivers/eagl/ios/ObjCMemoryManagement.h"
 #import "EGL/drivers/eagl/opengles/opengles_ios.h"
 #import <OpenGLES/EAGLDrawable.h>
 #import <CoreGraphics/CGContext.h>

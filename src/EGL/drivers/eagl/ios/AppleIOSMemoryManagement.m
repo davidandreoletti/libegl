@@ -22,4 +22,4 @@
  * THE SOFTWARE.
  **************************************************************************/
 
-#include "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
+#include "EGL/drivers/eagl/ios/ObjCMemoryManagement.h"

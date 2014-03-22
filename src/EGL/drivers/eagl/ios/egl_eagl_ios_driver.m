@@ -47,7 +47,7 @@
 #include <OpenGLES/ES2/gl.h>
 
 #import <EGL/drivers/eagl/ios/EAGLIOSWindow.h>
-#import "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
+#import "EGL/drivers/eagl/ios/ObjCMemoryManagement.h"
 
 #endif  // __OBJC__
 

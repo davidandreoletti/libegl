@@ -23,8 +23,8 @@
  **************************************************************************/
 //  Inspired from: https://github.com/rustle/ARCLogic
 
-#ifndef APPLEIOSMEMORYMANAGEMENT
-#define APPLEIOSMEMORYMANAGEMENT
+#ifndef INCLUDE_EGL_DRIVERS_EAGL_IOS_OBJCMEMORYMANAGEMENT_H_
+#define INCLUDE_EGL_DRIVERS_EAGL_IOS_OBJCMEMORYMANAGEMENT_H_
 
 #ifdef __OBJC__
 
@@ -147,5 +147,5 @@
 
 #endif
 
-#endif  // APPLEIOSMEMORYMANAGEMENT
+#endif  // INCLUDE_EGL_DRIVERS_EAGL_IOS_OBJCMEMORYMANAGEMENT_H_
 

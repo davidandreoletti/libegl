@@ -23,7 +23,7 @@
  **************************************************************************/
 
 #include "EGL/drivers/eagl/ios/EAGLIOSSurface.h"
-#include "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
+#include "EGL/drivers/eagl/ios/ObjCMemoryManagement.h"
 #import <Foundation/Foundation.h>
 
 @interface EAGLIOSSurface ()
