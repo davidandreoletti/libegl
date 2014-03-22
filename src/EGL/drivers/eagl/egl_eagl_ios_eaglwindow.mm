@@ -38,8 +38,8 @@
 
 - (void)dealloc
 {
-    METHOD_DEALLOC(super);
     OWNERSHIP_RELEASE(window);
+    METHOD_DEALLOC(super);
 }
 
 @end

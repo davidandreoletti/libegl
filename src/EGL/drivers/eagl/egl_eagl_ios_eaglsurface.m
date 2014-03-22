@@ -96,13 +96,13 @@
 }
 
 - (void)dealloc {
-    METHOD_DEALLOC(super);
     OWNERSHIP_RELEASE((id<NSObject>) _windowSurface);
     OWNERSHIP_RELEASE((id<NSObject>) _pixmapSurface);
     OWNERSHIP_RELEASE((id<NSObject>) _pbufferSurface);
     [self setupVideoFrameIntervalUpdates:0];
     OWNERSHIP_RELEASE((id<NSObject>) displayLink);
     OWNERSHIP_RELEASE((id<NSObject>) condition);
+    METHOD_DEALLOC(super);
 }
 
 - (void) setupVideoFrameIntervalUpdates:(NSUInteger) frameInterval {
