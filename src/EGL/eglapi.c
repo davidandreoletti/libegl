@@ -483,7 +483,11 @@ eglMakeCurrent(EGLDisplay dpy, EGLSurface draw, EGLSurface read,
 
    if (!context && ctx != EGL_NO_CONTEXT)
       RETURN_EGL_ERROR(disp, EGL_BAD_CONTEXT, EGL_FALSE);
-   if (!draw_surf || !read_surf) {
+    if (draw_surf == EGL_NO_SURFACE && read_surf == EGL_NO_SURFACE &&
+        context == EGL_NO_CONTEXT) {
+        /* release the current context without assigning a new one */
+    }
+    else if (!draw_surf || !read_surf) {
       /* surfaces may be NULL if surfaceless */
       if (!disp->Extensions.KHR_surfaceless_context)
          RETURN_EGL_ERROR(disp, EGL_BAD_SURFACE, EGL_FALSE);

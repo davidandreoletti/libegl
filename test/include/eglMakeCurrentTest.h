@@ -116,7 +116,7 @@ void eglMakeCurrent_6(TestPlatform* p) {
     //If ctx is not a valid context, an EGL_BAD_CONTEXT error is generated.
     EGLSurface surf;
     EGLDisplay dpy;
-    EGLContext ctx = NULL;
+    EGLContext ctx = 0x1;
     EGLint cattrib_list[5] = {EGL_COLOR_BUFFER_TYPE, EGL_RGB_BUFFER,
         EGL_RED_SIZE, 1,
         EGL_NONE};

@@ -281,12 +281,7 @@ EAGL_eglMakeCurrent(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *dsurf,
     EGLBoolean ret = EGL_FALSE;
     
     _EGL_CHECK_CONTEXTLOST(disp, EAGL_ctx, EGL_FALSE);
-    
-    if (!ctx) {
-        _eglError(EGL_BAD_CONTEXT, "eglMakeCurrent");
-        return EGL_FALSE;
-    }
-    
+        
     /* make new bindings */
     if (!_eglBindContext(ctx, dsurf, rsurf, &old_ctx, &old_dsurf, &old_rsurf)) {
         // TODO: Anything to do here ?
