@@ -1,7 +1,6 @@
 # FAQ
 
-## The program throws EXEC_BAD_EXEC when deallocating EGLSurface instances
-for instance. Why ? 
+## The program throws EXEC\_BAD\_EXEC when deallocating EGLSurface instances for instance. Why ? 
 
 It happens when EGLNativeWindowType is NOT NULL AND invalid (eg: 
 EGLNativeWindowType Address does not point to the valid EGLNativeWindowType).

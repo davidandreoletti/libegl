@@ -2,14 +2,11 @@ libegl
 
 #ABOUT
 
-libegl is a cross platform EGL implementation for the following platforms:
- - Apple iOS 
-
-See CHANGELOG file for further details.
+libegl is an EGL implementation targeting [Apple iOS](https://www.apple.com/ios/) platform.
 
 #MOTIVATION:
 
-I am writing cross-platform C/C++ libraries and I needed a cross platform C EGL 
+I am writing cross-platform C/C++ libraries and I needed an EGL 
 implementation for my iPhone port.
 
 # WHAT IS EGL ?
@@ -109,7 +106,7 @@ is supported in this implementation.
 | EGL datatype             | Support Status | iOS datatype           | Details |
 |--------------------------|----------------|------------------------|---------|
 | EGLNativeDisplayType     | Supported      | UIWindow*              |         |
-| EGLNativePixmapType      | Unsupported    | None                   |         |
+| EGLNativePixmapType      | Unsupported    | NA                     |         |
 | EGLNativeWindowType      | Supported      | CAEAGLayer             |         |
 
 ###Client APIs
@@ -134,7 +131,7 @@ is supported in this implementation.
 | eglBindAPI                       | Supported              |         |
 | eglCreateContext                 | Supported              |         |
 | eglDestroyContext                | Supported              |         |
-| eglCreateWindowSurface           | Supported              | EGLNativeWindowType MUST remain valid for as long as the EGLSurface handle is valid |
+| eglCreateWindowSurface           | Supported              | EGLNativeWindowType MUST remain valid for as long as the EGLSurface handle is valid. The surface dimensions (in pixel) equals `EGLNativeWindowType's contentScaleFactor * EGLNativeWindowType's frame` |
 | eglCreatePbufferSurface          | Unsupported            |         |
 | eglCreatePixmapSurface           | Unsupported            |         |
 | eglDestroySurface                | Supported              |         |
@@ -164,9 +161,9 @@ is supported in this implementation.
 
 ##EGL Extensions 
 
-### EGL\_KHR\_create\_context
+### EGL\_KHR\_create\_context support
 
-Only attribute EGL_OPENGL_ES3_BIT_KHR is supported. Anything else has not been
+Only attribute EGL\_OPENGL\_ES3\_BIT\_KHR is supported. Anything else has not been
 tested and most likely not supported.
 
 #TESTING
@@ -177,13 +174,17 @@ See "test" directory
 
 See "samples" directory.
 
-#CHANGELOG
+#FAQ 
 
-See CHANGELOG file
+See FAQ.rst file
 
-#REQUIREMENTS
+#KNOWN BUGS & MISSING FEATURES LISTS
 
-See CHANGELOG file
+See README-DEV.rst file
+
+#CHANGELOG & REQUIREMENTS
+
+See this file and CHANGELOG file
 
 #DONATING
 

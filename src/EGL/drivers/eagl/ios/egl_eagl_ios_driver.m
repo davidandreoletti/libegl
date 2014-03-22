@@ -227,7 +227,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
                 kEAGLRenderingAPIOpenGLES1,
                 kEAGLColorFormatRGBA8,
                 GL_DEPTH_COMPONENT16,
-                0, // TODO: How to get the right value ?
+                0,
                 EGL_WINDOW_BIT
         };
         APPEND_NODE_CONFIG(realConfigs, conf)
