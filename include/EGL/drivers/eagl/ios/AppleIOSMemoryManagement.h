@@ -80,6 +80,12 @@
 #ifdef METHOD_DEALLOC
 #undef METHOD_DEALLOC
 #endif
+#ifdef CFTYPEREF_TO_ID
+#undef CFTYPEREF_TO_ID
+#endif
+#ifdef ID_TO_CFTYPEREF
+#undef ID_TO_CFTYPEREF
+#endif
 
 #define HAS_FEATURE_ARC __has_feature(objc_arc)
 
@@ -113,6 +119,8 @@
     #define OWNERSHIP_RETAIN(obj) (id)obj
     #define OWNERSHIP_RELEASE(obj) (id)obj
     #define OWNERSHIP_AUTORELEASE(obj) (id)obj
+    #define CFTYPEREF_TO_ID(cfTypeRef) (__bridge id) cfTypeRef
+    #define ID_TO_CFTYPEREF(id) (__bridge CFTypeRef) id
 #else
 	#define IF_ARC(ARCBlock, NoARCBlock) NoARCBlock
 	#define NO_ARC(NoARCBlock) NoARCBlock
@@ -124,12 +132,14 @@
 	#define es_dispatch_release(dispatch_object) dispatch_release(dispatch_object)
 	#define es_dispatch_retain(dispatch_object) dispatch_retain(dispatch_object)
     #define OWNERSHIP_BRIDGE_NONE(type, typeRef) typeRef
-    #define OWNERSHIP_BRIDGE_RETAINED(cfType, nsTypeRef) (cfType) nsTypeRef
-    #define OWNERSHIP_BRIDGE_TRANSFER(nsType, cfTypeRef) (nsType) cfTypeRef
+    #define OWNERSHIP_BRIDGE_RETAINED(cfType, nsTypeRef) (cfType)[nsTypeRef retain]
+    #define OWNERSHIP_BRIDGE_TRANSFER(nsType, cfTypeRef) [((nsType)cfTypeRef) release]
     #define METHOD_DEALLOC(obj) [obj dealloc]
     #define OWNERSHIP_RETAIN(obj) [obj retain]
     #define OWNERSHIP_RELEASE(obj) [obj release]
     #define OWNERSHIP_AUTORELEASE(obj) [obj autorelease]
+    #define CFTYPEREF_TO_ID(cfTypeRef) (id) cfTypeRef
+    #define ID_TO_CFTYPEREF(id) (CFTypeRef) id
 #endif
 
 #define OWNERSHIP_CFRETAIN(cfTypeRef) CFRetain(cfTypeRef)
