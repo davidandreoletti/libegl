@@ -121,6 +121,7 @@
 		F6794D0118DD7980002B8AFF /* EAGLIOSContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F6794CFD18DD7980002B8AFF /* EAGLIOSContext.m */; };
 		F6794D0218DD7980002B8AFF /* EAGLIOSSurface.m in Sources */ = {isa = PBXBuildFile; fileRef = F6794CFE18DD7980002B8AFF /* EAGLIOSSurface.m */; };
 		F6794D0318DD7980002B8AFF /* EAGLIOSWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6794CFF18DD7980002B8AFF /* EAGLIOSWindow.mm */; };
+		F6794D0518DD802F002B8AFF /* egl_eagl_ios_config.h in Headers */ = {isa = PBXBuildFile; fileRef = F6794D0418DD802F002B8AFF /* egl_eagl_ios_config.h */; };
 		F6F66B48189F4FE1008636CE /* eglplatform.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7A86F78172B8B2300739D0D /* eglplatform.h */; };
 		F6F66B49189F57D3008636CE /* eglmesaext.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7A86F74172B8B2300739D0D /* eglmesaext.h */; };
 		F6F66B4B18A109BE008636CE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C784D397171457B10086C69F /* OpenGLES.framework */; };
@@ -275,6 +276,7 @@
 		F6794CFD18DD7980002B8AFF /* EAGLIOSContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EAGLIOSContext.m; path = ios/EAGLIOSContext.m; sourceTree = "<group>"; };
 		F6794CFE18DD7980002B8AFF /* EAGLIOSSurface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EAGLIOSSurface.m; path = ios/EAGLIOSSurface.m; sourceTree = "<group>"; };
 		F6794CFF18DD7980002B8AFF /* EAGLIOSWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = EAGLIOSWindow.mm; path = ios/EAGLIOSWindow.mm; sourceTree = "<group>"; };
+		F6794D0418DD802F002B8AFF /* egl_eagl_ios_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_config.h; sourceTree = "<group>"; };
 		F6F8047618D556E9009F64C0 /* opengles3_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengles3_ios.h; sourceTree = "<group>"; };
 		F6F8047818D55716009F64C0 /* opengles3_ios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opengles3_ios.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -572,6 +574,7 @@
 		F639689018AAF7110076C110 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				F6794D0418DD802F002B8AFF /* egl_eagl_ios_config.h */,
 				F6794CF218DD7945002B8AFF /* egl_eagl_ios_driver.h */,
 				F6794CF318DD7945002B8AFF /* EAGLIOSContext.h */,
 				F6794CF418DD7945002B8AFF /* EAGLIOSImage.h */,
@@ -653,6 +656,7 @@
 				F630BF4818CDF3B500816B11 /* egl_eagl_globals.h in Headers */,
 				F6F8047718D556E9009F64C0 /* opengles3_ios.h in Headers */,
 				C72C34D51730FF12005B5745 /* egl_eagl_driver.h in Headers */,
+				F6794D0518DD802F002B8AFF /* egl_eagl_ios_config.h in Headers */,
 				F630BF5218CF375200816B11 /* egl_eagl_config.h in Headers */,
 				C72C34E21731445D005B5745 /* egl_eagl_typedefs.h in Headers */,
 				F6794CFA18DD7945002B8AFF /* EAGLIOSSurface.h in Headers */,

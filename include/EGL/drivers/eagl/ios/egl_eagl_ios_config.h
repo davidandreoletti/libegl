@@ -22,38 +22,19 @@
  * THE SOFTWARE.
  **************************************************************************/
 
-#ifndef INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_CONFIG_H_
-#define INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_CONFIG_H_
+#ifndef INCLUDE_EGL_DRIVERS_EAGL_IOS_EGL_EAGL_IOS_CONFIG_H_
+#define INCLUDE_EGL_DRIVERS_EAGL_IOS_EGL_EAGL_IOS_CONFIG_H_
 
-#ifdef _EGL_OS_APPLE_IOS
-
-#include "EGL/drivers/eagl/ios/egl_eagl_ios_config.h"
-typedef _EAGL_egl_Config_iOS EAGL_egl_config_platform;
-
-#else 
-
-typedef void EAGL_egl_config_platform;
-
-#endif // _EGL_OS_APPLE_IOS
-
-#include "EGL/drivers/eagl/egl_eagl_typedefs.h"
-#include "EGL/drivers/eagl/egl_eagl_misc.h"
 #include "EGL/eglConfig.h"
 
-/** subclass of _EGLConfig */
-struct EAGL_egl_config
-{
-    _EGLConfig Base;   /**< base class */
-    EGLBoolean double_buffered;
-    EAGL_egl_config_platform conf;
-    int index;
-};
+/** iOS specific _EGLConfig */
+typedef struct {
+    EGLint configID;
+    int eaglRenderingAPI;   // EAGLRenderingAPI
+    NSString* colorFormat;
+    int depth;              // Depth buffer in bits
+    int frameBufferLevel;
+    int surfaceType;        // i.e EGL_WINDOW_BIT/EGL_PIXMAP_BIT/EGL_PBUFFER_BIT
+} _EAGL_egl_Config_iOS;
 
-static int
-EAGL_egl_config_index(_EGLConfig *conf)
-{
-    struct EAGL_egl_config *EAGL_conf = EAGL_egl_config(conf);
-    return EAGL_conf->index;
-}
-
-#endif  // INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_CONFIG_H_
+#endif  // INCLUDE_EGL_DRIVERS_EAGL_IOS_EGL_EAGL_IOS_CONFIG_H_
