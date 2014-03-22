@@ -114,14 +114,14 @@ EAGL_eglInitialize(_EGLDriver *drv, _EGLDisplay *disp) {
         return _eglError(EGL_BAD_ALLOC, "eglInitialize");
     }
     
-    EAGL_dpy->dpy = disp->PlatformDisplay;
-    if (!EAGL_drv->eaglInitialize(EAGL_dpy, disp) || !EAGL_dpy->dpy) {
+    EAGL_dpy->Window = disp->PlatformDisplay;
+    if (!EAGL_drv->eaglInitialize(EAGL_dpy, disp) || !EAGL_dpy->Window) {
         _eglLog(_EGL_WARNING, "EAGL_eglInitialize");
         free(EAGL_dpy);
         return EGL_FALSE;
     }
     
-    if (!EAGL_drv->eaglQueryVersion(EAGL_dpy->dpy,
+    if (!EAGL_drv->eaglQueryVersion(EAGL_dpy->Window,
                                     &EAGL_dpy->VersionMajor, &EAGL_dpy->VersionMinor)) {
         _eglLog(_EGL_WARNING, "EAGL_eglInitialize");
         if (!disp->PlatformDisplay) {
@@ -225,7 +225,7 @@ destroy_context(_EGLDriver* drv, _EGLDisplay *disp, _EGLContext *context) {
     struct EAGL_egl_context *EAGL_ctx = EAGL_egl_context(context);
     
     assert(EAGL_ctx);
-    EAGL_drv->eaglDestroyContext(EAGL_dpy->dpy, EAGL_ctx);
+    EAGL_drv->eaglDestroyContext(EAGL_dpy->Window, EAGL_ctx);
     free(EAGL_ctx);
     
     return EGL_TRUE;
@@ -297,7 +297,7 @@ EAGL_eglMakeCurrent(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *dsurf,
         return EGL_FALSE;
     }
     
-    ret = EAGL_drv->eaglMakeCurrent(EAGL_dpy->dpy, EAGL_dsurf, EAGL_ctx, &EAGL_ctx->openGLESAPI);
+    ret = EAGL_drv->eaglMakeCurrent(EAGL_dpy->Window, EAGL_dsurf, EAGL_ctx, &EAGL_ctx->OpenGLESAPI);
 
     if (ret) {
         if (_eglPutSurface(old_dsurf))
@@ -356,16 +356,16 @@ EAGL_eglCreateWindowSurface(_EGLDriver *drv, _EGLDisplay *disp,
 
     _eglLockMutex(_eglGlobal.Mutex);
     struct findresource data = {
-        .data = window,
-        .resourceFound = false,
-        .type = _EGL_RESOURCE_SURFACE,
-        .requestType = SURFACE_NATIVEWINDOW,
-        .exec = ExecFindNativeWindowAssociatedSurface,
-        .display = NULL
+        .Data = window,
+        .ResourceFound = false,
+        .ResourceType = _EGL_RESOURCE_SURFACE,
+        .RequestType = SURFACE_NATIVEWINDOW,
+        .Exec = ExecFindNativeWindowAssociatedSurface,
+        .Display = NULL
     };
     findResource(_eglGlobal.DisplayList, &data);
     _eglUnlockMutex(_eglGlobal.Mutex);
-    if (data.resourceFound) {
+    if (data.ResourceFound) {
         _eglError(EGL_BAD_ALLOC, "eglCreateWindowSurface");
         return NULL;
     }
@@ -421,9 +421,9 @@ EAGL_eglCreatePixmapSurface(_EGLDriver *drv, _EGLDisplay *disp,
     
     _EAGLSurface* d = OWNERSHIP_AUTORELEASE([[_EAGLSurface alloc] init]);
     [d setPixmapSurface:pixmap];
-    EAGL_surf->eagl_drawable = d;
+    EAGL_surf->Surface = d;
     
-    if (!EAGL_surf->eagl_drawable) {
+    if (!EAGL_surf->Surface) {
         free(EAGL_surf);
         return NULL;
     }
@@ -458,9 +458,9 @@ EAGL_eglCreatePbufferSurface(_EGLDriver *drv, _EGLDisplay *disp,
     
     _EAGLSurface* d = OWNERSHIP_AUTORELEASE([[_EAGLSurface alloc] init]);
     [d setPbufferSurface:nil];
-    EAGL_surf->eagl_drawable = d;
+    EAGL_surf->Surface = d;
     
-    if (!EAGL_surf->eagl_drawable) {
+    if (!EAGL_surf->Surface) {
         free(EAGL_surf);
         return NULL;
     }

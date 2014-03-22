@@ -29,12 +29,12 @@
 
 /** iOS specific _EGLConfig */
 typedef struct {
-    EGLint configID;
-    int eaglRenderingAPI;   // EAGLRenderingAPI
-    NSString* colorFormat;
-    int depth;              // Depth buffer in bits
-    int frameBufferLevel;
-    int surfaceType;        // i.e EGL_WINDOW_BIT/EGL_PIXMAP_BIT/EGL_PBUFFER_BIT
+    EGLint ConfigID;
+    int EAGLRenderingAPI;   // EAGLRenderingAPI
+    NSString* ColorFormat;  // kEAGLColorFormat*
+    int DepthSize;          // Depth buffer Size (bits)
+    int FrameBufferLevel;   // Layer level
+    int SurfaceType;        // i.e EGL_WINDOW_BIT/EGL_PIXMAP_BIT/EGL_PBUFFER_BIT
 } _EAGL_egl_Config_iOS;
 
 #endif  // INCLUDE_EGL_DRIVERS_EAGL_IOS_EGL_EAGL_IOS_CONFIG_H_

@@ -32,24 +32,24 @@
 struct EAGL_egl_context
 {
     _EGLContext Base;   /**< base class */
-    __OWNERSHIP_QUALIFIER_WEAK _EAGLContext* context;
-    _OpenGLESAPI openGLESAPI;
-    EGLBoolean wasCurrent; // EGL_TRUE if this context has been current at least once
-    EGLBoolean contextLost;
+    __OWNERSHIP_QUALIFIER_WEAK _EAGLContext* Context;
+    _OpenGLESAPI OpenGLESAPI;
+    EGLBoolean WasCurrent; // EGL_TRUE if this context has been current at least once
+    EGLBoolean ContextLost;
 };
 
 /**
  * Returns context lost status
  */
 static EGLBoolean _eaglIsContextLost(struct EAGL_egl_context* context) {
-    return context && context->contextLost;
+    return context && context->ContextLost;
 }
 
 /**
  * Sets context lost status
  */
 static void _eaglSetContextLost(struct EAGL_egl_context* context, EGLBoolean value) {
-    context->contextLost = value;
+    context->ContextLost = value;
 }
 
 #endif  // INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_CONTEXT_H_

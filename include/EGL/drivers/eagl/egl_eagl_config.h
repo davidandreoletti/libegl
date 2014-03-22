@@ -44,16 +44,15 @@ typedef void EAGL_egl_config_platform;
 struct EAGL_egl_config
 {
     _EGLConfig Base;   /**< base class */
-    EGLBoolean double_buffered;
-    EAGL_egl_config_platform conf;
-    int index;
+    EAGL_egl_config_platform Config;
+    int Index;
 };
 
 static int
 EAGL_egl_config_index(_EGLConfig *conf)
 {
     struct EAGL_egl_config *EAGL_conf = EAGL_egl_config(conf);
-    return EAGL_conf->index;
+    return EAGL_conf->Index;
 }
 
 #endif  // INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_CONFIG_H_

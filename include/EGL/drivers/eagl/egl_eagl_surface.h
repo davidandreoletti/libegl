@@ -32,7 +32,7 @@
 struct EAGL_egl_surface
 {
     _EGLSurface Base;   /**< base class */
-    __OWNERSHIP_QUALIFIER_WEAK _EAGLSurface* eagl_drawable;
+    __OWNERSHIP_QUALIFIER_WEAK _EAGLSurface* Surface;
 };
 
 #endif  // INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_SURFACE_H_

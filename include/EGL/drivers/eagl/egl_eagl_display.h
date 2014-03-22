@@ -33,18 +33,10 @@
 struct EAGL_egl_display
 {
     //    _EGLDisplay Base;
-    _EAGLWindow *dpy;
-    
-    int VersionMajor, VersionMinor; // was glx_maj, glx_min
-    
+    _EAGLWindow *Window;
+    int VersionMajor;
+    int VersionMinor;
     const char *extensions;
-    EGLBoolean have_make_current_read;
-    //EGLBoolean have_fbconfig;
-    EGLBoolean have_pbuffer;
-    
-    /* workaround quirks of different EAGL implementations */
-    EGLBoolean single_buffered_quirk;
-    EGLBoolean glx_window_quirk;
 };
 
 #endif  // INCLUDE_EGL_DRIVERS_EAGL_EGL_EAGL_DISPLAY_H_

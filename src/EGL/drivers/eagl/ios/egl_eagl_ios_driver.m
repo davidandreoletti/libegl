@@ -70,9 +70,9 @@ static EGLBoolean convert_eagl_ios_config (struct EAGL_egl_driver *EAGL_drv,
     err = EGL_FALSE;
     _EGLConfig *conf = &(EAGL_conf->Base);
     
-    EAGL_conf->conf = *eagl_ios_config;
+    EAGL_conf->Config = *eagl_ios_config;
     EGLint glv;
-    switch (eagl_ios_config->eaglRenderingAPI) {
+    switch (eagl_ios_config->EAGLRenderingAPI) {
         case kEAGLRenderingAPIOpenGLES1:
             glv = EGL_OPENGL_ES_BIT;
             break;
@@ -87,14 +87,14 @@ static EGLBoolean convert_eagl_ios_config (struct EAGL_egl_driver *EAGL_drv,
             err = EGL_TRUE;
             break;
     }
-    if ([eagl_ios_config->colorFormat isEqualToString:kEAGLColorFormatRGBA8]) {
+    if ([eagl_ios_config->ColorFormat isEqualToString:kEAGLColorFormatRGBA8]) {
         _eglSetConfigKey(conf, EGL_RED_SIZE       ,8);
         _eglSetConfigKey(conf, EGL_GREEN_SIZE     ,8);
         _eglSetConfigKey(conf, EGL_BLUE_SIZE      ,8);
         _eglSetConfigKey(conf, EGL_LUMINANCE_SIZE ,8);
         _eglSetConfigKey(conf, EGL_ALPHA_SIZE     ,8);
     }
-    else if ([eagl_ios_config->colorFormat isEqualToString:kEAGLColorFormatRGB565]) {
+    else if ([eagl_ios_config->ColorFormat isEqualToString:kEAGLColorFormatRGB565]) {
         _eglSetConfigKey(conf, EGL_RED_SIZE       ,5);
         _eglSetConfigKey(conf, EGL_GREEN_SIZE     ,6);
         _eglSetConfigKey(conf, EGL_BLUE_SIZE      ,5);
@@ -147,10 +147,10 @@ static EGLBoolean convert_eagl_ios_config (struct EAGL_egl_driver *EAGL_drv,
     }
     _eglSetConfigKey(conf, EGL_ALPHA_MASK_SIZE        ,0); // OpenVG only
     _eglSetConfigKey(conf, EGL_CONFIG_CAVEAT          ,EGL_NONE);
-    _eglSetConfigKey(conf, EGL_CONFIG_ID              ,eagl_ios_config->configID);
+    _eglSetConfigKey(conf, EGL_CONFIG_ID              ,eagl_ios_config->ConfigID);
     _eglSetConfigKey(conf, EGL_CONFORMANT             ,glv);
-    _eglSetConfigKey(conf, EGL_DEPTH_SIZE             ,eagl_ios_config->depth); // TODO: How to get the right value ?
-    _eglSetConfigKey(conf, EGL_LEVEL                  ,eagl_ios_config->frameBufferLevel);
+    _eglSetConfigKey(conf, EGL_DEPTH_SIZE             ,eagl_ios_config->DepthSize); // TODO: How to get the right value ?
+    _eglSetConfigKey(conf, EGL_LEVEL                  ,eagl_ios_config->FrameBufferLevel);
     _eglSetConfigKey(conf, EGL_MAX_PBUFFER_WIDTH      ,0); // TODO: How to get the right value ?
     _eglSetConfigKey(conf, EGL_MAX_PBUFFER_HEIGHT     ,0); // TODO: How to get the right value ?
     _eglSetConfigKey(conf, EGL_MAX_PBUFFER_PIXELS     ,0); // TODO: How to get the right value ?
@@ -163,7 +163,7 @@ static EGLBoolean convert_eagl_ios_config (struct EAGL_egl_driver *EAGL_drv,
     _eglSetConfigKey(conf, EGL_SAMPLE_BUFFERS         ,0); // TODO: How to get the right value ?
     _eglSetConfigKey(conf, EGL_SAMPLES                ,_eglGetConfigKey(conf, EGL_SAMPLE_BUFFERS) == 0 ? 0 : 0);
     _eglSetConfigKey(conf, EGL_STENCIL_SIZE           ,0);// TODO: How to get the right value ?
-    _eglSetConfigKey(conf, EGL_SURFACE_TYPE           ,eagl_ios_config->surfaceType);
+    _eglSetConfigKey(conf, EGL_SURFACE_TYPE           ,eagl_ios_config->SurfaceType);
     _eglSetConfigKey(conf, EGL_TRANSPARENT_TYPE       ,EGL_NONE); // TODO: How to get the right value ?
     switch (_eglGetConfigKey(conf, EGL_TRANSPARENT_TYPE)) {
         case EGL_TRANSPARENT_RGB:
@@ -287,7 +287,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
     struct node* prev = NULL;
     int i = 0;
     while (current) {
-        current->config.configID = i+1;
+        current->config.ConfigID = i+1;
         
         struct EAGL_egl_config *EAGL_conf, template;
         EGLBoolean ok;
@@ -307,7 +307,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
         EAGL_conf = CALLOC_STRUCT(EAGL_egl_config);
         if (EAGL_conf) {
             memcpy(EAGL_conf, &template, sizeof(template));
-            EAGL_conf->index = i;
+            EAGL_conf->Index = i;
             
             _eglLinkConfig(&EAGL_conf->Base);
         }
@@ -334,11 +334,11 @@ EGLBoolean eaglInitialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
                 _EGLDisplay* display = _eglGlobal.DisplayList;
                 while (display) {
                     struct findresource data = {
-                        .resourceFound = false,
-                        .type = _EGL_RESOURCE_CONTEXT,
-                        .requestType = SET_CONTEXT_LOST_STATUS,
-                        .exec = ExecSetContextLostStatus,
-                        .display = display
+                        .ResourceFound = false,
+                        .ResourceType = _EGL_RESOURCE_CONTEXT,
+                        .RequestType = SET_CONTEXT_LOST_STATUS,
+                        .Exec = ExecSetContextLostStatus,
+                        .Display = display
                     };
                     findResource(display, &data);
                     display = display->Next;
@@ -357,7 +357,7 @@ EGLBoolean eaglInitialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
         [center addObserverForName:UIApplicationWillTerminateNotification object:nil queue:mainQueue usingBlock:onContextLostOrRetrieved];
     }
     
-    if (!dpy->dpy) {
+    if (!dpy->Window) {
         UIWindow* w = nil;
         if (disp->PlatformDisplay == EGL_DEFAULT_DISPLAY) {
             if ([[UIApplication sharedApplication].windows count] < 1) {
@@ -372,7 +372,7 @@ EGLBoolean eaglInitialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
         }
         
         _w.window = w;
-        dpy->dpy = OWNERSHIP_BRIDGE_RETAINED(EAGLIOSWindow *,_w);
+        dpy->Window = OWNERSHIP_BRIDGE_RETAINED(EAGLIOSWindow *,_w);
     }
 
     disp->ClientAPIs = EGL_OPENGL_ES_BIT | EGL_OPENGL_ES2_BIT | EGL_OPENGL_ES3_BIT_KHR;
@@ -382,7 +382,7 @@ EGLBoolean eaglInitialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
 }
 
 EGLBoolean eaglTerminate (struct EAGL_egl_display *EAGL_dpy) {
-    OWNERSHIP_BRIDGE_TRANSFER(EAGLIOSWindow *,EAGL_dpy->dpy);
+    OWNERSHIP_BRIDGE_TRANSFER(EAGLIOSWindow *,EAGL_dpy->Window);
     return EGL_TRUE;
 }
 
@@ -454,7 +454,7 @@ struct EAGL_egl_context * eaglCreateContext(struct EAGL_egl_display *EAGL_dpy,
         }
     }
     
-    _OpenGLESAPI* openGLAPI = &(EAGL_ctx->openGLESAPI);
+    _OpenGLESAPI* openGLAPI = &(EAGL_ctx->OpenGLESAPI);
     EGLint requestedClientAPI = 0;
     
     if(!initOpenGLAPI(requestedClientVersion, openGLAPI, &requestedClientAPI)) {
@@ -469,11 +469,11 @@ struct EAGL_egl_context * eaglCreateContext(struct EAGL_egl_display *EAGL_dpy,
     
     EAGLContext *nativeContext = nil;
     if (EAGL_ctx_shared != EGL_NO_CONTEXT) {
-        nativeContext = OWNERSHIP_AUTORELEASE([[EAGLContext alloc] initWithAPI:EAGL_conf->conf.eaglRenderingAPI
-                                          sharegroup: EAGL_ctx->context.nativeSharedGroup]);
+        nativeContext = OWNERSHIP_AUTORELEASE([[EAGLContext alloc] initWithAPI:EAGL_conf->Config.EAGLRenderingAPI
+                                          sharegroup: EAGL_ctx->Context.nativeSharedGroup]);
     }
     else {
-        nativeContext = OWNERSHIP_AUTORELEASE([[EAGLContext alloc] initWithAPI:EAGL_conf->conf.eaglRenderingAPI]);
+        nativeContext = OWNERSHIP_AUTORELEASE([[EAGLContext alloc] initWithAPI:EAGL_conf->Config.EAGLRenderingAPI]);
     }
     
     if (!nativeContext) {
@@ -488,17 +488,17 @@ struct EAGL_egl_context * eaglCreateContext(struct EAGL_egl_display *EAGL_dpy,
     }
     
     [context setNativeContext:nativeContext];
-    [context setNativeSharedGroup:EAGL_ctx->context.nativeSharedGroup];
-    EAGL_ctx->context = OWNERSHIP_BRIDGE_RETAINED(_EAGLContext*, context);
+    [context setNativeSharedGroup:EAGL_ctx->Context.nativeSharedGroup];
+    EAGL_ctx->Context = OWNERSHIP_BRIDGE_RETAINED(_EAGLContext*, context);
     
-    EAGL_ctx->wasCurrent = EGL_FALSE;
+    EAGL_ctx->WasCurrent = EGL_FALSE;
     return EAGL_ctx;
 }
 
 void  eaglDestroyContext ( _EAGLWindow *dpy, struct EAGL_egl_context* ctx) {
-    if(ctx->context != NULL) {
-        OWNERSHIP_BRIDGE_TRANSFER(_EAGLContext*, ctx->context);
-        ctx->context = NULL;
+    if(ctx->Context != NULL) {
+        OWNERSHIP_BRIDGE_TRANSFER(_EAGLContext*, ctx->Context);
+        ctx->Context = NULL;
     }
 }
 
@@ -601,11 +601,11 @@ EGLBoolean eaglMakeCurrent(_EAGLWindow *dpy,
     if (cctx) {
         struct EAGL_egl_surface* csurf = EAGL_egl_surface(cctx->Base.DrawSurface);
         if (csurf) {
-            [csurf->eagl_drawable setupVideoFrameIntervalUpdates:0];
+            [csurf->Surface setupVideoFrameIntervalUpdates:0];
         }
     }
     struct EAGL_egl_context* ctx = (context != EGL_NO_CONTEXT) ? context : cctx;
-    EAGLContext* nativeContext = ctx != EGL_NO_CONTEXT ? [(ctx->context) nativeContext] : nil;
+    EAGLContext* nativeContext = ctx != EGL_NO_CONTEXT ? [(ctx->Context) nativeContext] : nil;
     BOOL r = [EAGLContext setCurrentContext: nativeContext];
     
     if (!r) {
@@ -616,14 +616,14 @@ EGLBoolean eaglMakeCurrent(_EAGLWindow *dpy,
         return EGL_TRUE;
     }
 
-    _OpenGLBuffers buffers = EAGL_dsurf->eagl_drawable.buffers;
+    _OpenGLBuffers buffers = EAGL_dsurf->Surface.buffers;
     GLenum error = GL_NO_ERROR;
     int step = 1;
-    if (!ctx->wasCurrent) {
+    if (!ctx->WasCurrent) {
 
-        bool rr = setupFrameBuffer(ctx->context, EAGL_dsurf->eagl_drawable, api, &buffers.framebuffer, &buffers.colorbuffer, &buffers.depthbuffer, ctx->Base.Config->DepthSize);
+        bool rr = setupFrameBuffer(ctx->Context, EAGL_dsurf->Surface, api, &buffers.framebuffer, &buffers.colorbuffer, &buffers.depthbuffer, ctx->Base.Config->DepthSize);
         if (rr) {
-            EAGL_dsurf->eagl_drawable.buffers = buffers;
+            EAGL_dsurf->Surface.buffers = buffers;
             EGLint surfaceWidth = EAGL_dsurf->Base.Width;
             EGLint surfaceHeight = EAGL_dsurf->Base.Height;
             GLenum error = GL_NO_ERROR;
@@ -631,7 +631,7 @@ EGLBoolean eaglMakeCurrent(_EAGLWindow *dpy,
             GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
             GL_GET_ERROR(api->glScissor(0,0, surfaceWidth, surfaceHeight), error, step)
             GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-            ctx->wasCurrent = EGL_TRUE;
+            ctx->WasCurrent = EGL_TRUE;
             return EGL_TRUE;
         }
         GL_CLEANUP_ERROR(!rr, cleanup)
@@ -653,16 +653,16 @@ cleanup:
 
 EGLBoolean eaglSwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf) {
     struct EAGL_egl_context *EAGL_context = EAGL_egl_context(EAGL_surf->Base.CurrentContext);
-    if (EAGL_context->context == nil && EAGL_context->context.nativeContext == nil) {
+    if (EAGL_context->Context == nil && EAGL_context->Context.nativeContext == nil) {
        return _eglError(EGL_BAD_SURFACE, "eaglSwapBuffers");
     }
     
-    [EAGL_surf->eagl_drawable setupVideoFrameIntervalUpdates: EAGL_surf->Base.SwapInterval];
+    [EAGL_surf->Surface setupVideoFrameIntervalUpdates: EAGL_surf->Base.SwapInterval];
     
     if (EAGL_surf->Base.SwapInterval > 0) {
-        [EAGL_surf->eagl_drawable waitUntilMinIntervalFrameUpdated];
+        [EAGL_surf->Surface waitUntilMinIntervalFrameUpdated];
     }
-    BOOL b = [EAGL_context->context.nativeContext presentRenderbuffer:EAGL_context->openGLESAPI.GL_RENDERBUFFER_];
+    BOOL b = [EAGL_context->Context.nativeContext presentRenderbuffer:EAGL_context->OpenGLESAPI.GL_RENDERBUFFER_];
     return b == YES ? EGL_TRUE : EGL_FALSE;
 }
 
@@ -736,14 +736,14 @@ EGLBoolean eaglCreateWindow(struct EAGL_egl_display *EAGL_dpy,
     
     _EAGLSurface* eaglSurface = OWNERSHIP_AUTORELEASE([[_EAGLSurface alloc] init]);
     [eaglSurface setWindowSurface:nativeEAGLDrawable];
-    EAGL_surf->eagl_drawable = OWNERSHIP_BRIDGE_RETAINED(CFTypeRef, eaglSurface);
+    EAGL_surf->Surface = OWNERSHIP_BRIDGE_RETAINED(CFTypeRef, eaglSurface);
     
     //    UIView* v = (UIView*)obj;
     //    id<EAGLDrawable> eaglSurface = (id<EAGLDrawable>)[v layer];
     NSDictionary* nativePrawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
                                               convertToEAGLDrawablePropertyRetainedBacking(EAGL_surf->Base.SwapBehavior),
                                               kEAGLDrawablePropertyRetainedBacking,
-                                              EAGL_conf->conf.colorFormat,
+                                              EAGL_conf->Config.ColorFormat,
                                               kEAGLDrawablePropertyColorFormat,
                                               nil];
     if (!nativePrawableProperties) {
@@ -758,7 +758,7 @@ EGLBoolean eaglCreateWindow(struct EAGL_egl_display *EAGL_dpy,
         return EGL_FALSE;
     }
     
-    if (!EAGL_surf->eagl_drawable) {
+    if (!EAGL_surf->Surface) {
         free(EAGL_surf);
         return EGL_FALSE;
     }
@@ -774,8 +774,8 @@ EGLBoolean eaglCreateWindow(struct EAGL_egl_display *EAGL_dpy,
 }
 
 EGLBoolean eaglDestroyWindow(struct EAGL_egl_display *EAGL_dpy, struct EAGL_egl_surface *EAGL_surf) {
-    OWNERSHIP_BRIDGE_TRANSFER(_EAGLSurface*, EAGL_surf->eagl_drawable);
-    EAGL_surf->eagl_drawable = nil;
+    OWNERSHIP_BRIDGE_TRANSFER(_EAGLSurface*, EAGL_surf->Surface);
+    EAGL_surf->Surface = nil;
     _eglError(EGL_SUCCESS, "eglDestroySurface");
     return EGL_TRUE;
 }
