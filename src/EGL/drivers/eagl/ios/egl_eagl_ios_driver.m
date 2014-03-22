@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  **************************************************************************/
 
-#include "EGL/drivers/eagl/egl_eagl_driver_ios.h"
+#include "EGL/drivers/eagl/ios/egl_eagl_ios_driver.h"
 #include "EGL/drivers/eagl/egl_eagl_driver.h"
 #include "EGL/drivers/eagl/egl_eagl_memory.h"
 #include "EGL/drivers/eagl/opengles/opengles_ios.h"
@@ -46,7 +46,7 @@
 #include <OpenGLES/ES1/glext.h>
 #include <OpenGLES/ES2/gl.h>
 
-#import <EGL/drivers/eagl/egl_eagl_ios_eaglwindow.h>
+#import <EGL/drivers/eagl/ios/egl_eagl_ios_eaglwindow.h>
 #import "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
 
 #endif  // __OBJC__

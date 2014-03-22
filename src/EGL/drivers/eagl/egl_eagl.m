@@ -33,8 +33,8 @@
 
 #ifdef _EGL_OS_APPLE_IOS
 
-#include "EGL/drivers/eagl/egl_eagl_driver_ios.h"
-#include "EGL/drivers/eagl/egl_eagl_ios_eaglsurface.h"
+#include "EGL/drivers/eagl/ios/egl_eagl_ios_driver.h"
+#include "EGL/drivers/eagl/ios/egl_eagl_ios_eaglsurface.h"
 #include "EGL/drivers/eagl/opengles/opengles_ios.h"
 #include "EGL/drivers/eagl/egl_eagl_globals.h"
 #include "EGL/drivers/eagl/egl_eagl_display.h"

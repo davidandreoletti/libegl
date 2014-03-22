@@ -27,10 +27,10 @@
 
 #ifdef _EGL_BUILT_IN_DRIVER_IOSEAGL
 
-#include "EGL/drivers/eagl/egl_eagl_ios_eaglwindow.h"
-#include "EGL/drivers/eagl/egl_eagl_ios_eaglcontext.h"
-#include "EGL/drivers/eagl/egl_eagl_ios_eaglsurface.h"
-#include "EGL/drivers/eagl/egl_eagl_ios_eaglimage.h"
+#include "EGL/drivers/eagl/ios/egl_eagl_ios_eaglwindow.h"
+#include "EGL/drivers/eagl/ios/egl_eagl_ios_eaglcontext.h"
+#include "EGL/drivers/eagl/ios/egl_eagl_ios_eaglsurface.h"
+#include "EGL/drivers/eagl/ios/egl_eagl_ios_eaglimage.h"
 #include "EGL/drivers/eagl/opengles/opengles_ios.h"
 
 typedef _UIWindow _EAGLWindow;

@@ -43,21 +43,12 @@
 		C72C34CF1730FC08005B5745 /* egl_eagl.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34CD1730FC08005B5745 /* egl_eagl.h */; };
 		C72C34D51730FF12005B5745 /* egl_eagl_driver.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34D41730FF12005B5745 /* egl_eagl_driver.h */; };
 		C72C34E21731445D005B5745 /* egl_eagl_typedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34E11731445D005B5745 /* egl_eagl_typedefs.h */; };
-		C72C34E617314A71005B5745 /* egl_eagl_ios_eaglcontext.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34E317314A70005B5745 /* egl_eagl_ios_eaglcontext.h */; };
-		C72C34E817314A71005B5745 /* egl_eagl_ios_eaglwindow.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34E517314A71005B5745 /* egl_eagl_ios_eaglwindow.h */; };
-		C72C34EA17314FA6005B5745 /* egl_eagl_ios_eaglsurface.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34E917314FA6005B5745 /* egl_eagl_ios_eaglsurface.h */; };
-		C72C34EC173150F0005B5745 /* egl_eagl_ios_eaglimage.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34EB173150F0005B5745 /* egl_eagl_ios_eaglimage.h */; };
-		C72C34EE1731E83B005B5745 /* egl_eagl_driver_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = C72C34ED1731E83B005B5745 /* egl_eagl_driver_ios.h */; };
-		C72C34F01731E868005B5745 /* egl_eagl_driver_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = C72C34EF1731E868005B5745 /* egl_eagl_driver_ios.m */; };
-		C72C34F21732B31C005B5745 /* egl_eagl_ios_eaglwindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = C72C34F11732B31C005B5745 /* egl_eagl_ios_eaglwindow.mm */; };
 		C73D72FA16148B1E00AE28CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C73D72F816148B1E00AE28CD /* InfoPlist.strings */; };
 		C75F3E3B16148AA60023C0D2 /* eglapiTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = C75F3E3816148AA60023C0D2 /* eglapiTests.mm */; };
 		C784D398171457B10086C69F /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C784D397171457B10086C69F /* OpenGLES.framework */; };
 		C790C5A117FDB58200C614D4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C790C5A017FDB58200C614D4 /* QuartzCore.framework */; };
 		C790C5A317FDB97D00C614D4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C790C5A217FDB97D00C614D4 /* UIKit.framework */; };
 		C790C5A517FDB9CC00C614D4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C790C5A417FDB9CC00C614D4 /* CoreGraphics.framework */; };
-		C790C5A717FE45E000C614D4 /* egl_eagl_ios_eaglsurface.m in Sources */ = {isa = PBXBuildFile; fileRef = C790C5A617FE45E000C614D4 /* egl_eagl_ios_eaglsurface.m */; };
-		C790C5B018043C1400C614D4 /* egl_eagl_ios_eaglcontext.m in Sources */ = {isa = PBXBuildFile; fileRef = C790C5AE18043C1300C614D4 /* egl_eagl_ios_eaglcontext.m */; };
 		C7A86F7E172B8B2300739D0D /* egl.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F65172B8B2300739D0D /* egl.h */; };
 		C7A86F7F172B8B2300739D0D /* eglapi.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F67172B8B2300739D0D /* eglapi.h */; };
 		C7A86F80172B8B2300739D0D /* eglarray.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A86F68172B8B2300739D0D /* eglarray.h */; };
@@ -121,6 +112,15 @@
 		F639689418AD9DB60076C110 /* AppleIOSMemoryManagement.m in Sources */ = {isa = PBXBuildFile; fileRef = F639689318AD9DB60076C110 /* AppleIOSMemoryManagement.m */; };
 		F65C918E18A3468C008418BC /* opengles_ios.h in Headers */ = {isa = PBXBuildFile; fileRef = F65C918D18A3468C008418BC /* opengles_ios.h */; };
 		F65C919118A3481D008418BC /* opengles_ios.m in Sources */ = {isa = PBXBuildFile; fileRef = F65C919018A3481D008418BC /* opengles_ios.m */; };
+		F6794CF718DD7945002B8AFF /* egl_eagl_ios_driver.h in Headers */ = {isa = PBXBuildFile; fileRef = F6794CF218DD7945002B8AFF /* egl_eagl_ios_driver.h */; };
+		F6794CF818DD7945002B8AFF /* egl_eagl_ios_eaglcontext.h in Headers */ = {isa = PBXBuildFile; fileRef = F6794CF318DD7945002B8AFF /* egl_eagl_ios_eaglcontext.h */; };
+		F6794CF918DD7945002B8AFF /* egl_eagl_ios_eaglimage.h in Headers */ = {isa = PBXBuildFile; fileRef = F6794CF418DD7945002B8AFF /* egl_eagl_ios_eaglimage.h */; };
+		F6794CFA18DD7945002B8AFF /* egl_eagl_ios_eaglsurface.h in Headers */ = {isa = PBXBuildFile; fileRef = F6794CF518DD7945002B8AFF /* egl_eagl_ios_eaglsurface.h */; };
+		F6794CFB18DD7945002B8AFF /* egl_eagl_ios_eaglwindow.h in Headers */ = {isa = PBXBuildFile; fileRef = F6794CF618DD7945002B8AFF /* egl_eagl_ios_eaglwindow.h */; };
+		F6794D0018DD7980002B8AFF /* egl_eagl_ios_driver.m in Sources */ = {isa = PBXBuildFile; fileRef = F6794CFC18DD7980002B8AFF /* egl_eagl_ios_driver.m */; };
+		F6794D0118DD7980002B8AFF /* egl_eagl_ios_eaglcontext.m in Sources */ = {isa = PBXBuildFile; fileRef = F6794CFD18DD7980002B8AFF /* egl_eagl_ios_eaglcontext.m */; };
+		F6794D0218DD7980002B8AFF /* egl_eagl_ios_eaglsurface.m in Sources */ = {isa = PBXBuildFile; fileRef = F6794CFE18DD7980002B8AFF /* egl_eagl_ios_eaglsurface.m */; };
+		F6794D0318DD7980002B8AFF /* egl_eagl_ios_eaglwindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6794CFF18DD7980002B8AFF /* egl_eagl_ios_eaglwindow.mm */; };
 		F6F66B48189F4FE1008636CE /* eglplatform.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7A86F78172B8B2300739D0D /* eglplatform.h */; };
 		F6F66B49189F57D3008636CE /* eglmesaext.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7A86F74172B8B2300739D0D /* eglmesaext.h */; };
 		F6F66B4B18A109BE008636CE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C784D397171457B10086C69F /* OpenGLES.framework */; };
@@ -195,13 +195,6 @@
 		C72C34CD1730FC08005B5745 /* egl_eagl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl.h; sourceTree = "<group>"; };
 		C72C34D41730FF12005B5745 /* egl_eagl_driver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_driver.h; sourceTree = "<group>"; };
 		C72C34E11731445D005B5745 /* egl_eagl_typedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_typedefs.h; sourceTree = "<group>"; };
-		C72C34E317314A70005B5745 /* egl_eagl_ios_eaglcontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglcontext.h; sourceTree = "<group>"; };
-		C72C34E517314A71005B5745 /* egl_eagl_ios_eaglwindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglwindow.h; sourceTree = "<group>"; };
-		C72C34E917314FA6005B5745 /* egl_eagl_ios_eaglsurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglsurface.h; sourceTree = "<group>"; };
-		C72C34EB173150F0005B5745 /* egl_eagl_ios_eaglimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglimage.h; sourceTree = "<group>"; };
-		C72C34ED1731E83B005B5745 /* egl_eagl_driver_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_driver_ios.h; sourceTree = "<group>"; };
-		C72C34EF1731E868005B5745 /* egl_eagl_driver_ios.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = egl_eagl_driver_ios.m; sourceTree = "<group>"; };
-		C72C34F11732B31C005B5745 /* egl_eagl_ios_eaglwindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = egl_eagl_ios_eaglwindow.mm; sourceTree = "<group>"; };
 		C73D72F916148B1E00AE28CD /* en */ = {isa = PBXFileReference; explicitFileType = text.plist.strings; name = en; path = "eglapi-core-libTests/en.lproj/InfoPlist.strings"; sourceTree = SOURCE_ROOT; };
 		C75F3E1516148A1A0023C0D2 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		C75F3E3716148AA60023C0D2 /* eglapiTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = eglapiTests.h; sourceTree = "<group>"; };
@@ -210,8 +203,6 @@
 		C790C5A017FDB58200C614D4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C790C5A217FDB97D00C614D4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C790C5A417FDB9CC00C614D4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C790C5A617FE45E000C614D4 /* egl_eagl_ios_eaglsurface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = egl_eagl_ios_eaglsurface.m; sourceTree = "<group>"; };
-		C790C5AE18043C1300C614D4 /* egl_eagl_ios_eaglcontext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = egl_eagl_ios_eaglcontext.m; sourceTree = "<group>"; };
 		C7A86F64172B8B2300739D0D /* egl.def */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = egl.def; sourceTree = "<group>"; };
 		C7A86F65172B8B2300739D0D /* egl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl.h; sourceTree = "<group>"; };
 		C7A86F66172B8B2300739D0D /* egl.pc.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = egl.pc.in; sourceTree = "<group>"; };
@@ -275,6 +266,15 @@
 		F64D45F618BC69AA00AAB390 /* README.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.rst; path = ../../../README.rst; sourceTree = "<group>"; };
 		F65C918D18A3468C008418BC /* opengles_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengles_ios.h; sourceTree = "<group>"; };
 		F65C919018A3481D008418BC /* opengles_ios.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = opengles_ios.m; sourceTree = "<group>"; };
+		F6794CF218DD7945002B8AFF /* egl_eagl_ios_driver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_driver.h; sourceTree = "<group>"; };
+		F6794CF318DD7945002B8AFF /* egl_eagl_ios_eaglcontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglcontext.h; sourceTree = "<group>"; };
+		F6794CF418DD7945002B8AFF /* egl_eagl_ios_eaglimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglimage.h; sourceTree = "<group>"; };
+		F6794CF518DD7945002B8AFF /* egl_eagl_ios_eaglsurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglsurface.h; sourceTree = "<group>"; };
+		F6794CF618DD7945002B8AFF /* egl_eagl_ios_eaglwindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_eaglwindow.h; sourceTree = "<group>"; };
+		F6794CFC18DD7980002B8AFF /* egl_eagl_ios_driver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = egl_eagl_ios_driver.m; path = ios/egl_eagl_ios_driver.m; sourceTree = "<group>"; };
+		F6794CFD18DD7980002B8AFF /* egl_eagl_ios_eaglcontext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = egl_eagl_ios_eaglcontext.m; path = ios/egl_eagl_ios_eaglcontext.m; sourceTree = "<group>"; };
+		F6794CFE18DD7980002B8AFF /* egl_eagl_ios_eaglsurface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = egl_eagl_ios_eaglsurface.m; path = ios/egl_eagl_ios_eaglsurface.m; sourceTree = "<group>"; };
+		F6794CFF18DD7980002B8AFF /* egl_eagl_ios_eaglwindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = egl_eagl_ios_eaglwindow.mm; path = ios/egl_eagl_ios_eaglwindow.mm; sourceTree = "<group>"; };
 		F6F8047618D556E9009F64C0 /* opengles3_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengles3_ios.h; sourceTree = "<group>"; };
 		F6F8047818D55716009F64C0 /* opengles3_ios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opengles3_ios.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -310,6 +310,10 @@
 		C70713CE1821D5620020806A /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				F6794CFC18DD7980002B8AFF /* egl_eagl_ios_driver.m */,
+				F6794CFD18DD7980002B8AFF /* egl_eagl_ios_eaglcontext.m */,
+				F6794CFE18DD7980002B8AFF /* egl_eagl_ios_eaglsurface.m */,
+				F6794CFF18DD7980002B8AFF /* egl_eagl_ios_eaglwindow.mm */,
 				F639689318AD9DB60076C110 /* AppleIOSMemoryManagement.m */,
 			);
 			name = ios;
@@ -530,11 +534,6 @@
 				F630BF4718CDF3B500816B11 /* egl_eagl_globals.h */,
 				F639689018AAF7110076C110 /* ios */,
 				F65C918C18A34665008418BC /* opengles */,
-				C72C34ED1731E83B005B5745 /* egl_eagl_driver_ios.h */,
-				C72C34EB173150F0005B5745 /* egl_eagl_ios_eaglimage.h */,
-				C72C34E917314FA6005B5745 /* egl_eagl_ios_eaglsurface.h */,
-				C72C34E317314A70005B5745 /* egl_eagl_ios_eaglcontext.h */,
-				C72C34E517314A71005B5745 /* egl_eagl_ios_eaglwindow.h */,
 				C72C34E11731445D005B5745 /* egl_eagl_typedefs.h */,
 				C72C34D41730FF12005B5745 /* egl_eagl_driver.h */,
 				C72C34CC1730FC08005B5745 /* egl_eagl_memory.h */,
@@ -557,10 +556,6 @@
 				F630BF4918CDF53C00816B11 /* egl_eagl_globals.c */,
 				F65C918F18A34807008418BC /* opengles */,
 				C70713CE1821D5620020806A /* ios */,
-				C790C5A617FE45E000C614D4 /* egl_eagl_ios_eaglsurface.m */,
-				C72C34F11732B31C005B5745 /* egl_eagl_ios_eaglwindow.mm */,
-				C790C5AE18043C1300C614D4 /* egl_eagl_ios_eaglcontext.m */,
-				C72C34EF1731E868005B5745 /* egl_eagl_driver_ios.m */,
 				C72C34CA1730FBE5005B5745 /* egl_eagl.m */,
 			);
 			path = eagl;
@@ -577,6 +572,11 @@
 		F639689018AAF7110076C110 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				F6794CF218DD7945002B8AFF /* egl_eagl_ios_driver.h */,
+				F6794CF318DD7945002B8AFF /* egl_eagl_ios_eaglcontext.h */,
+				F6794CF418DD7945002B8AFF /* egl_eagl_ios_eaglimage.h */,
+				F6794CF518DD7945002B8AFF /* egl_eagl_ios_eaglsurface.h */,
+				F6794CF618DD7945002B8AFF /* egl_eagl_ios_eaglwindow.h */,
 				F639689118AAF7110076C110 /* AppleIOSMemoryManagement.h */,
 			);
 			path = ios;
@@ -612,6 +612,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7A8C94D1721A59F0080BD68 /* khrplatform.h in Headers */,
+				F6794CFB18DD7945002B8AFF /* egl_eagl_ios_eaglwindow.h in Headers */,
 				C7A86F7E172B8B2300739D0D /* egl.h in Headers */,
 				C7A86F7F172B8B2300739D0D /* eglapi.h in Headers */,
 				C7A86F80172B8B2300739D0D /* eglarray.h in Headers */,
@@ -627,6 +628,7 @@
 				C7A86F88172B8B2300739D0D /* eglext.h in Headers */,
 				C7A86F89172B8B2300739D0D /* eglglobals.h in Headers */,
 				C7A86F8A172B8B2300739D0D /* eglimage.h in Headers */,
+				F6794CF718DD7945002B8AFF /* egl_eagl_ios_driver.h in Headers */,
 				C7A86F8B172B8B2300739D0D /* egllog.h in Headers */,
 				C7A86F8C172B8B2300739D0D /* eglmesaext.h in Headers */,
 				C7A86F8D172B8B2300739D0D /* eglmisc.h in Headers */,
@@ -653,11 +655,9 @@
 				C72C34D51730FF12005B5745 /* egl_eagl_driver.h in Headers */,
 				F630BF5218CF375200816B11 /* egl_eagl_config.h in Headers */,
 				C72C34E21731445D005B5745 /* egl_eagl_typedefs.h in Headers */,
-				C72C34E617314A71005B5745 /* egl_eagl_ios_eaglcontext.h in Headers */,
-				C72C34E817314A71005B5745 /* egl_eagl_ios_eaglwindow.h in Headers */,
-				C72C34EA17314FA6005B5745 /* egl_eagl_ios_eaglsurface.h in Headers */,
-				C72C34EC173150F0005B5745 /* egl_eagl_ios_eaglimage.h in Headers */,
-				C72C34EE1731E83B005B5745 /* egl_eagl_driver_ios.h in Headers */,
+				F6794CFA18DD7945002B8AFF /* egl_eagl_ios_eaglsurface.h in Headers */,
+				F6794CF818DD7945002B8AFF /* egl_eagl_ios_eaglcontext.h in Headers */,
+				F6794CF918DD7945002B8AFF /* egl_eagl_ios_eaglimage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -795,6 +795,7 @@
 			files = (
 				C709B8C21706818800FBCA04 /* eglapi.m in Sources */,
 				C7A86FA7172B8B3600739D0D /* eglapi.c in Sources */,
+				F6794D0118DD7980002B8AFF /* egl_eagl_ios_eaglcontext.m in Sources */,
 				C7A86FA8172B8B3600739D0D /* eglarray.c in Sources */,
 				C7A86FA9172B8B3600739D0D /* eglconfig.c in Sources */,
 				C7A86FAA172B8B3600739D0D /* eglcontext.c in Sources */,
@@ -808,6 +809,8 @@
 				F61BCB3118CF4FD90015D31E /* opengles1_ios.c in Sources */,
 				C7A86FAF172B8B3600739D0D /* eglglobals.c in Sources */,
 				C7A86FB0172B8B3600739D0D /* eglimage.c in Sources */,
+				F6794D0318DD7980002B8AFF /* egl_eagl_ios_eaglwindow.mm in Sources */,
+				F6794D0218DD7980002B8AFF /* egl_eagl_ios_eaglsurface.m in Sources */,
 				C7A86FB1172B8B3600739D0D /* egllog.c in Sources */,
 				C7A86FB2172B8B3600739D0D /* eglmisc.c in Sources */,
 				C7A86FB3172B8B3600739D0D /* eglmode.c in Sources */,
@@ -816,12 +819,9 @@
 				C7A86FB6172B8B3600739D0D /* eglsurface.c in Sources */,
 				C7A86FB7172B8B3600739D0D /* eglsync.c in Sources */,
 				C72C34CB1730FBE5005B5745 /* egl_eagl.m in Sources */,
-				C72C34F01731E868005B5745 /* egl_eagl_driver_ios.m in Sources */,
 				F630BF4A18CDF53D00816B11 /* egl_eagl_globals.c in Sources */,
-				C72C34F21732B31C005B5745 /* egl_eagl_ios_eaglwindow.mm in Sources */,
-				C790C5A717FE45E000C614D4 /* egl_eagl_ios_eaglsurface.m in Sources */,
+				F6794D0018DD7980002B8AFF /* egl_eagl_ios_driver.m in Sources */,
 				F65C919118A3481D008418BC /* opengles_ios.m in Sources */,
-				C790C5B018043C1400C614D4 /* egl_eagl_ios_eaglcontext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

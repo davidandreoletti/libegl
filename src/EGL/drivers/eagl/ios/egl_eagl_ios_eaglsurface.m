@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  **************************************************************************/
 
-#include "EGL/drivers/eagl/egl_eagl_ios_eaglsurface.h"
+#include "EGL/drivers/eagl/ios/egl_eagl_ios_eaglsurface.h"
 #include "EGL/drivers/eagl/ios/AppleIOSMemoryManagement.h"
 #import <Foundation/Foundation.h>
 

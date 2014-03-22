@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  **************************************************************************/
 
-#include "EGL/drivers/eagl/egl_eagl_ios_eaglwindow.h"
+#include "EGL/drivers/eagl/ios/egl_eagl_ios_eaglwindow.h"
 
 @implementation _UIWindow
 
