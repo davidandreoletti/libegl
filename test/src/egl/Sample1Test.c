@@ -47,7 +47,7 @@ static EGLint height;
  Sample
  **************************************************************************/
 
-typedef int (*InitRender_t) (TestPlatform*, void*, void*);
+typedef int (*InitRender_t) (void);
 typedef void (*RenderFrame_t)(void);
 typedef void (*DestroyRender_t)(void);
 
@@ -245,7 +245,7 @@ static void destroyRenderOpenGLES1() {
     LOG(I, "Destroying OpenGL 1 context")
 }
 
-static int initRenderOpenGLES1(TestPlatform* p, void* eglDisplay, void* nativeWinSurface) {
+static int initRenderOpenGLES1() {
     glDisable(GL_DITHER);
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
     glClearColor(0, 0, 0, 0);
@@ -650,7 +650,7 @@ static void destroyRenderOpenGLES2() {
     LOG(I, "Destroying OpenGL 2 context")
 }
 
-static int initRenderOpenGLES2(TestPlatform* p, void* eglDisplay, void* nativeWinSurface) {
+static int initRenderOpenGLES2() {
     if(!compileShaders(vertexShader, fragmentShader, &vertexShaderObjectId, &fragmentShaderObjectId, &programObjectId)) {
         renderer.destroy();
         return 0;
@@ -725,7 +725,7 @@ static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, in
     }
 
     EGLint error;
-    if (!renderer.init(p, eglDisplay, nativeWinSurface)) {
+    if (!renderer.init()) {
         return;
     }
     
