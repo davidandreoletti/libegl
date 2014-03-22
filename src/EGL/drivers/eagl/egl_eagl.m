@@ -115,13 +115,13 @@ EAGL_eglInitialize(_EGLDriver *drv, _EGLDisplay *disp) {
     }
     
     EAGL_dpy->Window = disp->PlatformDisplay;
-    if (!EAGL_drv->eaglInitialize(EAGL_dpy, disp) || !EAGL_dpy->Window) {
+    if (!EAGL_drv->Initialize(EAGL_dpy, disp) || !EAGL_dpy->Window) {
         _eglLog(_EGL_WARNING, "EAGL_eglInitialize");
         free(EAGL_dpy);
         return EGL_FALSE;
     }
     
-    if (!EAGL_drv->eaglQueryVersion(EAGL_dpy->Window,
+    if (!EAGL_drv->QueryVersion(EAGL_dpy->Window,
                                     &EAGL_dpy->VersionMajor, &EAGL_dpy->VersionMinor)) {
         _eglLog(_EGL_WARNING, "EAGL_eglInitialize");
         if (!disp->PlatformDisplay) {
@@ -162,7 +162,7 @@ EAGL_eglTerminate(_EGLDriver *drv, _EGLDisplay *disp)
     struct EAGL_egl_display *EAGL_dpy = EAGL_egl_display(disp);
     struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
 
-    EAGL_drv->eaglTerminate(EAGL_dpy);
+    EAGL_drv->Terminate(EAGL_dpy);
     
     _eglReleaseDisplayResources(drv, disp);
     _eglCleanupDisplay(disp);
@@ -207,7 +207,7 @@ EAGL_eglCreateContext(_EGLDriver *drv, _EGLDisplay *disp, _EGLConfig *conf,
         return NULL;
     }
     
-    if(!(EAGL_drv->eaglCreateContext(EAGL_dpy, EAGL_conf, EAGL_ctx_shared, attrib_list, EAGL_ctx))) {
+    if(!(EAGL_drv->CreateContext(EAGL_dpy, EAGL_conf, EAGL_ctx_shared, attrib_list, EAGL_ctx))) {
         free(EAGL_ctx);
         return NULL;
     }
@@ -225,7 +225,7 @@ destroy_context(_EGLDriver* drv, _EGLDisplay *disp, _EGLContext *context) {
     struct EAGL_egl_context *EAGL_ctx = EAGL_egl_context(context);
     
     assert(EAGL_ctx);
-    EAGL_drv->eaglDestroyContext(EAGL_dpy->Window, EAGL_ctx);
+    EAGL_drv->DestroyContext(EAGL_dpy->Window, EAGL_ctx);
     free(EAGL_ctx);
     
     return EGL_TRUE;
@@ -256,7 +256,7 @@ destroy_surface(_EGLDriver* drv, _EGLDisplay *disp, _EGLSurface *surf) {
     switch (surf->Type) {
         case EGL_WINDOW_BIT:
         {
-            if (EAGL_drv->eaglDestroyWindow(EAGL_dpy, EAGL_surf)) {
+            if (EAGL_drv->DestroyWindow(EAGL_dpy, EAGL_surf)) {
                 free(EAGL_surf);
                 return EGL_TRUE;
             }
@@ -297,7 +297,7 @@ EAGL_eglMakeCurrent(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *dsurf,
         return EGL_FALSE;
     }
     
-    ret = EAGL_drv->eaglMakeCurrent(EAGL_dpy->Window, EAGL_dsurf, EAGL_ctx, &EAGL_ctx->OpenGLESAPI);
+    ret = EAGL_drv->MakeCurrent(EAGL_dpy->Window, EAGL_dsurf, EAGL_ctx, &EAGL_ctx->OpenGLESAPI);
 
     if (ret) {
         if (_eglPutSurface(old_dsurf))
@@ -387,7 +387,7 @@ EAGL_eglCreateWindowSurface(_EGLDriver *drv, _EGLDisplay *disp,
         return NULL;
     }
     
-    if(!(EAGL_drv->eaglCreateWindow(EAGL_dpy, EAGL_conf, window, attrib_list, EAGL_surf))) {
+    if(!(EAGL_drv->CreateWindow(EAGL_dpy, EAGL_conf, window, attrib_list, EAGL_surf))) {
         free(EAGL_surf);
         return NULL;
     }
@@ -515,7 +515,7 @@ EAGL_eglSwapBuffers(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *draw)
         return _eglError(EGL_BAD_SURFACE, "EAGL_eglSwapBuffers");
     }
     
-    return EAGL_drv->eaglSwapBuffers(EAGL_dpy, EAGL_surf);
+    return EAGL_drv->SwapBuffers(EAGL_dpy, EAGL_surf);
 }
 
 /**
@@ -532,7 +532,7 @@ static EGLBoolean EAGL_eglSwapInterval(_EGLDriver *drv, _EGLDisplay *dpy, _EGLSu
     
     _eglSwapInterval(drv, dpy, surf, interval);
     
-    return EAGL_drv->eaglSwapInterval(EAGL_dpy, EAGL_surf, interval);
+    return EAGL_drv->SwapInterval(EAGL_dpy, EAGL_surf, interval);
 }
 
 /*
@@ -543,7 +543,7 @@ EAGL_eglGetProcAddress(_EGLDriver *drv, const char *procname)
 {
     struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
     
-    return (_EGLProc) EAGL_drv->eaglGetProcAddress((const char *) procname);
+    return (_EGLProc) EAGL_drv->GetProcAddress((const char *) procname);
 }
 
 /**
@@ -557,7 +557,7 @@ EAGL_eglWaitClient(_EGLDriver *drv, _EGLDisplay *dpy, _EGLContext *ctx)
     (void) dpy;
     (void) ctx;
     
-    EAGL_drv->eaglWaitGL();
+    EAGL_drv->WaitGL();
     return EGL_TRUE;
 }
 
@@ -573,7 +573,7 @@ EAGL_eglWaitNative(_EGLDriver *drv, _EGLDisplay *dpy, EGLint engine)
     
     if (engine != EGL_CORE_NATIVE_ENGINE)
         return _eglError(EGL_BAD_PARAMETER, "eglWaitNative");
-    EAGL_drv->eaglWaitNative();
+    EAGL_drv->WaitNative();
     return EGL_TRUE;
 }
 

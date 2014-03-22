@@ -142,41 +142,41 @@ struct EAGL_egl_driver
     void *handle;
     
     /* EAGL x.x */
-    EAGLINITIALIZEPROC eaglInitialize;
-    EAGLTERMINATEPROC eaglTerminate;
+    EAGLINITIALIZEPROC Initialize;
+    EAGLTERMINATEPROC Terminate;
     
-    EAGLGETCONFIGSPROC eaglGetConfigs;
+    EAGLGETCONFIGSPROC GetConfigs;
 
-    EAGLCREATECONTEXTPROC eaglCreateContext;
-    EAGLDESTROYCONTEXTPROC eaglDestroyContext;
+    EAGLCREATECONTEXTPROC CreateContext;
+    EAGLDESTROYCONTEXTPROC DestroyContext;
     
-    EAGLMAKECURRENTPROC eaglMakeCurrent;
+    EAGLMAKECURRENTPROC MakeCurrent;
     
-    EAGLGETPROCADDRESSPROC eaglGetProcAddress;
+    EAGLGETPROCADDRESSPROC GetProcAddress;
 
 
-    EAGLSWAPBUFFERSPROC eaglSwapBuffers;
-    EAGLSWAPINTERVALPROC eaglSwapInterval;
-    EAGLQUERYVERSIONPROC eaglQueryVersion;
+    EAGLSWAPBUFFERSPROC SwapBuffers;
+    EAGLSWAPINTERVALPROC SwapInterval;
+    EAGLQUERYVERSIONPROC QueryVersion;
 
-    EAGLWAITGLPROC eaglWaitGL;
-    EAGLWAITNATIVEPROC eaglWaitNative;
+    EAGLWAITGLPROC WaitGL;
+    EAGLWAITNATIVEPROC WaitNative;
     
-    EAGLQUERYEXTENSIONSSTRINGPROC eaglQueryExtensionsString;
-    EAGLQUERYSERVERSTRINGPROC eaglQueryServerString;
-    EAGLGETCLIENTSTRINGPROC eaglGetClientString;
+    EAGLQUERYEXTENSIONSSTRINGPROC QueryExtensionsString;
+    EAGLQUERYSERVERSTRINGPROC QueryServerString;
+    EAGLGETCLIENTSTRINGPROC GetClientString;
     
-    EAGLCREATEWINDOWPROC eaglCreateWindow;
-    EAGLDESTROYWINDOWPROC eaglDestroyWindow;
-    EAGLCREATEPIXMAPPROC eaglCreatePixmap;
-    EAGLDESTROYPIXMAPPROC eaglDestroyPixmap;
-    EAGLCREATEPBUFFERPROC eaglCreatePbuffer;
-    EAGLDESTROYPBUFFERPROC eaglDestroyPbuffer;
+    EAGLCREATEWINDOWPROC CreateWindow;
+    EAGLDESTROYWINDOWPROC DestroyWindow;
+    EAGLCREATEPIXMAPPROC CreatePixmap;
+    EAGLDESTROYPIXMAPPROC DestroyPixmap;
+    EAGLCREATEPBUFFERPROC CreatePbuffer;
+    EAGLDESTROYPBUFFERPROC DestroyPbuffer;
     
-    EAGLQUERYYSURFACEPROC eaglQuerySurface;
+    EAGLQUERYYSURFACEPROC QuerySurface;
 
-    EAGLCREATENEWCONTEXTPROC eaglCreateNewContext;
-    EAGLMAKECONTEXTCURRENTPROC eaglMakeContextCurrent;
+    EAGLCREATENEWCONTEXTPROC CreateNewContext;
+    EAGLMAKECONTEXTCURRENTPROC MakeContextCurrent;
 };
 
 static void
@@ -196,45 +196,42 @@ EAGL_Load(_EGLDriver *drv)
     struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
     void *handle = NULL;
 
-    if (!EAGL_drv->eaglGetProcAddress)
+    if (!EAGL_drv->GetProcAddress)
         goto fail;
 
 #define GET_PROC(proc_type, proc_name, check)                                  \
     do {                                                                       \
         EAGL_drv->proc_name = (proc_type)                                      \
-            EAGL_drv->eaglGetProcAddress(  #proc_name );                       \
+            EAGL_drv->GetProcAddress(  #proc_name );                           \
         if (check && !EAGL_drv->proc_name) goto fail;                          \
     } while (0)
 
     /* EAGL x.x */
-    GET_PROC(EAGLINITIALIZEPROC,  eaglInitialize, EGL_TRUE);
-    GET_PROC(EAGLTERMINATEPROC,  eaglTerminate, EGL_TRUE);
-    GET_PROC(EAGLCREATECONTEXTPROC,  eaglCreateContext, EGL_TRUE);
-    GET_PROC(EAGLDESTROYCONTEXTPROC,  eaglDestroyContext, EGL_TRUE);
-    GET_PROC(EAGLMAKECURRENTPROC,  eaglMakeCurrent, EGL_TRUE);
-    GET_PROC(EAGLSWAPBUFFERSPROC,  eaglSwapBuffers, EGL_TRUE);
-    GET_PROC(EAGLSWAPINTERVALPROC,  eaglSwapInterval, EGL_TRUE);
-    GET_PROC(EAGLQUERYVERSIONPROC,  eaglQueryVersion, EGL_TRUE);
-    GET_PROC(EAGLWAITGLPROC,  eaglWaitGL, EGL_TRUE);
-    GET_PROC(EAGLWAITNATIVEPROC,  eaglWaitNative, EGL_TRUE);
+    GET_PROC(EAGLINITIALIZEPROC,  Initialize, EGL_TRUE);
+    GET_PROC(EAGLTERMINATEPROC,  Terminate, EGL_TRUE);
+    GET_PROC(EAGLCREATECONTEXTPROC,  CreateContext, EGL_TRUE);
+    GET_PROC(EAGLDESTROYCONTEXTPROC,  DestroyContext, EGL_TRUE);
+    GET_PROC(EAGLMAKECURRENTPROC,  MakeCurrent, EGL_TRUE);
+    GET_PROC(EAGLSWAPBUFFERSPROC,  SwapBuffers, EGL_TRUE);
+    GET_PROC(EAGLSWAPINTERVALPROC,  SwapInterval, EGL_TRUE);
+    GET_PROC(EAGLQUERYVERSIONPROC,  QueryVersion, EGL_TRUE);
+    GET_PROC(EAGLWAITGLPROC,  WaitGL, EGL_TRUE);
+    GET_PROC(EAGLWAITNATIVEPROC,  WaitNative, EGL_TRUE);
 
-    GET_PROC(EAGLQUERYEXTENSIONSSTRINGPROC,  eaglQueryExtensionsString, EGL_TRUE);
-    GET_PROC(EAGLQUERYSERVERSTRINGPROC,  eaglQueryServerString, EGL_TRUE);
-    GET_PROC(EAGLGETCLIENTSTRINGPROC,  eaglGetClientString, EGL_TRUE);
+    GET_PROC(EAGLQUERYEXTENSIONSSTRINGPROC,  QueryExtensionsString, EGL_TRUE);
+    GET_PROC(EAGLQUERYSERVERSTRINGPROC,  QueryServerString, EGL_TRUE);
+    GET_PROC(EAGLGETCLIENTSTRINGPROC,  GetClientString, EGL_TRUE);
 
-    GET_PROC(EAGLGETCONFIGSPROC,  eaglGetConfigs, EGL_FALSE);
-    GET_PROC(EAGLCREATEWINDOWPROC,  eaglCreateWindow, EGL_TRUE);
-    GET_PROC(EAGLDESTROYWINDOWPROC,  eaglDestroyWindow, EGL_TRUE);
-    GET_PROC(EAGLCREATEPIXMAPPROC,  eaglCreatePixmap, EGL_TRUE);
-    GET_PROC(EAGLDESTROYPIXMAPPROC,  eaglDestroyPixmap, EGL_TRUE);
-    GET_PROC(EAGLCREATEPBUFFERPROC,  eaglCreatePbuffer, EGL_TRUE);
-    GET_PROC(EAGLDESTROYPBUFFERPROC,  eaglDestroyPbuffer, EGL_TRUE);
+    GET_PROC(EAGLGETCONFIGSPROC,  GetConfigs, EGL_FALSE);
+    GET_PROC(EAGLCREATEWINDOWPROC,  CreateWindow, EGL_TRUE);
+    GET_PROC(EAGLDESTROYWINDOWPROC,  DestroyWindow, EGL_TRUE);
+    GET_PROC(EAGLCREATEPIXMAPPROC,  CreatePixmap, EGL_TRUE);
+    GET_PROC(EAGLDESTROYPIXMAPPROC,  DestroyPixmap, EGL_TRUE);
+    GET_PROC(EAGLCREATEPBUFFERPROC,  CreatePbuffer, EGL_TRUE);
+    GET_PROC(EAGLDESTROYPBUFFERPROC,  DestroyPbuffer, EGL_TRUE);
     
-    GET_PROC(EAGLQUERYYSURFACEPROC,  eaglQuerySurface, EGL_TRUE);
+    GET_PROC(EAGLQUERYYSURFACEPROC,  QuerySurface, EGL_TRUE);
     
-    GET_PROC(EAGLCREATENEWCONTEXTPROC,  eaglCreateNewContext, EGL_TRUE);
-    GET_PROC(EAGLMAKECONTEXTCURRENTPROC,  eaglMakeContextCurrent, EGL_TRUE);
-
     #undef GET_PROC
 
     EAGL_drv->handle = handle;

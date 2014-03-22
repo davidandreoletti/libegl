@@ -322,7 +322,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
 
 static void (^onContextLostOrRetrieved)(NSNotification*) = NULL;
 
-EGLBoolean eaglInitialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
+EGLBoolean EAGLIOS_Initialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
     if (!dpy) {
         return EGL_FALSE;
     }
@@ -381,7 +381,7 @@ EGLBoolean eaglInitialize (struct EAGL_egl_display * dpy, _EGLDisplay *disp) {
     return EGL_TRUE;
 }
 
-EGLBoolean eaglTerminate (struct EAGL_egl_display *EAGL_dpy) {
+EGLBoolean EAGLIOS_Terminate (struct EAGL_egl_display *EAGL_dpy) {
     OWNERSHIP_BRIDGE_TRANSFER(EAGLIOSWindow *,EAGL_dpy->Window);
     return EGL_TRUE;
 }
@@ -429,7 +429,7 @@ bool initOpenGLAPI(int clientAPIVersion, _OpenGLESAPI* api, EGLint* renderableTy
     return success;
 }
 
-struct EAGL_egl_context * eaglCreateContext(struct EAGL_egl_display *EAGL_dpy,
+struct EAGL_egl_context* EAGLIOS_CreateContext(struct EAGL_egl_display *EAGL_dpy,
                                 struct EAGL_egl_config *EAGL_conf ,
                                 struct EAGL_egl_context *EAGL_ctx_shared,
                                 const EGLint *attrib_list,
@@ -495,7 +495,7 @@ struct EAGL_egl_context * eaglCreateContext(struct EAGL_egl_display *EAGL_dpy,
     return EAGL_ctx;
 }
 
-void  eaglDestroyContext ( _EAGLWindow *dpy, struct EAGL_egl_context* ctx) {
+void  EAGLIOS_DestroyContext ( _EAGLWindow *dpy, struct EAGL_egl_context* ctx) {
     if(ctx->Context != NULL) {
         OWNERSHIP_BRIDGE_TRANSFER(_EAGLContext*, ctx->Context);
         ctx->Context = NULL;
@@ -592,7 +592,7 @@ cleanup:
     return error == GL_NO_ERROR;
 }
 
-EGLBoolean eaglMakeCurrent(_EAGLWindow *dpy,
+EGLBoolean EAGLIOS_MakeCurrent(_EAGLWindow *dpy,
                            struct EAGL_egl_surface* EAGL_dsurf,
                            struct EAGL_egl_context* context,
                            _OpenGLESAPI* api) {
@@ -651,7 +651,7 @@ cleanup:
     return EGL_FALSE;
 }
 
-EGLBoolean eaglSwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf) {
+EGLBoolean EAGLIOS_SwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf) {
     struct EAGL_egl_context *EAGL_context = EAGL_egl_context(EAGL_surf->Base.CurrentContext);
     if (EAGL_context->Context == nil && EAGL_context->Context.nativeContext == nil) {
        return _eglError(EGL_BAD_SURFACE, "eaglSwapBuffers");
@@ -666,19 +666,19 @@ EGLBoolean eaglSwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_s
     return b == YES ? EGL_TRUE : EGL_FALSE;
 }
 
-EGLBoolean eaglSwapInterval(struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf, EGLint interval) {
+EGLBoolean EAGLIOS_SwapInterval(struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf, EGLint interval) {
     return EGL_TRUE;
 }
 
-_EAGLImage*/*GLXPixmap*/ eaglCreatePixmap(_EAGLWindow *dpy, _EAGLImage* pixmap ) {
+_EAGLImage*/*GLXPixmap*/ EAGLIOS_CreatePixmap(_EAGLWindow *dpy, _EAGLImage* pixmap ) {
     return NULL;
 }
 
-void eaglDestroyPixmap( _EAGLWindow *dpy, _EAGLImage*/*GLXPixmap*/ pixmap ) {
+void EAGLIOS_DestroyPixmap( _EAGLWindow *dpy, _EAGLImage*/*GLXPixmap*/ pixmap ) {
 
 }
 
-EGLBoolean eaglQueryVersion( _EAGLWindow *dpy, int *maj, int *min ) {
+EGLBoolean EAGLIOS_QueryVersion( _EAGLWindow *dpy, int *maj, int *min ) {
     if (maj != NULL && min != NULL) {
         *maj = EAGL_IOS_MAJOR_VERSION;
         *min = EAGL_IOS_MINOR_VERSION;
@@ -687,27 +687,27 @@ EGLBoolean eaglQueryVersion( _EAGLWindow *dpy, int *maj, int *min ) {
     return EGL_FALSE;
 }
 
-int eaglGetConfigs( _EAGLWindow *dpy, int attrib, int *value ) {
+int EAGLIOS_GetConfigs( _EAGLWindow *dpy, int attrib, int *value ) {
     return 0;
 }
 
-void eaglWaitGL ( void ) {
+void EAGLIOS_WaitGL ( void ) {
 
 }
 
-void eaglWaitNative( void ) {
+void EAGLIOS_WaitNative( void ) {
 
 }
 
-const char *eaglQueryExtensionString( _EAGLWindow *dpy, int screen ) {
+const char * EAGLIOS_QueryExtensionString( _EAGLWindow *dpy, int screen ) {
     return "";
 }
 
-const char *eaglQueryServerString( _EAGLWindow *dpy, int screen, int name ) {
+const char * EAGLIOS_QueryServerString( _EAGLWindow *dpy, int screen, int name ) {
     return "";
 }
 
-const char *eaglQueryClientString ( _EAGLWindow *dpy, int name ) {
+const char * EAGLIOS_QueryClientString ( _EAGLWindow *dpy, int name ) {
     return "";
 }
 
@@ -721,7 +721,7 @@ BOOL convertToEAGLDrawablePropertyRetainedBacking(EGLenum swapBehavior) {
     return NO;
 }
 
-EGLBoolean eaglCreateWindow(struct EAGL_egl_display *EAGL_dpy,
+EGLBoolean EAGLIOS_CreateWindow(struct EAGL_egl_display *EAGL_dpy,
                             struct EAGL_egl_config *EAGL_conf, EGLNativeWindowType window,
                             const EGLint *attrib_list, struct EAGL_egl_surface *EAGL_surf) {
     
@@ -773,37 +773,29 @@ EGLBoolean eaglCreateWindow(struct EAGL_egl_display *EAGL_dpy,
     return EGL_TRUE;
 }
 
-EGLBoolean eaglDestroyWindow(struct EAGL_egl_display *EAGL_dpy, struct EAGL_egl_surface *EAGL_surf) {
+EGLBoolean EAGLIOS_DestroyWindow(struct EAGL_egl_display *EAGL_dpy, struct EAGL_egl_surface *EAGL_surf) {
     OWNERSHIP_BRIDGE_TRANSFER(_EAGLSurface*, EAGL_surf->Surface);
     EAGL_surf->Surface = nil;
     _eglError(EGL_SUCCESS, "eglDestroySurface");
     return EGL_TRUE;
 }
 
-void *eaglCreatePBuffer (void) {
+void* EAGLIOS_CreatePBuffer (void) {
     return NULL;
 }
 
-void *eaglDestroyPBuffer(void) {
+void* EAGLIOS_DestroyPBuffer(void) {
     return NULL;
 }
 
-EGLBoolean eaglQuerySurface (_EAGLSurface* surface, int attrib, int *value) {
+EGLBoolean EAGLIOS_QuerySurface (_EAGLSurface* surface, int attrib, int *value) {
     if (surface == nil) {return EGL_FALSE;}
     return EGL_FALSE;
 }
 
-EGLBoolean eaglSurfaceAttrib (_EAGLSurface* surface, int attrib, int value) {
+EGLBoolean EAGLIOS_SurfaceAttrib (_EAGLSurface* surface, int attrib, int value) {
     if (surface == nil) {return EGL_FALSE;}
     return EGL_FALSE;
-}
-
-void * createNewContext(void) {
-    return NULL;
-}
-
-void * makeContextCurrent(void) {
-    return NULL;
 }
 
 /**
@@ -811,80 +803,74 @@ void * makeContextCurrent(void) {
  *  \param proc_name Procedure name
  *  \return Procedure address
  */
-static ProcAddressFuncPtr eaglIOSGetProcAddress(const char * proc_name);
-static ProcAddressFuncPtr eaglIOSGetProcAddress(const char * proc_name) {
+static ProcAddressFuncPtr EAGLIOS_GetProcAddress(const char * proc_name);
+static ProcAddressFuncPtr EAGLIOS_GetProcAddress(const char * proc_name) {
 #define EQUAL_STRING(varStr, stringLiteral)      strcmp(varStr, stringLiteral) == 0
-    if (EQUAL_STRING(proc_name, "eaglInitialize")) {
-        return (ProcAddressFuncPtr) eaglInitialize;
+    if (EQUAL_STRING(proc_name, "Initialize")) {
+        return (ProcAddressFuncPtr) EAGLIOS_Initialize;
     }
-    else if (EQUAL_STRING(proc_name, "eaglTerminate")) {
-        return (ProcAddressFuncPtr) eaglTerminate;
+    else if (EQUAL_STRING(proc_name, "Terminate")) {
+        return (ProcAddressFuncPtr) EAGLIOS_Terminate;
     }
-    else if (EQUAL_STRING(proc_name, "eaglCreateContext")) {
-        return (ProcAddressFuncPtr) eaglCreateContext;
+    else if (EQUAL_STRING(proc_name, "CreateContext")) {
+        return (ProcAddressFuncPtr) EAGLIOS_CreateContext;
     }
-    else if (EQUAL_STRING(proc_name, "eaglCreateWindow")) {
-        return (ProcAddressFuncPtr) eaglCreateWindow;
+    else if (EQUAL_STRING(proc_name, "CreateWindow")) {
+        return (ProcAddressFuncPtr) EAGLIOS_CreateWindow;
     }
-    else if (EQUAL_STRING(proc_name, "eaglDestroyContext")) {
-        return (ProcAddressFuncPtr) eaglDestroyContext;
+    else if (EQUAL_STRING(proc_name, "DestroyContext")) {
+        return (ProcAddressFuncPtr) EAGLIOS_DestroyContext;
     }
-    else if (EQUAL_STRING(proc_name, "eaglMakeCurrent")) {
-        return (ProcAddressFuncPtr) eaglMakeCurrent;
+    else if (EQUAL_STRING(proc_name, "MakeCurrent")) {
+        return (ProcAddressFuncPtr) EAGLIOS_MakeCurrent;
     }
-    else if (EQUAL_STRING(proc_name, "eaglSwapBuffers")) {
-        return (ProcAddressFuncPtr) eaglSwapBuffers;
+    else if (EQUAL_STRING(proc_name, "SwapBuffers")) {
+        return (ProcAddressFuncPtr) EAGLIOS_SwapBuffers;
     }
-    else if (EQUAL_STRING(proc_name, "eaglSwapInterval")) {
-        return (ProcAddressFuncPtr) eaglSwapInterval;
+    else if (EQUAL_STRING(proc_name, "SwapInterval")) {
+        return (ProcAddressFuncPtr) EAGLIOS_SwapInterval;
     }
-    else if (EQUAL_STRING(proc_name, "eaglCreatePixmap")) {
-        return (ProcAddressFuncPtr) eaglCreatePixmap;
+    else if (EQUAL_STRING(proc_name, "CreatePixmap")) {
+        return (ProcAddressFuncPtr) EAGLIOS_CreatePixmap;
     }
-    else if (EQUAL_STRING(proc_name, "eaglDestroyPixmap")) {
-        return (ProcAddressFuncPtr) eaglDestroyPixmap;
+    else if (EQUAL_STRING(proc_name, "DestroyPixmap")) {
+        return (ProcAddressFuncPtr) EAGLIOS_DestroyPixmap;
     }
-    else if (EQUAL_STRING(proc_name, "eaglQueryVersion")) {
-        return (ProcAddressFuncPtr) eaglQueryVersion;
+    else if (EQUAL_STRING(proc_name, "QueryVersion")) {
+        return (ProcAddressFuncPtr) EAGLIOS_QueryVersion;
     }
-    else if (EQUAL_STRING(proc_name, "eaglWaitGL")) {
-        return (ProcAddressFuncPtr) eaglWaitGL;
+    else if (EQUAL_STRING(proc_name, "WaitGL")) {
+        return (ProcAddressFuncPtr) EAGLIOS_WaitGL;
     }
-    else if (EQUAL_STRING(proc_name, "eaglWaitNative")) {
-        return (ProcAddressFuncPtr) eaglWaitNative;
+    else if (EQUAL_STRING(proc_name, "WaitNative")) {
+        return (ProcAddressFuncPtr) EAGLIOS_WaitNative;
     }
-    else if (EQUAL_STRING(proc_name, "eaglQueryExtensionsString")) {
-        return (ProcAddressFuncPtr) eaglQueryExtensionString;
+    else if (EQUAL_STRING(proc_name, "QueryExtensionsString")) {
+        return (ProcAddressFuncPtr) EAGLIOS_QueryExtensionString;
     }
-    else if (EQUAL_STRING(proc_name, "eaglQueryServerString")) {
-        return (ProcAddressFuncPtr) eaglQueryServerString;
+    else if (EQUAL_STRING(proc_name, "QueryServerString")) {
+        return (ProcAddressFuncPtr) EAGLIOS_QueryServerString;
     }
-    else if (EQUAL_STRING(proc_name, "eaglGetClientString")) {
-        return (ProcAddressFuncPtr) eaglQueryClientString;
+    else if (EQUAL_STRING(proc_name, "GetClientString")) {
+        return (ProcAddressFuncPtr) EAGLIOS_QueryClientString;
     }
-    else if (EQUAL_STRING(proc_name, "eaglGetConfigs")) {
-        return (ProcAddressFuncPtr) eaglGetConfigs;
+    else if (EQUAL_STRING(proc_name, "GetConfigs")) {
+        return (ProcAddressFuncPtr) EAGLIOS_GetConfigs;
     }
-    else if (EQUAL_STRING(proc_name, "eaglDestroyWindow")) {
-        return (ProcAddressFuncPtr) eaglDestroyWindow;
+    else if (EQUAL_STRING(proc_name, "DestroyWindow")) {
+        return (ProcAddressFuncPtr) EAGLIOS_DestroyWindow;
     }
-    else if (EQUAL_STRING(proc_name, "eaglCreatePbuffer")) {
-        return (ProcAddressFuncPtr) eaglCreatePBuffer;
+    else if (EQUAL_STRING(proc_name, "CreatePbuffer")) {
+        return (ProcAddressFuncPtr) EAGLIOS_CreatePBuffer;
     }
-    else if (EQUAL_STRING(proc_name, "eaglDestroyPbuffer")) {
-        return (ProcAddressFuncPtr) eaglDestroyPBuffer;
+    else if (EQUAL_STRING(proc_name, "DestroyPbuffer")) {
+        return (ProcAddressFuncPtr) EAGLIOS_DestroyPBuffer;
     }
-    else if (EQUAL_STRING(proc_name, "eaglCreateNewContext")) {
-        return (ProcAddressFuncPtr) createNewContext;
+    else if (EQUAL_STRING(proc_name, "QuerySurface")) {
+        return (ProcAddressFuncPtr) EAGLIOS_QuerySurface;
     }
-    else if (EQUAL_STRING(proc_name, "eaglMakeContextCurrent")) {
-        return (ProcAddressFuncPtr) makeContextCurrent;
-    }
-    else if (EQUAL_STRING(proc_name, "eaglQuerySurface")) {
-        return (ProcAddressFuncPtr) eaglQuerySurface;
-    }
-    else if (EQUAL_STRING(proc_name, "eaglSurfaceAttrib")) {
-        return (ProcAddressFuncPtr) eaglSurfaceAttrib;
+    else if (EQUAL_STRING(proc_name, "SurfaceAttrib")) {
+        return (ProcAddressFuncPtr) EAGLIOS_SurfaceAttrib;
     }
     return NULL;
 #undef EQUAL_STRING
@@ -896,7 +882,7 @@ struct EAGL_egl_driver* _eglBuiltInDriverEAGLIOS(const char *args) {
     if (!EAGL_drv)
         return NULL;
     
-    EAGL_drv->eaglGetProcAddress = eaglIOSGetProcAddress;
+    EAGL_drv->GetProcAddress = EAGLIOS_GetProcAddress;
     EAGL_drv->Base.Name = "EAGL_iOS";
     
     return EAGL_drv;
