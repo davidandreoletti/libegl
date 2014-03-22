@@ -775,7 +775,7 @@ EGLBoolean eaglCreateWindow(struct EAGL_egl_display *EAGL_dpy,
 
 EGLBoolean eaglDestroyWindow(struct EAGL_egl_display *EAGL_dpy, struct EAGL_egl_surface *EAGL_surf) {
     OWNERSHIP_BRIDGE_TRANSFER(_EAGLSurface*, EAGL_surf->eagl_drawable);
-    EAGL_surf->eagl_drawable = NULL;
+    EAGL_surf->eagl_drawable = nil;
     _eglError(EGL_SUCCESS, "eglDestroySurface");
     return EGL_TRUE;
 }
