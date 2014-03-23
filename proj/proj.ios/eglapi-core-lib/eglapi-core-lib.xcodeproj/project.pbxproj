@@ -122,6 +122,8 @@
 		F6794D0218DD7980002B8AFF /* EAGLIOSSurface.m in Sources */ = {isa = PBXBuildFile; fileRef = F6794CFE18DD7980002B8AFF /* EAGLIOSSurface.m */; };
 		F6794D0318DD7980002B8AFF /* EAGLIOSWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = F6794CFF18DD7980002B8AFF /* EAGLIOSWindow.mm */; };
 		F6794D0518DD802F002B8AFF /* egl_eagl_ios_config.h in Headers */ = {isa = PBXBuildFile; fileRef = F6794D0418DD802F002B8AFF /* egl_eagl_ios_config.h */; };
+		F6A2745618DE877B003304B2 /* egl_eagl_ios_windowsurfacehelper.h in Headers */ = {isa = PBXBuildFile; fileRef = F6A2745518DE877B003304B2 /* egl_eagl_ios_windowsurfacehelper.h */; };
+		F6A2745818DE87DE003304B2 /* egl_eagl_ios_windowsurfacehelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F6A2745718DE87DE003304B2 /* egl_eagl_ios_windowsurfacehelper.m */; };
 		F6F66B48189F4FE1008636CE /* eglplatform.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7A86F78172B8B2300739D0D /* eglplatform.h */; };
 		F6F66B49189F57D3008636CE /* eglmesaext.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C7A86F74172B8B2300739D0D /* eglmesaext.h */; };
 		F6F66B4B18A109BE008636CE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C784D397171457B10086C69F /* OpenGLES.framework */; };
@@ -277,6 +279,8 @@
 		F6794CFE18DD7980002B8AFF /* EAGLIOSSurface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EAGLIOSSurface.m; path = ios/EAGLIOSSurface.m; sourceTree = "<group>"; };
 		F6794CFF18DD7980002B8AFF /* EAGLIOSWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = EAGLIOSWindow.mm; path = ios/EAGLIOSWindow.mm; sourceTree = "<group>"; };
 		F6794D0418DD802F002B8AFF /* egl_eagl_ios_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_config.h; sourceTree = "<group>"; };
+		F6A2745518DE877B003304B2 /* egl_eagl_ios_windowsurfacehelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egl_eagl_ios_windowsurfacehelper.h; sourceTree = "<group>"; };
+		F6A2745718DE87DE003304B2 /* egl_eagl_ios_windowsurfacehelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = egl_eagl_ios_windowsurfacehelper.m; path = ios/egl_eagl_ios_windowsurfacehelper.m; sourceTree = "<group>"; };
 		F6F8047618D556E9009F64C0 /* opengles3_ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengles3_ios.h; sourceTree = "<group>"; };
 		F6F8047818D55716009F64C0 /* opengles3_ios.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opengles3_ios.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -312,6 +316,7 @@
 		C70713CE1821D5620020806A /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				F6A2745718DE87DE003304B2 /* egl_eagl_ios_windowsurfacehelper.m */,
 				F6794CFC18DD7980002B8AFF /* egl_eagl_ios_driver.m */,
 				F6794CFD18DD7980002B8AFF /* EAGLIOSContext.m */,
 				F6794CFE18DD7980002B8AFF /* EAGLIOSSurface.m */,
@@ -574,6 +579,7 @@
 		F639689018AAF7110076C110 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				F6A2745518DE877B003304B2 /* egl_eagl_ios_windowsurfacehelper.h */,
 				F6794D0418DD802F002B8AFF /* egl_eagl_ios_config.h */,
 				F6794CF218DD7945002B8AFF /* egl_eagl_ios_driver.h */,
 				F6794CF318DD7945002B8AFF /* EAGLIOSContext.h */,
@@ -628,6 +634,7 @@
 				F61BCB2C18CF4E480015D31E /* opengles1_ios.h in Headers */,
 				C7A86F86172B8B2300739D0D /* egldisplay.h in Headers */,
 				C7A86F87172B8B2300739D0D /* egldriver.h in Headers */,
+				F6A2745618DE877B003304B2 /* egl_eagl_ios_windowsurfacehelper.h in Headers */,
 				C7A86F88172B8B2300739D0D /* eglext.h in Headers */,
 				C7A86F89172B8B2300739D0D /* eglglobals.h in Headers */,
 				C7A86F8A172B8B2300739D0D /* eglimage.h in Headers */,
@@ -798,6 +805,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C709B8C21706818800FBCA04 /* eglapi.m in Sources */,
+				F6A2745818DE87DE003304B2 /* egl_eagl_ios_windowsurfacehelper.m in Sources */,
 				C7A86FA7172B8B3600739D0D /* eglapi.c in Sources */,
 				F6794D0118DD7980002B8AFF /* EAGLIOSContext.m in Sources */,
 				C7A86FA8172B8B3600739D0D /* eglarray.c in Sources */,

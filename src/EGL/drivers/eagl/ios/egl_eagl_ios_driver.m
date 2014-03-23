@@ -23,6 +23,7 @@
  **************************************************************************/
 
 #include "EGL/drivers/eagl/ios/egl_eagl_ios_driver.h"
+#include "EGL/drivers/eagl/ios/egl_eagl_ios_windowsurfacehelper.h"
 #include "EGL/drivers/eagl/egl_eagl_driver.h"
 #include "EGL/drivers/eagl/egl_eagl_memory.h"
 #include "EGL/drivers/eagl/opengles/opengles_ios.h"
@@ -502,147 +503,80 @@ void  EAGLIOS_DestroyContext ( _EAGLWindow *dpy, struct EAGL_egl_context* ctx) {
     }
 }
 
-GLenum _createDepthBuffer(_OpenGLESAPI* api, GLuint* depthBuffer, GLint width, GLint height, GLuint bits)
-{
-    // Assumption: A render buffer is bound to the current context
-    GLuint depth_component = 0;
-    if (bits == 24) {
-        depth_component = api->GL_DEPTH_COMPONENT24_;
-    } else {
-        /* ignore the bits value and use the default 16 bits */
-        depth_component = api->GL_DEPTH_COMPONENT16_;
-    }
-    
-    GLenum error = GL_NO_ERROR;
-    GLenum step = 1;
-    GL_GET_ERROR(api->glGenRenderBuffers(1, depthBuffer), error, step)
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    
-    GL_GET_ERROR(api->glBindRenderBuffers(api->GL_RENDERBUFFER_, *depthBuffer), error, step)
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    
-    GL_GET_ERROR(api->glRenderbufferStorage(api->GL_RENDERBUFFER_, depth_component, width, height), error, step)
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    
-cleanup:
-    if (error != GL_NO_ERROR) {
-        //TODO
-    }
-    
-    return error;
-}
-
-bool setupFrameBuffer(_EAGLContext* context, _EAGLSurface* surface, _OpenGLESAPI* api, GLuint* framebuffer, GLuint* colorbuffer, GLuint* depthbuffer, GLuint depthBits) {
-    // Create the framebuffer object
-    GLenum error = GL_NO_ERROR;
-    GLuint step = 1;
-    GL_GET_ERROR(api->glGenFrameBuffers(1, framebuffer), error, step)
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    
-    // Create the color buffer object
-    GL_GET_ERROR(api->glGenRenderBuffers(1, colorbuffer), error, step)
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    
-    // Binds frame/color buffer objects
-    GL_GET_ERROR(api->glBindFrameBuffers(api->GL_FRAMEBUFFER_, *framebuffer), error, step);
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    GL_GET_ERROR(api->glBindRenderBuffers(api->GL_RENDERBUFFER_, *colorbuffer), error, step);
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    
-    // Associate color buffer to framebuffer
-    GL_GET_ERROR(api->glFramebufferRenderbuffer(api->GL_FRAMEBUFFER_, api->GL_COLOR_ATTACHMENT0_, api->GL_RENDERBUFFER_, *colorbuffer), error, step);
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    
-    // Binds a drawable object’s storage to an OpenGL ES renderbuffer object.
-    BOOL r = [context.nativeContext    renderbufferStorage:api->GL_RENDERBUFFER_
-                                                       fromDrawable: surface.windowSurface];
-    error = r ? GL_NO_ERROR : (GL_NO_ERROR+1);
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    
-    // Get buffer backing based on current surface size
-    GLint backingWidth = 0;
-    GLint backingHeight = 0;
-    GL_GET_ERROR(api->glGetRenderbufferParameteriv(api->GL_RENDERBUFFER_, api->GL_RENDERBUFFER_WIDTH_, &backingWidth), error, step);
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    GL_GET_ERROR(api->glGetRenderbufferParameteriv(api->GL_RENDERBUFFER_, api->GL_RENDERBUFFER_HEIGHT_, &backingHeight), error, step);
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    
-    if (depthBits) {
-        // Create the depth buffer
-        error = _createDepthBuffer(api, depthbuffer, backingWidth, backingHeight, depthBits);
-        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-        // Associate depth buffer to framebuffer
-        GL_GET_ERROR(api->glFramebufferRenderbuffer(api->GL_FRAMEBUFFER_, api->GL_DEPTH_ATTACHMENT_, api->GL_RENDERBUFFER_, *depthbuffer), error, step)
-        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    }
-
-    GLenum status = api->glCheckFramebufferStatus(api->GL_FRAMEBUFFER_);
-    if(status != api->GL_FRAMEBUFFER_COMPLETE_) {error = r ? GL_NO_ERROR : (GL_NO_ERROR+1);}
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    
-    // Make color buffer the current bound renderbuffer
-    GL_GET_ERROR(api->glBindRenderBuffers(api->GL_RENDERBUFFER_, *colorbuffer), error, step);
-    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    
-cleanup:
-    if (error != GL_NO_ERROR) {
-        //TODO
-    }
-    
-    return error == GL_NO_ERROR;
-}
-
 EGLBoolean EAGLIOS_MakeCurrent(_EAGLWindow *dpy,
-                           struct EAGL_egl_surface* EAGL_dsurf,
-                           struct EAGL_egl_context* context,
-                           _OpenGLESAPI* api) {
-    struct EAGL_egl_context* cctx = EAGL_egl_context(_eglGetCurrentContext());
-    
-    if (cctx) {
-        struct EAGL_egl_surface* csurf = EAGL_egl_surface(cctx->Base.DrawSurface);
-        if (csurf) {
-            [csurf->Surface setupVideoFrameIntervalUpdates:0];
+                            struct EAGL_egl_surface* EAGL_dsurf,
+                            struct EAGL_egl_surface* EAGL_rsurf,
+                            struct EAGL_egl_context* EAGL_ctx,
+                            struct EAGL_egl_surface *EAGL_odsurf,
+                            struct EAGL_egl_surface *EAGL_orsurf,
+                            struct EAGL_egl_context *EAGL_octx) {
+    _OpenGLESAPI* api = NULL;
+    bool isCurrent = false;
+    BOOL setCtxSuccess = NO;
+    if (EAGL_octx != EGL_NO_CONTEXT && EAGL_odsurf != EGL_NO_SURFACE && EAGL_orsurf != EGL_NO_SURFACE) {
+        /** Set old surfaces as non current */
+        [EAGL_odsurf->Surface setupVideoFrameIntervalUpdates:0];
+        api = &EAGL_octx->OpenGLESAPI;
+        isCurrent = windowsurfacehelper_makeFrameBufferCurrent(EAGL_octx, EAGL_odsurf->Surface, api); // Why am I doing this ?
+        if (!isCurrent) {
+            // What is the error to raise ?
+            return EGL_FALSE;
+        }
+        /** Set old context as non current */
+        setCtxSuccess = [EAGLContext setCurrentContext: nil];
+        if (!setCtxSuccess) {
+            _eglError(EGL_BAD_CONTEXT, "eglMakeCurrent");
+            return EGL_FALSE;
         }
     }
-    struct EAGL_egl_context* ctx = (context != EGL_NO_CONTEXT) ? context : cctx;
-    EAGLContext* nativeContext = ctx != EGL_NO_CONTEXT ? [(ctx->Context) nativeContext] : nil;
-    BOOL r = [EAGLContext setCurrentContext: nativeContext];
-    
-    if (!r) {
-        return EGL_FALSE;
-    }
-    
-    if (ctx == EGL_NO_CONTEXT) {
-        return EGL_TRUE;
-    }
 
-    _OpenGLBuffers buffers = EAGL_dsurf->Surface.buffers;
-    GLenum error = GL_NO_ERROR;
-    int step = 1;
-    if (!ctx->WasCurrent) {
-
-        bool rr = setupFrameBuffer(ctx->Context, EAGL_dsurf->Surface, api, &buffers.framebuffer, &buffers.colorbuffer, &buffers.depthbuffer, ctx->Base.Config->DepthSize);
-        if (rr) {
-            EAGL_dsurf->Surface.buffers = buffers;
-            EGLint surfaceWidth = EAGL_dsurf->Base.Width;
-            EGLint surfaceHeight = EAGL_dsurf->Base.Height;
-            GLenum error = GL_NO_ERROR;
-            GL_GET_ERROR(api->glViewport(0,0, surfaceWidth, surfaceHeight), error, step)
-            GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-            GL_GET_ERROR(api->glScissor(0,0, surfaceWidth, surfaceHeight), error, step)
-            GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-            ctx->WasCurrent = EGL_TRUE;
+    /** Check for bad match */
+    EAGLContext* nativeContext = nil;
+    if (EAGL_ctx == EGL_NO_CONTEXT) {
+        if (EAGL_dsurf != EGL_NO_SURFACE && EAGL_rsurf != EGL_NO_SURFACE) {
+            _eglError(EGL_BAD_MATCH, "eglMakeCurrent");
+            return EGL_FALSE;
+        }
+        if (EAGL_dsurf == EGL_NO_SURFACE && EAGL_rsurf == EGL_NO_SURFACE) {
             return EGL_TRUE;
         }
-        GL_CLEANUP_ERROR(!rr, cleanup)
     }
     else {
-        GL_GET_ERROR(api->glBindFrameBuffers(api->GL_FRAMEBUFFER_, buffers.framebuffer), error, step);
-        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-        GL_GET_ERROR(api->glBindRenderBuffers(api->GL_RENDERBUFFER_, buffers.colorbuffer), error, step);
-        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-        return EGL_TRUE;
+        if (EAGL_dsurf == EGL_NO_SURFACE || EAGL_rsurf == EGL_NO_SURFACE) {
+            _eglError(EGL_BAD_MATCH, "eglMakeCurrent");
+            return EGL_FALSE;
+        }
+        nativeContext = [(EAGL_ctx->Context) nativeContext];
     }
+
+    /** Set context as current */
+    setCtxSuccess = [EAGLContext setCurrentContext: nativeContext];
+    if (!setCtxSuccess) {
+        _eglError(EGL_BAD_CONTEXT, "eglMakeCurrent");
+        return EGL_FALSE;
+    }
+
+    /** Set surfaces as current */
+    api = &EAGL_ctx->OpenGLESAPI;
+    GLenum error = GL_NO_ERROR;
+    int step = 1;
+    if (!EAGL_ctx->WasCurrent) {
+        bool setFBSuccess = windowsurfacehelper_createFrameBuffer(EAGL_ctx, EAGL_dsurf->Surface, api);
+        GL_CLEANUP_ERROR(!setFBSuccess, cleanup)
+        EGLint surfaceWidth = EAGL_dsurf->Base.Width;
+        EGLint surfaceHeight = EAGL_dsurf->Base.Height;
+        GLenum error = GL_NO_ERROR;
+        /** Set initial viewport/scissor */
+        GL_GET_ERROR(api->glViewport(0,0, surfaceWidth, surfaceHeight), error, step)
+        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+        GL_GET_ERROR(api->glScissor(0,0, surfaceWidth, surfaceHeight), error, step)
+        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+        EAGL_ctx->WasCurrent = EGL_TRUE;
+    }
+    
+    isCurrent = windowsurfacehelper_makeFrameBufferCurrent(EAGL_ctx, EAGL_dsurf->Surface, api);
+    GL_CLEANUP_ERROR(!isCurrent, cleanup)
+    return EGL_TRUE;
     
 cleanup:
     {
@@ -774,6 +708,20 @@ EGLBoolean EAGLIOS_CreateWindow(struct EAGL_egl_display *EAGL_dpy,
 }
 
 EGLBoolean EAGLIOS_DestroyWindow(struct EAGL_egl_display *EAGL_dpy, struct EAGL_egl_surface *EAGL_surf) {
+    
+    struct EAGL_egl_context *EAGL_ctx = EAGL_egl_context(EAGL_surf->Base.CurrentContext);
+    if (!EAGL_ctx) {
+        _eglLog(_EGL_WARNING, "EAGLIOS_DestroyWindow: Leak when destroying an EGL WindowSurface");
+    }
+    else {
+        _OpenGLESAPI* api = &EAGL_ctx->OpenGLESAPI;
+        bool unsetFBSuccess = windowsurfacehelper_destroyFrameBuffer(EAGL_ctx, EAGL_surf->Surface, api);
+        if (!unsetFBSuccess) {
+            // FIXME: What error should be reported ?
+            return EGL_FALSE;
+        }
+    }
+    
     OWNERSHIP_BRIDGE_TRANSFER(_EAGLSurface*, EAGL_surf->Surface);
     EAGL_surf->Surface = nil;
     _eglError(EGL_SUCCESS, "eglDestroySurface");

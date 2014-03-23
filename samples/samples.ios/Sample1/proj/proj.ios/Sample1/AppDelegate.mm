@@ -51,7 +51,7 @@
     TestPlatform p = {0};
     iosInitializeWithDefault(&p);
     run_samples(&p);
-    run_unit_tests(&p);
+//    run_unit_tests(&p);
     iosDestroyWithDefault(&p);
 }
 

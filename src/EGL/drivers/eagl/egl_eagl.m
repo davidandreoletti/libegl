@@ -297,7 +297,11 @@ EAGL_eglMakeCurrent(_EGLDriver *drv, _EGLDisplay *disp, _EGLSurface *dsurf,
         return EGL_FALSE;
     }
     
-    ret = EAGL_drv->MakeCurrent(EAGL_dpy->Window, EAGL_dsurf, EAGL_ctx, &EAGL_ctx->OpenGLESAPI);
+    struct EAGL_egl_surface *EAGL_odsurf = EAGL_egl_surface(old_dsurf);
+    struct EAGL_egl_surface *EAGL_orsurf = EAGL_egl_surface(old_rsurf);
+    struct EAGL_egl_context *EAGL_octx = EAGL_egl_context(old_ctx);
+    
+    ret = EAGL_drv->MakeCurrent(EAGL_dpy->Window, EAGL_dsurf, EAGL_rsurf, EAGL_ctx, EAGL_odsurf, EAGL_orsurf, EAGL_octx);
 
     if (ret) {
         if (_eglPutSurface(old_dsurf))

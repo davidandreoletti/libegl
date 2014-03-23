@@ -139,7 +139,7 @@ is supported in this implementation.
 | eglQueryAPI                      | Supported              |         |
 | eglQueryContext                  | Supported              |         |
 | eglSurfaceAttrib                 | Planned                |         |
-| eglMakeCurrent                   | Partially supported    |         |
+| eglMakeCurrent                   | Partially supported    | `EGLSurface read` and `EGLSurface draw` must be the same |
 | eglGetCurrentContext             | Supported              |         |
 | eglGetCurrentSurface             | Supported              |         |
 | eglGetCurrentDisplay             | Supported              |         |

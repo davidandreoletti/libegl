@@ -3,18 +3,25 @@
 ## TODO LibEGL Bug Priority List:
 
     - None yet :)
+    - EAGLIOS_DestroyWindow must call windowsurfacehelper_destroyFrameBuffer
+    - EGLSurface backed with EAGLSurface and EAGLContext is inconsistent as soon as EAGLSurface and EAGLContext are not current.
+      The frame/color/depth buffers content lives in the EAGLContext. Should EAGLSharegroup bound to EAGLSurface be used to store frame/color/depth buffer ?
+      - Due to this bug, the framebuffer and related renderbuffers are leaking. See "EAGLIOS_DestroyWindow: Leak when destroying an EGL WindowSurface" msg
 
 ## TODO LibEGL Feature Priority List:
 
     - Add EGL_SWAP_BEHAVIOR_PRESERVED_BIT support. See EGL 1.4 Table 3.2
       Surface swap is EGL_BUFFER_DESTROYED for now ? See iOS support EGL_BUFFER_RETAINED via kEAGLDrawablePropertyRetainedBacking too
     - Add support for rotation. See EGL 1.4 - Section 3.9.1 Native Window Resizing
+    - Add support for Multisampling
 
 ## TODO Uncategorised List:
 
     - When are OpenGL ES buffers associated to EGLSurface deleted ?
     - Memory Leak: App starts with 8.5Mb without EGL. Running the demo + unit test consumes more 16Mb. When the demo stops, the memory consumption is higher than 8.5Mb. Some resources are not deleted
     - eglMakeCurrent(EGLDisplay dpy, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT) -> are FB/CB etc cleared ??? Should they ?
+    - Split Samples from UT Xcode projects 
+    - Can add support for GLKView (currently only CEAGLLayer supported) ?
 
 ## TODO Code Cleanup Priority List:
 

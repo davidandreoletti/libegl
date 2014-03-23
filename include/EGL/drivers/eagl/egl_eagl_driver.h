@@ -76,14 +76,22 @@ typedef void (*EAGLDESTROYCONTEXTPROC)( _EAGLWindow *dpy, struct EAGL_egl_contex
 
 /**
  *  Make EGLContext current a native EGL Context
- * \param EAGL_dpy
- * \param EAGL_conf
- * \param EAGL_ctx_shared
- * \param attrib_list
+ * \param dpy,
+ * \param EAGL_dsurf
+ * \param EAGL_rsurf
  * \param EAGL_ctx
+ * \param EAGL_odsurf
+ * \param EAGL_orsurf
+ * \param EAGL_octx
  *  \return Non NULL instance IFF initialization succeeded only.
  */
-typedef EGLBoolean (*EAGLMAKECURRENTPROC)(_EAGLWindow *dpy, struct EAGL_egl_surface* surface, struct EAGL_egl_context* ctx, _OpenGLESAPI* api);
+typedef EGLBoolean (*EAGLMAKECURRENTPROC)(_EAGLWindow *dpy,
+                                          struct EAGL_egl_surface* EAGL_dsurf,
+                                          struct EAGL_egl_surface* EAGL_rsurf,
+                                          struct EAGL_egl_context* EAGL_ctx,
+                                          struct EAGL_egl_surface *EAGL_odsurf,
+                                          struct EAGL_egl_surface *EAGL_orsurf,
+                                          struct EAGL_egl_context *EAGL_octx);
 /**
  *  Swap buffers
  * \param EAGL_dpy
