@@ -549,6 +549,16 @@ EGLBoolean EAGLIOS_MakeCurrent(_EAGLWindow *dpy,
         nativeContext = [(EAGL_ctx->Context) nativeContext];
     }
 
+    /** Save OpenGL ES API Version into Surface */
+    api = &EAGL_ctx->OpenGLESAPI;
+    EAGLRenderingAPI clientAPI = EAGL_ctx->Context.nativeContext.API;
+    EAGLSharegroup* psharegroup = EAGL_ctx->Context.nativeContext.sharegroup;
+    if (!EAGL_dsurf->Surface.sharegroup) {
+        EAGLContext* sharegroup = OWNERSHIP_AUTORELEASE([[EAGLContext alloc] initWithAPI:clientAPI sharegroup: psharegroup]);
+        [EAGL_dsurf->Surface setSharegroup:sharegroup];
+        [EAGL_dsurf->Surface setApi:*api];
+    }
+
     /** Set context as current */
     setCtxSuccess = [EAGLContext setCurrentContext: nativeContext];
     if (!setCtxSuccess) {
@@ -557,7 +567,6 @@ EGLBoolean EAGLIOS_MakeCurrent(_EAGLWindow *dpy,
     }
 
     /** Set surfaces as current */
-    api = &EAGL_ctx->OpenGLESAPI;
     GLenum error = GL_NO_ERROR;
     int step = 1;
     if (!EAGL_ctx->WasCurrent) {
@@ -670,6 +679,7 @@ EGLBoolean EAGLIOS_CreateWindow(struct EAGL_egl_display *EAGL_dpy,
     
     _EAGLSurface* eaglSurface = OWNERSHIP_AUTORELEASE([[_EAGLSurface alloc] init]);
     [eaglSurface setWindowSurface:nativeEAGLDrawable];
+    
     EAGL_surf->Surface = OWNERSHIP_BRIDGE_RETAINED(CFTypeRef, eaglSurface);
     
     //    UIView* v = (UIView*)obj;
@@ -709,19 +719,30 @@ EGLBoolean EAGLIOS_CreateWindow(struct EAGL_egl_display *EAGL_dpy,
 
 EGLBoolean EAGLIOS_DestroyWindow(struct EAGL_egl_display *EAGL_dpy, struct EAGL_egl_surface *EAGL_surf) {
     
-    struct EAGL_egl_context *EAGL_ctx = EAGL_egl_context(EAGL_surf->Base.CurrentContext);
-    if (!EAGL_ctx) {
+    struct EAGL_egl_context *EAGL_ctx = NULL;
+    EAGLContext* context = EAGL_surf->Surface.sharegroup;
+    [EAGLContext setCurrentContext:context];
+    
+    if (!context) {
         _eglLog(_EGL_WARNING, "EAGLIOS_DestroyWindow: Leak when destroying an EGL WindowSurface");
     }
-    else {
-        _OpenGLESAPI* api = &EAGL_ctx->OpenGLESAPI;
-        bool unsetFBSuccess = windowsurfacehelper_destroyFrameBuffer(EAGL_ctx, EAGL_surf->Surface, api);
+    else
+    {
+        _OpenGLESAPI api = EAGL_surf->Surface.api;
+        bool unsetFBSuccess = windowsurfacehelper_destroyFrameBuffer(EAGL_ctx, EAGL_surf->Surface, &api);
         if (!unsetFBSuccess) {
             // FIXME: What error should be reported ?
             return EGL_FALSE;
         }
     }
     
+    /** Restore current context set with MakeCurrent */
+    EAGL_ctx = EAGL_egl_context(_eglGetCurrentContext());
+    if (EAGL_ctx) {
+        [EAGLContext setCurrentContext:EAGL_ctx->Context.nativeContext];
+    }
+    
+    /** Release Surface memory */
     OWNERSHIP_BRIDGE_TRANSFER(_EAGLSurface*, EAGL_surf->Surface);
     EAGL_surf->Surface = nil;
     _eglError(EGL_SUCCESS, "eglDestroySurface");

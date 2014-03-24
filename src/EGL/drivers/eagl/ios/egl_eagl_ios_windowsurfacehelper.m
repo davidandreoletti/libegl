@@ -152,10 +152,9 @@ bool windowsurfacehelper_destroyFrameBuffer(struct EAGL_egl_context* context, _E
     // Delete color buffer
     GL_GET_ERROR(api->glDeleteRenderBuffers(1, &colorbuffer), error, step);
     GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
-    
-    
+        
     // Delete depth buffer
-    if (context->Base.Config->DepthSize) {
+    if (depthbuffer > 0) {
         // Unbinds depthbuffer object from framebuffer
         GL_GET_ERROR(api->glBindRenderBuffers(api->GL_RENDERBUFFER_, 0), error, step)
         GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)

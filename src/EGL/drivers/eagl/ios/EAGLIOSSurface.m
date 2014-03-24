@@ -41,6 +41,10 @@
 
 @synthesize buffers;
 
+@synthesize sharegroup;
+
+@synthesize api;
+
 @synthesize windowSurface = _windowSurface;
 
 @synthesize type;
@@ -88,6 +92,7 @@
     self = [super init];
     if (self) {
         memset(&buffers, 0,sizeof(_OpenGLBuffers));
+        memset(&api, 0,sizeof(__OpenGLESAPI));
         type = SURFACE_NONE;
         frameCount = 0;
         condition = [[NSCondition alloc] init];
@@ -102,6 +107,7 @@
     [self setupVideoFrameIntervalUpdates:0];
     OWNERSHIP_RELEASE((id<NSObject>) displayLink);
     OWNERSHIP_RELEASE((id<NSObject>) condition);
+    OWNERSHIP_RELEASE((id<NSObject>) sharegroup);
     METHOD_DEALLOC(super);
 }
 

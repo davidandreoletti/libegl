@@ -42,6 +42,14 @@
  */
 @property (nonatomic, assign) _OpenGLBuffers buffers;
 /**
+ * Native iOS EAGLContext with ShareGroup.
+ */
+@property (OWNERSHIP_QUALIFIER_STRONG, nonatomic) EAGLContext* sharegroup;
+/**
+ * Native OpenGL API.
+ */
+@property (nonatomic, assign) __OpenGLESAPI api;
+/**
  * Native iOS Window Surface.
  */
 @property (OWNERSHIP_QUALIFIER_STRONG, nonatomic) id<EAGLDrawable> windowSurface;
