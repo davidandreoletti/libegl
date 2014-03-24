@@ -71,7 +71,7 @@ The code is fully compatible with MRR. ARC support is on the way.
 
 Main source repository: 
 
-https://github.com/davidandreoletti/eglapi-core-lib.git
+https://github.com/davidandreoletti/libegl
 
 #DEVELOPMENT STATUS
 
@@ -176,11 +176,11 @@ See "samples" directory.
 
 #FAQ 
 
-See FAQ.rst file
+See FAQ.md file
 
 #KNOWN BUGS & MISSING FEATURES LISTS
 
-See README-DEV.rst file
+See README-DEV.md file
 
 #CHANGELOG & REQUIREMENTS
 
