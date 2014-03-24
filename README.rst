@@ -145,7 +145,7 @@ is supported in this implementation.
 | eglGetCurrentDisplay             | Supported              |         |
 | eglGetConfigAttrib               | Supported              |         |
 | eglSwapBuffers                   | Supported              |         |
-| eglSwapInterval                  | Planned                |         |
+| eglSwapInterval                  | Supported              |         |
 | eglWaitClient                    | Planned                |         |
 | eglWaitGL                        | Planned                |         |
 | eglWaitNative                    | Unsupported            |         |
