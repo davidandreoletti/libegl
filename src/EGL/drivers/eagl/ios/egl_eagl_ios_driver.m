@@ -209,6 +209,7 @@ create_ios_configs(struct EAGL_egl_driver *EAGL_drv, _EGLDisplay *dpy, EGLint* n
         struct node* pn = (struct node*) malloc(sizeof(struct node)); \
         pn->next = NULL; \
         pn->config = conf; \
+        *num_configs += 1; \
         if (last) { \
             last->next = pn; \
             last = pn; \
