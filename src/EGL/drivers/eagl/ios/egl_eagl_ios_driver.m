@@ -685,19 +685,19 @@ EGLBoolean EAGLIOS_CreateWindow(struct EAGL_egl_display *EAGL_dpy,
     
     //    UIView* v = (UIView*)obj;
     //    id<EAGLDrawable> eaglSurface = (id<EAGLDrawable>)[v layer];
-    NSDictionary* nativePrawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-                                              convertToEAGLDrawablePropertyRetainedBacking(EAGL_surf->Base.SwapBehavior),
+    NSDictionary* nativeDrawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
+                                              [NSNumber numberWithBool:convertToEAGLDrawablePropertyRetainedBacking(EAGL_surf->Base.SwapBehavior)],
                                               kEAGLDrawablePropertyRetainedBacking,
                                               EAGL_conf->Config.ColorFormat,
                                               kEAGLDrawablePropertyColorFormat,
                                               nil];
-    if (!nativePrawableProperties) {
+    if (!nativeDrawableProperties && [nativeDrawableProperties count] < 2) {
         _eglError(EGL_BAD_ALLOC, "eglCreateWindowSurface");
         return EGL_FALSE;
     }
     
     @try {
-        [nativeEAGLDrawable setDrawableProperties:nativePrawableProperties];
+        [nativeEAGLDrawable setDrawableProperties:nativeDrawableProperties];
     } @catch (NSException* e) {
         _eglError(EGL_BAD_NATIVE_WINDOW, "eglCreateWindowSurface");
         return EGL_FALSE;
