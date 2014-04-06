@@ -49,6 +49,7 @@
 
 #import <EGL/drivers/eagl/ios/EAGLIOSWindow.h>
 #import "EGL/drivers/eagl/ios/ObjCMemoryManagement.h"
+#import "EGL/drivers/eagl/ios/OSVersions.h"
 
 #endif  // __OBJC__
 
@@ -606,8 +607,19 @@ EGLBoolean EAGLIOS_SwapBuffers( struct EAGL_egl_display* EAGL_dpy, struct EAGL_e
     if (EAGL_surf->Base.SwapInterval > 0) {
         [EAGL_surf->Surface waitUntilMinIntervalFrameUpdated];
     }
+    
+    if (SYSTEM_VERSION_LESS_THAN(@"6.0.0")) {
+        _OpenGLESAPI* api = &EAGL_context->OpenGLESAPI;
+        int step = 0;
+        GLenum error = GL_NO_ERROR;
+        GL_GET_ERROR(api->glFlush(), error, step)
+        GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    }
+    
     BOOL b = [EAGL_context->Context.nativeContext presentRenderbuffer:EAGL_context->OpenGLESAPI.GL_RENDERBUFFER_];
     return b == YES ? EGL_TRUE : EGL_FALSE;
+    cleanup:
+    return EGL_FALSE;
 }
 
 EGLBoolean EAGLIOS_SwapInterval(struct EAGL_egl_display* EAGL_dpy, struct EAGL_egl_surface *EAGL_surf, EGLint interval) {

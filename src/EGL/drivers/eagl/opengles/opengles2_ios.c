@@ -58,6 +58,7 @@ void opengles2_api_init(__OpenGLESAPI* api) {
     api->GL_DEPTH_COMPONENT24_ = GL_DEPTH_COMPONENT24_OES;
     api->glViewport = glViewport;
     api->glScissor = glScissor;
+    api->glFlush = glFlush;
     api->glFinish = glFinish;
 #endif // __IPHONE_3_0
 }

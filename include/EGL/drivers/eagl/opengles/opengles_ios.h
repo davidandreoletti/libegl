@@ -39,6 +39,7 @@ typedef unsigned int (*GLCheckFramebufferStatus_t) ();
 typedef void (*GLRenderbufferStorage_t) ();
 typedef void (*GLViewport_t)();
 typedef void (*GLScissor_t) ();
+typedef void (*GLFlush_t) ();
 typedef void (*GLFinish_t) ();
 
 /**
@@ -69,6 +70,7 @@ typedef struct {
     GLuint GL_DEPTH_COMPONENT24_;
     GLViewport_t glViewport;
     GLScissor_t glScissor;
+    GLFlush_t glFlush;
     GLFinish_t glFinish;
 } __OpenGLESAPI;
 
