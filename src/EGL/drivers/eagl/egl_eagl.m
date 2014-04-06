@@ -557,12 +557,9 @@ static EGLBoolean
 EAGL_eglWaitClient(_EGLDriver *drv, _EGLDisplay *dpy, _EGLContext *ctx)
 {
     struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
+    struct EAGL_egl_context *EAGL_ctx = EAGL_egl_context(ctx);
     
-    (void) dpy;
-    (void) ctx;
-    
-    EAGL_drv->WaitGL();
-    return EGL_TRUE;
+    return EAGL_drv->WaitGL(EAGL_ctx);
 }
 
 /**
@@ -572,13 +569,9 @@ static EGLBoolean
 EAGL_eglWaitNative(_EGLDriver *drv, _EGLDisplay *dpy, EGLint engine)
 {
     struct EAGL_egl_driver *EAGL_drv = EAGL_egl_driver(drv);
-    
-    (void) dpy;
-    
     if (engine != EGL_CORE_NATIVE_ENGINE)
         return _eglError(EGL_BAD_PARAMETER, "eglWaitNative");
-    EAGL_drv->WaitNative();
-    return EGL_TRUE;
+    return EAGL_drv->WaitNative();
 }
 
 /**

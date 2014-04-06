@@ -635,12 +635,22 @@ int EAGLIOS_GetConfigs( _EAGLWindow *dpy, int attrib, int *value ) {
     return 0;
 }
 
-void EAGLIOS_WaitGL ( void ) {
-
+EGLBoolean EAGLIOS_WaitGL ( struct EAGL_egl_context *EAGL_context ) {
+    if (!EAGL_context) {
+        return EGL_FALSE;
+    }
+    _OpenGLESAPI* api = &EAGL_context->OpenGLESAPI;
+    int step = 0;
+    GLenum error = GL_NO_ERROR;
+    GL_GET_ERROR(api->glFinish(), error, step)
+    GL_CLEANUP_ERROR(error != GL_NO_ERROR, cleanup)
+    return EGL_TRUE;
+    cleanup:
+    return EGL_FALSE;
 }
 
-void EAGLIOS_WaitNative( void ) {
-
+EGLBoolean EAGLIOS_WaitNative( ) {
+    return EGL_FALSE;
 }
 
 const char * EAGLIOS_QueryExtensionString( _EAGLWindow *dpy, int screen ) {

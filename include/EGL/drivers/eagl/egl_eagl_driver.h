@@ -127,8 +127,8 @@ typedef EGLBoolean (*EAGLQUERYVERSIONPROC)( _EAGLWindow *dpy, int *maj, int *min
  */
 typedef EGLBoolean (*EAGLQUERYYSURFACEPROC) (_EAGLSurface* surface, int attrib, int *value);
 typedef int (*EAGLGETCONFIGSPROC)( _EAGLWindow *dpy, int attrib, int *value );
-typedef void (*EAGLWAITGLPROC)( void );
-typedef void (*EAGLWAITNATIVEPROC)( void );
+typedef EGLBoolean (*EAGLWAITGLPROC)( struct EAGL_egl_context *EAGL_context );
+typedef EGLBoolean (*EAGLWAITNATIVEPROC)( void );
 typedef const char *(*EAGLQUERYEXTENSIONSSTRINGPROC)( _EAGLWindow *dpy, int screen );
 typedef const char *(*EAGLQUERYSERVERSTRINGPROC)( _EAGLWindow *dpy, int screen, int name );
 typedef const char *(*EAGLGETCLIENTSTRINGPROC)( _EAGLWindow *dpy, int name );

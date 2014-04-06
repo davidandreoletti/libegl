@@ -39,6 +39,7 @@ typedef unsigned int (*GLCheckFramebufferStatus_t) ();
 typedef void (*GLRenderbufferStorage_t) ();
 typedef void (*GLViewport_t)();
 typedef void (*GLScissor_t) ();
+typedef void (*GLFinish_t) ();
 
 /**
  * OpenGL ES API
@@ -68,6 +69,7 @@ typedef struct {
     GLuint GL_DEPTH_COMPONENT24_;
     GLViewport_t glViewport;
     GLScissor_t glScissor;
+    GLFinish_t glFinish;
 } __OpenGLESAPI;
 
 typedef enum {

@@ -52,4 +52,5 @@ void opengles1_api_init(__OpenGLESAPI* api) {
     api->GL_DEPTH_COMPONENT24_ = GL_DEPTH_COMPONENT24_OES;
     api->glViewport = glViewport;
     api->glScissor = glScissor;
+    api->glFinish = glFinish;
 }

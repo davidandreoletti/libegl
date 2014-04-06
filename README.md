@@ -146,8 +146,8 @@ is supported in this implementation.
 | eglGetConfigAttrib               | Supported              |         |
 | eglSwapBuffers                   | Supported              |         |
 | eglSwapInterval                  | Supported              |         |
-| eglWaitClient                    | Planned                |         |
-| eglWaitGL                        | Planned                |         |
+| eglWaitClient                    | Supported              |         |
+| eglWaitGL                        | Supported              |         |
 | eglWaitNative                    | Unsupported            |         |
 | eglBindTexImage                  | Unsupported            |         |
 | eglReleaseTexImage               | Unsupported            |         |
