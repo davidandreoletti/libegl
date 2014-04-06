@@ -62,124 +62,6 @@ struct renderer {
 
 static struct renderer renderer = {0};
 
-static int getAndInitDisplay(TestPlatform* p, void* eglDisplay) {
-    LOG(I, "Getting and initializing display")
-    setenv(p->ios_platform_env_key, p->ios_platform_env_value, 1);
-    if ((display = eglGetDisplay(eglDisplay)) == EGL_NO_DISPLAY) {
-        logEGLError( "eglGetDisplay", eglGetError());
-        return 0;
-    }
-    if (!eglInitialize(display, 0, 0)) {
-        logEGLError( "eglInitialize", eglGetError());
-        return 0;
-    }
-    LOG(I, "Display got and initialized")
-    return 1;
-}
-
-static int chooseConfig(EGLint renderableType) {
-    LOG(I, "Choosing config")
-    EGLint attribs[] = {
-        EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
-        EGL_BLUE_SIZE, 8,
-        EGL_GREEN_SIZE, 8,
-        EGL_RED_SIZE, 8,
-        EGL_RENDERABLE_TYPE, renderableType,
-        EGL_NONE
-    };
-    
-    if (!eglChooseConfig(display, attribs, &config, 1, &numConfigs)) {
-        logEGLError( "eglChooseConfig", eglGetError());
-        return 0;
-    }
-    
-    EGLint num_attrs = 0;
-    getEGLConfigAttributeForEGLAPIVersion(1,
-                                          4,
-                                          NULL,
-                                          &num_attrs);
-    EGLint* attrs = (EGLint* ) malloc(num_attrs * sizeof(EGLint));
-    getEGLConfigAttributeForEGLAPIVersion(1,
-                                          4,
-                                          attrs,
-                                          &num_attrs);
-    displayEGLConfig(display, config, attrs, num_attrs);
-    LOG(I, "Config chosen")
-    return 1;
-}
-
-static int createSurface(void* nativeWinSurface) {
-    LOG(I, "Creating surface")
-    if (!(surface = eglCreateWindowSurface(display, config, nativeWinSurface, NULL))) {
-        logEGLError( "eglCreateWindowSurface", eglGetError());
-        return 0;
-    }
-    
-    if (!eglQuerySurface(display, surface, EGL_WIDTH, &width) ||
-        !eglQuerySurface(display, surface, EGL_HEIGHT, &height)) {
-        logEGLError( "eglQuerySurface", eglGetError());
-        return 0;
-    }
-    LOG(I, "Surface created")
-    return 1;
-}
-
-static int createContext(EGLint clientVersion) {
-    LOG(I, "Initializing context")
-    EGLint attribs[] = {
-        EGL_CONTEXT_CLIENT_VERSION, clientVersion /* 1 or 2 or 3 */,
-        EGL_NONE};
-    if (!(context = eglCreateContext(display, config, EGL_NO_CONTEXT, attribs))) {
-        logEGLError( "eglCreateContext", eglGetError());
-        return 0;
-    }
-        
-    LOG(I, "Context initialized")
-    return 1;
-}
-
-static int setAsCurrent(struct renderer* renderer) {
-    LOG(I, "Setting current context")
-    if (!eglMakeCurrent(display, surface, surface, context)) {
-        logEGLError( "eglMakeCurrent", eglGetError());
-        return 0;
-    }
-    
-    LOG(I, "Set current context")
-    return 1;
-}
-
-static int destroyContext () {
-    if (!eglDestroyContext(display, context)) {
-        logEGLError( "eglDestroyContext", eglGetError());
-        return 0;
-    };
-    context = EGL_NO_CONTEXT;
-    return 1;
-}
-
-static int destroySurface () {
-    if (!eglDestroySurface(display, surface)) {
-        logEGLError( "eglDestroySurface", eglGetError());
-        return 0;
-    }
-    surface = EGL_NO_SURFACE;
-    return 1;
-}
-
-static int destroyDisplay () {
-    if(!eglTerminate(display)) {
-        logEGLError( "eglTerminate", eglGetError());
-        return 0;
-    }
-    display = EGL_NO_DISPLAY;
-    if(!eglReleaseThread()) {
-        logEGLError( "eglReleaseThread", eglGetError());
-        return 0;
-    }
-    return 1;
-}
-
 /**************************************************************************
  OpenGL ES 1.x
  Inspired from: http://code.google.com/p/android-native-egl-example/source/browse/jni/renderer.cpp
@@ -698,24 +580,64 @@ static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, in
             break;
     }
     
-    if (!getAndInitDisplay(p, eglDisplay)) {
+    setenv(p->ios_platform_env_key, p->ios_platform_env_value, 1);
+    if ((display = eglGetDisplay(eglDisplay)) == EGL_NO_DISPLAY) {
+        logEGLError( "eglGetDisplay", eglGetError());
+        return;
+    }
+    if (!eglInitialize(display, 0, 0)) {
+        logEGLError( "eglInitialize", eglGetError());
         return;
     }
     
-    if (!chooseConfig(renderer.renderableType)) {
+    EGLint config_attribs[] = {
+        EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
+        EGL_BLUE_SIZE, 8,
+        EGL_GREEN_SIZE, 8,
+        EGL_RED_SIZE, 8,
+        EGL_RENDERABLE_TYPE, renderer.renderableType,
+        EGL_NONE
+    };
+    
+    if (!eglChooseConfig(display, config_attribs, &config, 1, &numConfigs)) {
+        logEGLError( "eglChooseConfig", eglGetError());
         return;
     }
+    
+    EGLint num_attrs = 0;
+    getEGLConfigAttributeForEGLAPIVersion(1,
+                                          4,
+                                          NULL,
+                                          &num_attrs);
+    EGLint* attrs = (EGLint* ) malloc(num_attrs * sizeof(EGLint));
+    getEGLConfigAttributeForEGLAPIVersion(1,
+                                          4,
+                                          attrs,
+                                          &num_attrs);
+    displayEGLConfig(display, config, attrs, num_attrs);
     
     init:
-    if (!createSurface(nativeWinSurface)) {
+    if (!(surface = eglCreateWindowSurface(display, config, nativeWinSurface, NULL))) {
+        logEGLError( "eglCreateWindowSurface", eglGetError());
         return;
     }
     
-    if (!createContext(renderer.clientVersion)) {
+    if (!eglQuerySurface(display, surface, EGL_WIDTH, &width) ||
+        !eglQuerySurface(display, surface, EGL_HEIGHT, &height)) {
+        logEGLError( "eglQuerySurface", eglGetError());
+        return;
+    }
+
+    EGLint context_attribs[] = {
+        EGL_CONTEXT_CLIENT_VERSION, renderer.clientVersion /* 1 or 2 or 3 */,
+        EGL_NONE};
+    if (!(context = eglCreateContext(display, config, EGL_NO_CONTEXT, context_attribs))) {
+        logEGLError( "eglCreateContext", eglGetError());
         return;
     }
     
-    if (!setAsCurrent(&renderer)) {
+    if (!eglMakeCurrent(display, surface, surface, context)) {
+        logEGLError( "eglMakeCurrent", eglGetError());
         return;
     }
     
@@ -743,16 +665,21 @@ static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, in
             if (error != EGL_CONTEXT_LOST) {
                 break;
             }
-            if (!destroySurface()) {
+            if (!eglDestroySurface(display, surface)) {
+                logEGLError( "eglDestroySurface", eglGetError());
                 break;
             }
+            surface = EGL_NO_SURFACE;
             
-            if (!destroyContext()) {
+            if (!eglDestroyContext(display, context)) {
+                logEGLError( "eglDestroyContext", eglGetError());
                 break;
-            }
+            };
+            context = EGL_NO_CONTEXT;
 
-            if (!setAsCurrent(&renderer)) {
-                break;
+            if (!eglMakeCurrent(display, surface, surface, context)) {
+                logEGLError( "eglMakeCurrent", eglGetError());
+                return;
             }
             
             goto init;
@@ -765,19 +692,30 @@ static void sample(TestPlatform* p, void* eglDisplay, void* nativeWinSurface, in
     
     renderer.destroy();
     
-    if (!destroySurface()) {
+    if (!eglDestroySurface(display, surface)) {
+        logEGLError( "eglDestroySurface", eglGetError());
         return;
     }
+    surface = EGL_NO_SURFACE;
     
-    if (!destroyContext()) {
+    if (!eglDestroyContext(display, context)) {
+        logEGLError( "eglDestroyContext", eglGetError());
         return;
-    }
+    };
+    context = EGL_NO_CONTEXT;
     
-    if (!setAsCurrent(&renderer)) {
+    if (!eglMakeCurrent(display, surface, surface, context)) {
+        logEGLError( "eglMakeCurrent", eglGetError());
         return;
     }
 
-    if (!destroyDisplay()) {
+    if(!eglTerminate(display)) {
+        logEGLError( "eglTerminate", eglGetError());
+        return;
+    }
+    display = EGL_NO_DISPLAY;
+    if(!eglReleaseThread()) {
+        logEGLError( "eglReleaseThread", eglGetError());
         return;
     }
 }
